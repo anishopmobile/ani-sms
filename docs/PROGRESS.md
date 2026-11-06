@@ -50,4 +50,6 @@ Changes are published through the connected GitHub Git-tree/commit API on `codex
 
 ## Known release prerequisites
 
+Owner-site follow-up (2026-11-07): the actual existing local WordPress/database is now installed/configured and browser-verified, not just the disposable matrix fixtures. The owner confirmed that an SMS.ir API key has not yet been obtained and requested base setup only for now. No real send was attempted. Official IPeCompany/smsir-php was additionally reviewed and corroborates the existing base URI and verify payload. Local setup details and the remaining activation steps are in LOCAL-INSTALLATION.md; no owner password, API key, generated secret or private configuration is committed.
+
 Official REST page https://sms.ir/rest-api/ still times out on recheck. Accessible official company TypeScript sources establish the implemented shape, not account-specific limits, approved template behavior or actual delivery. Real-account smoke testing remains outstanding. Full human screen-reader auditing and compatibility with third-party authentication plugins are not claimed; unknown authentication handlers fail closed. Multisite, MariaDB, PHP 8.4 and other browsers were not independently tested and are not presented as executed matrix rows.

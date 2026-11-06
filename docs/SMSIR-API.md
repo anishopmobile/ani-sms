@@ -4,6 +4,9 @@ Checked on 2026-11-06. No real API key was supplied or used; all automated sendi
 
 ## Accessible primary evidence
 
+- Official PHP package, additionally reviewed on 2026-11-07: https://github.com/IPeCompany/smsir-php . `src/SmsIrServiceProvider.php` supplies `https://api.sms.ir/v1/`; `src/SmsIrService.php::verifySend()` uses POST `send/verify` with `mobile`, `templateId`, `parameters`. Its README demonstrates `name`/`value` code parameters and identifies the panel's Developers section for API-key creation. This corroborates the existing adapter's base and request schema without requiring the REST landing page to load.
+- The PHP package's Composer metadata requires Guzzle. Its Facade/ServiceProvider are Laravel integration classes. ANI-SMS keeps its original WordPress HTTP adapter rather than embedding a second HTTP stack or Laravel facade. This is an implementation choice, not a claim that the official PHP package cannot be used in plain PHP. The initial specification explicitly disallowed copying third-party plugin code.
+
 - Official REST landing page: https://sms.ir/rest-api/ — repeated fetches timed out. Its full current contents and error-code/limit tables were not reviewed.
 - Official company TypeScript source: https://github.com/IPeCompany/SmsPanelV2.TypeScript/blob/main/src/send/sendVerifyCode.ts — POST `/v1/send/verify/`, lower-camel-case body `mobile`, `templateId`, `parameters`; response data `messageId` and `cost`.
 - Parameter model: https://github.com/IPeCompany/SmsPanelV2.TypeScript/blob/main/src/utils/models/parameters.ts — name/value pairs.
