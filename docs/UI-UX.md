@@ -1,0 +1,13 @@
+# UI and accessibility
+
+Admin follows the supplied design.png: light gray shell, white rounded cards, right-hand inner navigation, four statistic cards and amber primary actions. It retains wp-admin chrome and notices, uses ANI-SMS branding, and does not copy reference artwork or fonts. Only implemented pages appear: Overview, Connection, Authentication, Modules, Local Templates, Logs and Help.
+
+The four cards distinguish account connection/credit from this plugin's local accepted/error counts in the site timezone. Unavailable credit is not zero. No incoming-message count or unverified delivered count is invented. GET connection, settings save and paid test-send are separate nonce-protected actions. API keys never render into inputs. Local templates describe the one implemented account-verification mapping; future templates/menus are absent.
+
+Scoped CSS uses #F3F4F6, #FFFFFF, #172033, #D7DBE0 and #FFBF00. Form controls are at least 44px high, focus is visibly blue, and responsive layouts are tested at 360, 768, 1280 and the reference 1415px width. Navigation becomes a native keyboard-accessible details/summary control on mobile. Log tables scroll within their container; the page does not overflow. No global CSS reset or external font/CDN dependency exists.
+
+The standalone `[ani_sms_auth]` form is an original design because the reference only depicts admin. It supports phone, code, resend cooldown, editing the number, errors/status, paste/autofill and Persian/Arabic digits. Phone/code order is LTR inside RTL pages. One logical OTP input preserves leading zeros. Browser state is kept in memory, not localStorage. Status uses polite live announcements; countdown text is not announced every second. A code is invalidated by server time, not a client timer. Network retry preserves its request ID. A verified signed-in identity is displayed read-only; it never offers an incomplete number-change flow.
+
+Persian strings ship in standard WordPress `.l10n.php` and gettext `.po`/`.pot` formats. Native PHP translation catalogs are supported below the chosen minimum WP version. English/LTR is supported through normal WordPress locale selection. `tools/translations.py` regenerates the catalogs.
+
+Checks performed: real Chrome end-to-end flow, keyboard order, non-sensitive admin output, responsive overflow assertions, and axe WCAG A/AA checks restricted to the plugin form/admin wrapper. Automated accessibility checks do not substitute for a full human screen-reader audit. Screenshots were inspected locally at reference desktop and narrow mobile sizes. WordPress core Persian language packs were used for RTL testing; they are not redistributed with the plugin.

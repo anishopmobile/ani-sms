@@ -1,34 +1,53 @@
 # ANI-SMS progress
 
-## Current checkpoint — 2026-11-06
+## Release-candidate checkpoint — 2026-11-07 (Asia/Tehran)
 
 Final specification 2.1 and development prompt are published on `codex/ani-sms-v1`. Implementation plan was committed before feature code.
 
-Implemented initial core increment: independent plugin bootstrap, minimum-version checks, activation/deactivation preserving data, namespace autoloader, module contract and registry, explicit disabled/unavailable states, privileged read-only admin checkpoint, and Iranian mobile normalization.
+Implemented the defined 1.0 feature scope as **1.0.0-rc1**: independent core and module/provider registries; InnoDB schema/migration/locks; shared SMS.ir sending boundary and encrypted credentials; complete purpose/browser/actor-bound OTP issuance/verification and unique mobile identity; registration/existing-user linking/account restrictions; standard WordPress sessions; Persian responsive admin/shortcode, redacted logs, privacy tools, hourly bounded cleanup and preserving/explicit-purge uninstall.
 
-No SMS credentials used; no messages sent. No authentication endpoints or incomplete settings are exposed. UI matching design.png is not implemented in this increment. Reference code, database dump, config and existing WordPress installation remain untouched.
+No real SMS credentials were used and no real messages were sent. Dummy credentials and intercepted HTTP were confined to disposable test sites. Live sending defaults off behind a server-only configuration setting. Reference code, SQL dump, wp-config and existing WordPress files remain untouched. No deferred module/provider/channel was implemented.
 
 ## Checks actually run
 
-- PHP 8.3.30: `php tests/ani-sms/run.php` — PASS, 23 checks for normalization, malformed input, registry dependency/disabled states, duplicate/late registration and idempotent boot.
-- `php -l` — PASS on all 9 new PHP files.
-- WordPress activation/integration, DB migrations, PHP version matrix, WPCS/static analysis, browser/RTL/accessibility and live SMS.ir tests: NOT RUN. CLI clone did not provide a usable checkout during this milestone; files were staged locally and published with the connected GitHub API while preserving the existing parent tree.
+- Pure PHP phone/module checks: PASS, 23 assertions.
+- `php -l`: PASS on all 27 distributed PHP files, including the native Persian translation catalog.
+- WPCS Core with the documented namespace filename convention: PASS; generated catalog syntax checked separately.
+- PHPStan level 5 with WordPress extension: PASS, no baseline or suppressed errors.
+- JavaScript syntax checks: PASS for admin and frontend.
+- Persian catalog: 112 entries, zero untranslated source strings.
+- Real WordPress/MySQL matrix below: PASS in all four combinations, 60 integration + 6 concurrent-worker + 7 lifecycle assertions per combination.
+- Real Chrome/Playwright + axe: PASS, 28 assertions including same-origin/CSRF, account cookies, admin access/nonce, stored-key secrecy, RTL/responsive widths, keyboard and plugin-scoped WCAG A/AA. Desktop/mobile screenshots were visually inspected.
+- Allowlisted ZIP: PASS, 35 distribution files, archive integrity and exclusions checked.
+- Physical ZIP extraction, activation, deactivation/reactivation and class-origin verification on WP 6.8: PASS, 6 assertions.
+- Live SMS.ir paid send/delivery/account validation: NOT RUN, no credentials supplied or actual-message configuration authorized. An API-shape source review is not reported as a real-account smoke test.
+
+| WordPress | PHP | MySQL | Integration | Two-worker race | Lifecycle |
+|---|---|---|---|---|---|
+| 6.8 official archive | 8.3.30 | 8.4.3 | 60 PASS | 6 PASS | 7 PASS |
+| 6.8 official archive | 8.5.12 | 8.4.3 | 60 PASS | 6 PASS | 7 PASS |
+| 7.1 provided runtime | 8.3.30 | 8.4.3 | 60 PASS | 6 PASS | 7 PASS |
+| 7.1 provided runtime | 8.5.12 | 8.4.3 | 60 PASS | 6 PASS | 7 PASS |
+
+This totals 349 asserted checks across the matrix, pure suite, browser and physical package test, plus syntax/style/static-analysis/package validations. MySQL was started with a new workspace-local data directory and loopback-only port; the original database/config was never imported or executed. PHP 8.5.12 came from the official download with SHA256 verification. WordPress update-network warnings from the deliberately blocked offline fixture were distinguished from plugin defects. Premature translation boot and a test synchronization defect were found and corrected before final passing runs.
 
 ## Status by milestone
 
-- Phase 0: repository reconnaissance and initial technical decisions recorded; runtime integration environment pending.
-- Phase 1: started, not complete. Bootstrap/registry implemented. Settings, schema, translation catalog and full lifecycle tests pending.
-- Phases 2–4: not implemented.
+- Phase 0: complete for this scope; decisions and test environment recorded.
+- Phase 1: complete, including lifecycle/schema/settings/translation tests.
+- Phase 2: adapter and mocked diagnostics complete; real-account operational verification remains an external release gate.
+- Phase 3: complete for the finalized OTP/account/form scope and tested against real WordPress/MySQL with mocked SMS.
+- Phase 4: code hardening, documentation, UI review and installable RC packaging complete; production certification is not claimed until the external gate is met.
 - Phases 5–7: roadmap only, outside this execution scope.
 
-## Exact next steps
+## Review and next operational step
 
-1. Establish a disposable WordPress/MySQL test environment, without importing the existing database dump or executing existing wp-config.php.
-2. Implement versioned InnoDB schema and atomic identity/challenge/rate repositories. Add concurrent-request tests against MySQL.
-3. Implement safe credential/configuration storage and mocked SMS.ir adapter. Revalidate official REST contract before operational sending.
-4. Implement complete OTP/account module and frontend together; register public routes only when all security requirements pass.
-5. Finish admin design, retention/privacy tools and release hardening from the specification.
+Install the generated `ani-sms-1.0.0-rc1.zip` on staging, follow README configuration, review the UI and verify the intended real SMS.ir account/template through an explicitly chosen controlled recipient. This may reveal account-specific provider limits that require a follow-up adapter adjustment. Do not merge main or publish a release without a separate instruction.
+
+ZIP SHA256: `7a7329a273ff42eff27ff6906e334d3e6ddccf1b4cd3c013ecc14846767604f9`.
+
+Changes are published through the connected GitHub Git-tree/commit API on `codex/ani-sms-v1`, preserving the existing parent tree because a CLI checkout was not usable. Only the original plugin and its own development docs/tests/tooling are added/updated. No test runtime, dummy admin credential, captured OTP, dependency directory or ZIP binary is committed.
 
 ## Known release prerequisites
 
-Official REST page https://sms.ir/rest-api/ still times out on recheck. SDK evidence alone does not establish current payload/response limits. No production-readiness or complete release 1.0 claim is made.
+Official REST page https://sms.ir/rest-api/ still times out on recheck. Accessible official company TypeScript sources establish the implemented shape, not account-specific limits, approved template behavior or actual delivery. Real-account smoke testing remains outstanding. Full human screen-reader auditing and compatibility with third-party authentication plugins are not claimed; unknown authentication handlers fail closed. Multisite, MariaDB, PHP 8.4 and other browsers were not independently tested and are not presented as executed matrix rows.

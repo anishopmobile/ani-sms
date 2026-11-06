@@ -1,0 +1,4 @@
+/vendor/
+/.phpstan-cache/
+/artifacts/
+/node_modules/

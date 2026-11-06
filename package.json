@@ -1,0 +1,6 @@
+{
+  "name": "ani-sms-development",
+  "private": true,
+  "scripts": {"test:browser": "node tests/ani-sms/browser.cjs"},
+  "devDependencies": {"playwright": "1.62.1", "axe-core": "^4.10.0"}
+}

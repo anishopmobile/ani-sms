@@ -1,0 +1,17 @@
+{
+  "name": "anishopmobile/ani-sms",
+  "description": "Development tools for ANI-SMS; not required on a production host",
+  "license": "GPL-2.0-or-later",
+  "require": {"php": ">=8.3"},
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpstan/phpstan": "^2.0",
+    "szepeviktor/phpstan-wordpress": "^2.0"
+  },
+  "config": {"allow-plugins": {"dealerdirect/phpcodesniffer-composer-installer": true}},
+  "scripts": {
+    "test": "@php tests/ani-sms/run.php",
+    "analyse": "@php vendor/phpstan/phpstan/phpstan analyse --no-progress",
+    "style": "@php vendor/squizlabs/php_codesniffer/bin/phpcs"
+  }
+}

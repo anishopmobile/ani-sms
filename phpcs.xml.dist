@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="ANI-SMS">
+  <description>WordPress Core style with namespace autoloader filenames.</description>
+  <file>wp-content/plugins/ani-sms</file>
+  <arg name="extensions" value="php"/>
+  <exclude-pattern>*/languages/*</exclude-pattern>
+  <rule ref="WordPress-Core">
+    <!-- PSR-style class paths are the explicit, tested namespace-loader convention. -->
+    <exclude name="WordPress.Files.FileName"/>
+  </rule>
+</ruleset>
