@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc2\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -127,10 +127,22 @@ msgstr ""
 msgid "Last privacy cleanup:"
 msgstr ""
 
+msgid "Local OTP test mode is active. No SMS is sent; codes are shown on the local form. Open the login page in a private window to test registration without changing your administrator session."
+msgstr ""
+
+msgid "Local OTP testing requires a local environment, a loopback site URL and a loopback connection."
+msgstr ""
+
 msgid "Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates."
 msgstr ""
 
 msgid "Local templates"
+msgstr ""
+
+msgid "Local test code (no SMS sent):"
+msgstr ""
+
+msgid "Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login."
 msgstr ""
 
 msgid "Login / Register"
@@ -278,6 +290,9 @@ msgid "Status"
 msgstr ""
 
 msgid "Template ID"
+msgstr ""
+
+msgid "Test code created. No SMS was sent."
 msgstr ""
 
 msgid "Test message accepted by provider; delivery is not confirmed. This code cannot log in."

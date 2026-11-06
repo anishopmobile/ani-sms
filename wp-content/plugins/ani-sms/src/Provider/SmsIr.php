@@ -12,6 +12,8 @@ final class SmsIr implements Provider {
 			'delivery'   => false,
 		); }
 	public function send_template( string $phone, int $template, string $parameter, #[\SensitiveParameter] string $code ): Result {
+		if ( \AniSms\Security\LocalTest::requested() ) {
+			return new Result( 'failed', 'local_test_enabled' ); }
 		$phone = \AniSms\Support\Phone::normalize( $phone );
 		if ( $template < 1 || ! preg_match( '/^[A-Za-z][A-Za-z0-9_]{0,39}$/D', $parameter ) || ! preg_match( '/^[0-9]{6}$/D', $code ) ) {
 			return new Result( 'failed', 'configuration' ); }

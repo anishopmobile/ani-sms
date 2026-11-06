@@ -16,9 +16,12 @@ final class Module implements \AniSms\Core\Module {
 	public function unavailable_reason(): string {
 		try {
 			$secrets = new Secrets();
-			if ( '' === Settings::key( $secrets ) || Settings::get()['template'] < 1 ) {
+			$local   = \AniSms\Security\LocalTest::active();
+			if ( \AniSms\Security\LocalTest::requested() && ! $local ) {
+				return __( 'Local OTP testing requires a local environment, a loopback site URL and a loopback connection.', 'ani-sms' ); }
+			if ( ! $local && ( '' === Settings::key( $secrets ) || Settings::get()['template'] < 1 ) ) {
 				return __( 'Configure SMS.ir credentials and an approved OTP template.', 'ani-sms' ); }
-			if ( ! defined( 'ANI_SMS_LIVE_ENABLED' ) || ! ANI_SMS_LIVE_ENABLED ) {
+			if ( ! $local && ( ! defined( 'ANI_SMS_LIVE_ENABLED' ) || ! ANI_SMS_LIVE_ENABLED ) ) {
 				return __( 'SMS sending is disabled in server configuration.', 'ani-sms' ); }
 			if ( ! Accounts::compatible() ) {
 				return __( 'Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login.', 'ani-sms' ); }
@@ -60,9 +63,10 @@ final class Module implements \AniSms\Core\Module {
 			}
 			$binding = $browser->binding();
 			$browser->verify( $binding );
-			$purpose = is_user_logged_in() ? 'link' : 'login';
-			$actor   = get_current_user_id();
-			$otp     = new Otp( $this->store, $secrets, \AniSms\Core\ProviderRegistry::sms_ir( $secrets ), new Accounts( $this->store ) );
+			$purpose   = is_user_logged_in() ? 'link' : 'login';
+			$actor     = get_current_user_id();
+			$transport = \AniSms\Security\LocalTest::active() ? new \AniSms\Provider\LocalTestTransport() : \AniSms\Core\ProviderRegistry::sms_ir( $secrets );
+			$otp       = new Otp( $this->store, $secrets, $transport, new Accounts( $this->store ) );
 			if ( 'issue' === $op ) {
 				if ( $actor ) {
 					$user     = wp_get_current_user();

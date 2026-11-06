@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -127,11 +127,23 @@ msgstr "آخرین بررسی:"
 msgid "Last privacy cleanup:"
 msgstr "آخرین پاک‌سازی داده‌ها:"
 
+msgid "Local OTP test mode is active. No SMS is sent; codes are shown on the local form. Open the login page in a private window to test registration without changing your administrator session."
+msgstr "حالت تست لوکال OTP فعال است. پیامکی ارسال نمی‌شود و کد روی فرم لوکال نمایش داده می‌شود. برای آزمون ثبت‌نام، برگه ورود را در پنجره ناشناس باز کنید تا نشست مدیر شما تغییر نکند."
+
+msgid "Local OTP testing requires a local environment, a loopback site URL and a loopback connection."
+msgstr "حالت تست OTP فقط با محیط local، نشانی سایت localhost و اتصال loopback مجاز است."
+
 msgid "Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates."
 msgstr "قالب محلی: تأیید حساب. ابتدا قالب را در پنل SMS.ir ایجاد و تأیید کنید؛ سپس شناسه و نام دقیق پارامتر کد را در تنظیمات اتصال وارد کنید. این افزونه قالب‌های پنل را ایجاد، ویرایش یا حذف نمی‌کند."
 
 msgid "Local templates"
 msgstr "قالب‌های محلی"
+
+msgid "Local test code (no SMS sent):"
+msgstr "کد تست لوکال (پیامکی ارسال نشده):"
+
+msgid "Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login."
+msgstr "حالت تست لوکال: پیامکی ارسال نمی‌شود و کد آزمایشی همین‌جا نمایش داده می‌شود. ثبت‌نام، حساب واقعی در وردپرس محلی می‌سازد. برای آزمون از پنجره ناشناس استفاده کنید؛ حساب مدیر از ورود استاندارد استفاده می‌کند."
 
 msgid "Login / Register"
 msgstr "ورود / ثبت‌نام"
@@ -279,6 +291,9 @@ msgstr "وضعیت"
 
 msgid "Template ID"
 msgstr "شناسه قالب"
+
+msgid "Test code created. No SMS was sent."
+msgstr "کد آزمایشی ساخته شد. پیامکی ارسال نشده است."
 
 msgid "Test message accepted by provider; delivery is not confirmed. This code cannot log in."
 msgstr "پیامک آزمایشی توسط سامانه پذیرفته شد؛ تحویل هنوز تأیید نشده است. این کد برای ورود معتبر نیست."

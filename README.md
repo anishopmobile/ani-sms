@@ -4,7 +4,13 @@ Independent WordPress mobile authentication plugin, based on the finalized ANI-S
 
 ## Current checkpoint
 
-Version **1.0.0-rc1** implements the 1.0 feature scope: independent core, optional authentication module, SMS.ir adapter, indexed identity/OTP/rate storage, secure settings, Persian responsive admin, accessible shortcode form, logs, privacy tools and explicit uninstall policy. WooCommerce, campaigns and other notifications are outside 1.0. This is a review candidate, not an assertion that a real SMS.ir account has been verified.
+Version **1.0.0-rc2** implements the 1.0 feature scope: independent core, optional authentication module, SMS.ir adapter, indexed identity/OTP/rate storage, secure settings, Persian responsive admin, accessible shortcode form, logs, privacy tools and explicit uninstall policy. WooCommerce, campaigns and other notifications are outside 1.0. This is a review candidate, not an assertion that a real SMS.ir account has been verified.
+
+### Local-only OTP walkthrough (1.0.0-rc2)
+
+To test without an API key, explicitly define `ANI_SMS_LOCAL_TEST` as boolean `true` and set `WP_ENVIRONMENT_TYPE` to `local` in private server configuration. The site URL must use localhost/127.0.0.1/::1 and the actual request peer must be loopback; a forwarded header, admin setting or URL parameter cannot enable this mode. For loopback HTTP, also set `ANI_SMS_ALLOW_LOCAL_HTTP=true`. The normal server secret remains required. `ANI_SMS_LIVE_ENABLED` may stay false and no API key/template is needed.
+
+The form clearly marks local testing and shows the six-digit test code after submission. Use a private/incognito window so your administrator session is preserved. Test registration creates a real local subscriber account; privileged-account restrictions, CSRF, cooldown, expiration, attempts and one-time consumption still apply. Codes are derived per challenge, not a universal fixed password, and plaintext is not persisted or logged. Idempotent retries reproduce the same test code. Test/live challenge keys are distinct, so a test code is invalid when the local context/mode is disabled. Real SMS sending is blocked whenever the local-test flag is requested, even if a live key is also configured. Disable the flag before real-provider tests or deployment.
 
 Requirements: WordPress 6.8+, PHP 8.3+, sodium, MySQL/MariaDB with InnoDB and connection-scoped GET_LOCK support, and HTTPS. WordPress users/usermeta tables must also use InnoDB. Multisite is deliberately unsupported. No WooCommerce, Elementor, CDN or frontend framework dependency.
 

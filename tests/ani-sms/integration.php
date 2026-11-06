@@ -71,6 +71,7 @@ $otp = new Otp( $store, $secrets, $provider, $accounts );
 $request = fn() => bin2hex( random_bytes( 16 ) );
 $phone = '+989121234501';
 $a = $otp->issue( $phone, 'browser-one', '127.0.0.1', $req = $request() );
+ani_check( ! array_key_exists( 'local_test_code', $a ), 'normal-mode response never discloses OTP' );
 $code = $provider->code;
 ani_check( 1 === $provider->calls && strlen( $code ) === 6, 'OTP issued' );
 ani_check( $a === $otp->issue( $phone, 'browser-one', '127.0.0.1', $req ) && 1 === $provider->calls, 'idempotent request no resend' );

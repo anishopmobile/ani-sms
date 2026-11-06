@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0-rc2 — 2026-11-07
+
+- Add explicitly configured local-only OTP testing without an SMS.ir key or template.
+- Require local environment, loopback site URL and loopback request peer; fail closed otherwise.
+- Show challenge-specific test codes on the local form, preserve the normal OTP/account protections and separate test/live verification keys.
+- Block the real SMS transport while the test flag is requested, label test metadata and add frontend/admin notices.
+
 ## 1.0.0-rc1 — 2026-11-07
 
 - Implement indexed InnoDB schema, serialized identity/challenge transitions and bounded retention cleanup.

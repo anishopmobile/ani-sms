@@ -1,5 +1,9 @@
 # Security and privacy
 
+## Local test exception (1.0.0-rc2)
+
+The owner explicitly authorized a local-only walkthrough. With `ANI_SMS_LOCAL_TEST=true`, environment `local`, a loopback home URL and a loopback peer, the bound issue response includes a challenge-specific test code and the form labels it as simulated. Plaintext is not stored/logged. All normal account/CSRF/rate/expiry/one-time rules still apply and actual subscriber accounts can be created locally. Test/live key IDs differ, so switching context/mode invalidates verification across the boundary. A requested test flag also blocks the real SMS transport even when live settings conflict. No request parameter, database option or forwarded header enables it; nonlocal contexts fail closed. This exception must be disabled before public deployment or real-provider tests.
+
 ## Boundaries
 
 OTP authenticates possession of a phone, not resistance to SIM swaps or carrier compromise. Sensitive administrators/managers cannot use OTP. Normal WordPress authentication is preserved; unknown authentication filters or pluggable replacements fail closed. `wp_authenticate_user` policy checks and core `authenticate`/spam checks still apply before standard WordPress cookies are created. No reusable custom token replaces WordPress sessions.

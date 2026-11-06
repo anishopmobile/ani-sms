@@ -1,7 +1,7 @@
 <?php
 /** Persian translations, generated from tools/translations.py. */
 return array(
-	'project-id-version' => 'ANI-SMS 1.0.0-rc1',
+	'project-id-version' => 'ANI-SMS 1.0.0-rc2',
 	'language' => 'fa_IR',
 	'plural-forms' => 'nplurals=2; plural=(n > 1);',
 	'messages' => array(
@@ -47,8 +47,12 @@ return array(
 		'If this number is eligible, a code has been sent.' => 'در صورت مجازبودن ورود با این شماره، کد برای شما ارسال شده است.',
 		'Last checked:' => 'آخرین بررسی:',
 		'Last privacy cleanup:' => 'آخرین پاک‌سازی داده‌ها:',
+		'Local OTP test mode is active. No SMS is sent; codes are shown on the local form. Open the login page in a private window to test registration without changing your administrator session.' => 'حالت تست لوکال OTP فعال است. پیامکی ارسال نمی‌شود و کد روی فرم لوکال نمایش داده می‌شود. برای آزمون ثبت‌نام، برگه ورود را در پنجره ناشناس باز کنید تا نشست مدیر شما تغییر نکند.',
+		'Local OTP testing requires a local environment, a loopback site URL and a loopback connection.' => 'حالت تست OTP فقط با محیط local، نشانی سایت localhost و اتصال loopback مجاز است.',
 		'Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates.' => 'قالب محلی: تأیید حساب. ابتدا قالب را در پنل SMS.ir ایجاد و تأیید کنید؛ سپس شناسه و نام دقیق پارامتر کد را در تنظیمات اتصال وارد کنید. این افزونه قالب‌های پنل را ایجاد، ویرایش یا حذف نمی‌کند.',
 		'Local templates' => 'قالب‌های محلی',
+		'Local test code (no SMS sent):' => 'کد تست لوکال (پیامکی ارسال نشده):',
+		'Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login.' => 'حالت تست لوکال: پیامکی ارسال نمی‌شود و کد آزمایشی همین‌جا نمایش داده می‌شود. ثبت‌نام، حساب واقعی در وردپرس محلی می‌سازد. برای آزمون از پنجره ناشناس استفاده کنید؛ حساب مدیر از ورود استاندارد استفاده می‌کند.',
 		'Login / Register' => 'ورود / ثبت‌نام',
 		'Login and registration' => 'ورود و ثبت‌نام',
 		'Logs' => 'رخدادها',
@@ -98,6 +102,7 @@ return array(
 		'State' => 'وضعیت',
 		'Status' => 'وضعیت',
 		'Template ID' => 'شناسه قالب',
+		'Test code created. No SMS was sent.' => 'کد آزمایشی ساخته شد. پیامکی ارسال نشده است.',
 		'Test message accepted by provider; delivery is not confirmed. This code cannot log in.' => 'پیامک آزمایشی توسط سامانه پذیرفته شد؛ تحویل هنوز تأیید نشده است. این کد برای ورود معتبر نیست.',
 		'Test not confirmed. Review logs; do not resend an unknown result blindly.' => 'نتیجه ارسال آزمایشی تأیید نشد. رخدادها را بررسی کنید؛ ارسال نامشخص را بدون بررسی تکرار نکنید.',
 		'Test recipient mobile' => 'شماره موبایل گیرنده آزمایشی',

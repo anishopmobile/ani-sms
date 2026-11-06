@@ -5,6 +5,11 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+    'Test code created. No SMS was sent.': 'کد آزمایشی ساخته شد. پیامکی ارسال نشده است.',
+    'Local OTP test mode is active. No SMS is sent; codes are shown on the local form. Open the login page in a private window to test registration without changing your administrator session.': 'حالت تست لوکال OTP فعال است. پیامکی ارسال نمی‌شود و کد روی فرم لوکال نمایش داده می‌شود. برای آزمون ثبت‌نام، برگه ورود را در پنجره ناشناس باز کنید تا نشست مدیر شما تغییر نکند.',
+    'Local OTP testing requires a local environment, a loopback site URL and a loopback connection.': 'حالت تست OTP فقط با محیط local، نشانی سایت localhost و اتصال loopback مجاز است.',
+    'Local test code (no SMS sent):': 'کد تست لوکال (پیامکی ارسال نشده):',
+    'Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login.': 'حالت تست لوکال: پیامکی ارسال نمی‌شود و کد آزمایشی همین‌جا نمایش داده می‌شود. ثبت‌نام، حساب واقعی در وردپرس محلی می‌سازد. برای آزمون از پنجره ناشناس استفاده کنید؛ حساب مدیر از ورود استاندارد استفاده می‌کند.',
     'Last privacy cleanup:': 'آخرین پاک‌سازی داده‌ها:',
     'Not run yet': 'هنوز اجرا نشده',
     'Privacy cleanup is delayed. Check the site cron before relying on retention limits.': 'پاک‌سازی داده‌ها با تأخیر مواجه است. برای رعایت زمان نگهداری، cron سایت را بررسی کنید.',
@@ -128,7 +133,7 @@ language_dir = root / 'languages'
 language_dir.mkdir(exist_ok=True)
 def quote(s):
     return json.dumps(s, ensure_ascii=False)
-header = 'Project-Id-Version: ANI-SMS 1.0.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
+header = 'Project-Id-Version: ANI-SMS 1.0.0-rc2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
 pot = 'msgid ""\nmsgstr ' + quote(header.replace('Language: fa_IR', 'Language: ')) + '\n\n'
 po = 'msgid ""\nmsgstr ' + quote(header) + '\n\n'
 for msg in sorted(messages):
@@ -140,7 +145,7 @@ for msg in sorted(messages):
 def php(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 entries = ',\n'.join('\t\t' + php(k) + ' => ' + php(v) for k, v in sorted(translations.items()))
-catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.0.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
+catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.0.0-rc2',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
 (language_dir / 'ani-sms-fa_IR.l10n.php').write_text(catalog, encoding='utf-8')
 missing = messages - translations.keys()
 print(f'Generated {len(translations)} Persian translations; {len(missing)} strings untranslated.')

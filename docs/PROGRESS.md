@@ -1,5 +1,11 @@
 # ANI-SMS progress
 
+## Local-only testing increment — 1.0.0-rc2, 2026-11-07
+
+Implemented at the owner's request: guarded loopback/local OTP simulation without an API/template, challenge-specific on-form code display, retained security/account protections, distinct test/live key IDs, no plaintext persistence/logging and an explicit block on real SMS transport while the test flag is requested. The default remains off. See ADR 0002 and README for activation and limitations.
+
+Checks for this increment: WPCS Core and PHPStan level 5 pass; the local-test suite passes 23 assertions, the normal-mode regression suite passes (including no OTP disclosure), and the two-worker concurrency suite passes. Browser verification on the owner installation is recorded after deployment below. The earlier RC1 matrix is a historical record, not a claim that each complete matrix row was repeated for RC2.
+
 ## Release-candidate checkpoint — 2026-11-07 (Asia/Tehran)
 
 Final specification 2.1 and development prompt are published on `codex/ani-sms-v1`. Implementation plan was committed before feature code.

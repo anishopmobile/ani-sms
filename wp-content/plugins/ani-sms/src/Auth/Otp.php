@@ -12,7 +12,7 @@ use AniSms\Security\Limited;
 
 final class Otp {
 	public function __construct( private Database $store, private Secrets $secrets, private Provider $provider, private Accounts $accounts ) {
-		$this->provider = new \AniSms\Infrastructure\Sender( $provider, new Log( $store ) );
+		$this->provider = new \AniSms\Infrastructure\Sender( $provider, new Log( $store ), \AniSms\Security\LocalTest::active() ? 'otp_local_test' : 'otp' );
 	}
 	public function issue( string $phone, string $binding, string $ip, string $request, string $purpose = 'login', int $actor = 0 ): array {
 		$phone = \AniSms\Support\Phone::normalize( $phone );
@@ -40,7 +40,9 @@ final class Otp {
 					$rate->hit( ...$limit ); }
 				$id   = bin2hex( random_bytes( 32 ) );
 				$code = str_pad( (string) random_int( 0, 999999 ), 6, '0', STR_PAD_LEFT );
-				$row  = array(
+				if ( \AniSms\Security\LocalTest::active() ) {
+					$code = \AniSms\Security\LocalTest::code( $this->secrets, $id, $purpose ); }
+				$row = array(
 					'id'           => $id,
 					'phone'        => $phone,
 					'binding'      => $hash,
@@ -48,7 +50,7 @@ final class Otp {
 					'actor'        => $actor,
 					'request_key'  => $request_key,
 					'digest'       => $this->secrets->hash( 'otp', $id . ':' . $purpose . ':' . $code ),
-					'key_id'       => $this->secrets->id(),
+					'key_id'       => \AniSms\Security\LocalTest::key_id( $this->secrets ),
 					'state'        => 'pending_send',
 					'created'      => time(),
 					'expires'      => time() + $settings['expiry'],
@@ -77,12 +79,16 @@ final class Otp {
 		);
 	}
 	private function reply( array $row ): array {
-		return array(
+		$reply = array(
 			'challenge'   => $row['id'],
 			'expires_in'  => max( 0, (int) $row['expires'] - time() ),
 			'retry_after' => max( 0, (int) $row['created'] + Settings::get()['cooldown'] - time() ),
 			'phone'       => Log::mask( $row['phone'] ),
 		);
+		if ( \AniSms\Security\LocalTest::active() && hash_equals( \AniSms\Security\LocalTest::key_id( $this->secrets ), $row['key_id'] ) ) {
+			$reply['local_test_code'] = \AniSms\Security\LocalTest::code( $this->secrets, $row['id'], $row['purpose'] );
+		}
+		return $reply;
 	}
 	public function verify( string $id, #[\SensitiveParameter] string $code, string $binding, string $ip, string $purpose = 'login', int $actor = 0 ): int {
 		if ( ! preg_match( '/^[a-f0-9]{64}$/D', $id ) || ! preg_match( '/^[0-9]{6}$/D', $code ) ) {
@@ -103,7 +109,7 @@ final class Otp {
 					$outcome = $this->store->transaction(
 						function () use ( $db, $table, $row, $code, $purpose, $actor ) {
 							$current = $this->store->row( $db->prepare( "SELECT * FROM $table WHERE id=%s FOR UPDATE", $row['id'] ) );
-							if ( ! $current || 'active' !== $current['state'] || $current['expires'] <= time() || $current['key_id'] !== $this->secrets->id() ) {
+							if ( ! $current || 'active' !== $current['state'] || $current['expires'] <= time() || ! hash_equals( \AniSms\Security\LocalTest::key_id( $this->secrets ), $current['key_id'] ) ) {
 								return 0; }
 							if ( ! hash_equals( $current['digest'], $this->secrets->hash( 'otp', $row['id'] . ':' . $purpose . ':' . $code ) ) ) {
 								$this->store->query( $db->prepare( "UPDATE $table SET attempts=attempts+1,state=IF(attempts>=max_attempts,'locked',state) WHERE id=%s", $row['id'] ) );

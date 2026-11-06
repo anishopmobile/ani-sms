@@ -57,11 +57,15 @@
       retryAt = Date.now() + result.retry_after * 1000;
       expiresAt = Date.now() + result.expires_in * 1000;
       root.querySelector('.ani-auth-number').textContent = result.phone;
+
+      const testCode = root.querySelector('.ani-auth-test-code');
+      testCode.hidden = !result.local_test_code;
+      testCode.textContent = result.local_test_code ? `${text.localCode} ${result.local_test_code}` : '';
       phoneForm.hidden = true;
       codeForm.hidden = false;
       codeForm.elements.code.value = '';
       codeForm.elements.code.focus();
-      say(text.sent);
+      say(result.local_test_code ? text.localReady : text.sent);
     };
     phoneForm.addEventListener('submit', event => {
       event.preventDefault();
@@ -75,6 +79,7 @@
     resend.addEventListener('click', () => { if (Date.now() >= retryAt) run(issue); });
     root.querySelector('.ani-auth-edit').addEventListener('click', () => {
       codeForm.hidden = true; phoneForm.hidden = false; challenge = null;
+      root.querySelector('.ani-auth-test-code').textContent = '';
       phoneForm.elements.phone.focus(); say('');
     });
     codeForm.addEventListener('submit', event => {
@@ -83,6 +88,7 @@
       run(async () => {
         const result = await call({op: 'verify', challenge, code: codeForm.elements.code.value});
         codeForm.elements.code.value = ''; password = '';
+        root.querySelector('.ani-auth-test-code').textContent = '';
         if (phoneForm.elements.password) phoneForm.elements.password.value = '';
         say(text.success);
         const destination = new URL(result.redirect, location.href);

@@ -4,7 +4,7 @@ Tags: sms, authentication, otp, login
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.0.0-rc1
+Stable tag: 1.0.0-rc2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Deactivation preserves permanent data and invalidates challenges. Uninstall pres
 
 == Changelog ==
 
-= 1.0.0-rc1 =
+= 1.0.0-rc2 =
 * Independent core, module/provider registries, SMS.ir adapter and shared sending boundary.
 * Atomic OTP lifecycle, phone identity, basic abuse controls and standard WordPress sessions.
 * Persian responsive admin, standalone accessible form, safe diagnostics and privacy lifecycle.

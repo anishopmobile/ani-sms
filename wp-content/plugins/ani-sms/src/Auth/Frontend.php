@@ -16,8 +16,8 @@ final class Frontend {
 	}
 	private function assets(): void {
 		$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-		wp_enqueue_style( 'ani-sms-front', $base . 'frontend.css', array(), '1.0.0-rc1' );
-		wp_enqueue_script( 'ani-sms-front', $base . 'frontend.js', array(), '1.0.0-rc1', true );
+		wp_enqueue_style( 'ani-sms-front', $base . 'frontend.css', array(), '1.0.0-rc2' );
+		wp_enqueue_script( 'ani-sms-front', $base . 'frontend.js', array(), '1.0.0-rc2', true );
 		wp_localize_script(
 			'ani-sms-front',
 			'aniSmsText',
@@ -30,6 +30,8 @@ final class Frontend {
 				'retry'       => __( 'Resend code', 'ani-sms' ),
 				'wait'        => __( 'Wait', 'ani-sms' ),
 				'unavailable' => __( 'Authentication is unavailable. Use the standard login.', 'ani-sms' ),
+				'localCode'   => __( 'Local test code (no SMS sent):', 'ani-sms' ),
+				'localReady'  => __( 'Test code created. No SMS was sent.', 'ani-sms' ),
 			)
 		);
 	}
@@ -45,6 +47,10 @@ final class Frontend {
 		?>
 		<section class="ani-auth" data-endpoint="<?php echo esc_url( admin_url( 'admin-ajax.php?action=ani_sms_auth' ) ); ?>" aria-labelledby="<?php echo esc_attr( $uid ); ?>title">
 			<div class="ani-auth-brand" aria-hidden="true">ANI<span>SMS</span></div>
+			<?php
+			if ( \AniSms\Security\LocalTest::active() ) :
+				?>
+				<p class="ani-auth-test-banner" role="note"><?php esc_html_e( 'Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login.', 'ani-sms' ); ?></p><?php endif; ?>
 			<h2 id="<?php echo esc_attr( $uid ); ?>title"><?php echo esc_html( is_user_logged_in() ? __( 'Verify and link your mobile', 'ani-sms' ) : __( 'Login / Register', 'ani-sms' ) ); ?></h2>
 			<?php if ( $identity ) : ?>
 				<p class="ani-auth-linked"><?php esc_html_e( 'Your mobile is already verified. Changing a linked number is not offered in this release.', 'ani-sms' ); ?></p>
@@ -65,6 +71,7 @@ final class Frontend {
 				</form>
 				<form class="ani-auth-code" hidden novalidate>
 					<p class="ani-auth-number" dir="ltr"></p>
+					<p class="ani-auth-test-code" hidden role="status" aria-live="polite"></p>
 					<label for="<?php echo esc_attr( $uid ); ?>code"><?php esc_html_e( 'Six-digit verification code', 'ani-sms' ); ?></label>
 					<input id="<?php echo esc_attr( $uid ); ?>code" name="code" type="text" dir="ltr" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required aria-describedby="<?php echo esc_attr( $uid ); ?>status">
 					<button type="submit"><?php esc_html_e( 'Verify', 'ani-sms' ); ?></button>
