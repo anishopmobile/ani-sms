@@ -30,16 +30,25 @@ final class ModuleRegistry {
 		$this->started = true;
 		foreach ( $this->modules as $id => $module ) {
 			if ( ! in_array( $id, $enabled, true ) ) {
-				$this->states[ $id ] = array( 'status' => 'disabled', 'reason' => '' );
+				$this->states[ $id ] = array(
+					'status' => 'disabled',
+					'reason' => '',
+				);
 				continue;
 			}
 			$reason = $module->unavailable_reason();
 			if ( '' !== $reason ) {
-				$this->states[ $id ] = array( 'status' => 'unavailable', 'reason' => $reason );
+				$this->states[ $id ] = array(
+					'status' => 'unavailable',
+					'reason' => $reason,
+				);
 				continue;
 			}
 			$module->boot();
-			$this->states[ $id ] = array( 'status' => 'enabled', 'reason' => '' );
+			$this->states[ $id ] = array(
+				'status' => 'enabled',
+				'reason' => '',
+			);
 		}
 	}
 

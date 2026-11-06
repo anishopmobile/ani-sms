@@ -1,0 +1,339 @@
+msgid ""
+msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "A server-configured API key takes priority and cannot be deleted here."
+msgstr ""
+
+msgid "ANI-SMS identity links and related challenges were removed. Masked aggregate message metadata expires under the retention policy."
+msgstr ""
+
+msgid "ANI-SMS multisite activation is not supported in this development build."
+msgstr ""
+
+msgid "ANI-SMS processes mobile numbers to verify ownership. SMS.ir receives the destination and template parameters to send the requested message. OTP codes are never stored in plaintext. Expired challenges are removed after one hour, rate metadata within 24 hours after its window, and masked message metadata after 30 days. Identity links remain until removed. Login is not marketing consent. Data is preserved on uninstall unless the administrator explicitly enables plugin-data deletion. Server configuration and backups may retain credentials; handle them separately. Users without an email address can request identity-link removal through an administrator after identity verification."
+msgstr ""
+
+msgid "ANI-SMS requires InnoDB storage and database schema privileges."
+msgstr ""
+
+msgid "ANI-SMS requires WordPress 6.8 and PHP 8.3 or later."
+msgstr ""
+
+msgid "ANI-SMS storage is unavailable. Verify MySQL InnoDB support and database privileges."
+msgstr ""
+
+msgid "API key configured. Stored values are never returned to the browser."
+msgstr ""
+
+msgid "Accepted today · this plugin"
+msgstr ""
+
+msgid "Account connection succeeded. This does not verify the OTP template or message delivery."
+msgstr ""
+
+msgid "Add [ani_sms_auth] to a WordPress page. HTTPS is required. Exclude that page and admin-ajax authentication responses from page/CDN caching. Browser tokens are fetched separately and never embedded in cached HTML."
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Allow new subscriber accounts when WordPress registration is also enabled"
+msgstr ""
+
+msgid "Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login."
+msgstr ""
+
+msgid "Approved OTP template ID"
+msgstr ""
+
+msgid "Authentication dependencies are available."
+msgstr ""
+
+msgid "Authentication is unavailable. Use the standard login or try again later."
+msgstr ""
+
+msgid "Authentication is unavailable. Use the standard login."
+msgstr ""
+
+msgid "Changes saved."
+msgstr ""
+
+msgid "Check connection · no SMS"
+msgstr ""
+
+msgid "Code lifetime (seconds)"
+msgstr ""
+
+msgid "Codes have six digits. Phone/IP limits cannot be reset by resending. Privileged accounts must use the standard login. Already logged-in subscribers may link an unassigned number after password reauthentication and OTP verification; changing an existing link is not offered."
+msgstr ""
+
+msgid "Configure SMS.ir credentials and an approved OTP template."
+msgstr ""
+
+msgid "Configure the server secret key and sodium encryption."
+msgstr ""
+
+msgid "Connected"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
+
+msgid "Connection failed"
+msgstr ""
+
+msgid "Connection failed. Try again."
+msgstr ""
+
+msgid "Credit is the balance returned by your panel, not a promised number of SMS. Its billing unit depends on your SMS.ir account."
+msgstr ""
+
+msgid "Current account password"
+msgstr ""
+
+msgid "Delete database API key"
+msgstr ""
+
+msgid "Edit number"
+msgstr ""
+
+msgid "Enable JavaScript to use mobile authentication, or use the standard login."
+msgstr ""
+
+msgid "Enable mobile authentication"
+msgstr ""
+
+msgid "Error category"
+msgstr ""
+
+msgid "Errors today · this plugin"
+msgstr ""
+
+msgid "Exact OTP parameter name"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "If this number is eligible, a code has been sent."
+msgstr ""
+
+msgid "Last checked:"
+msgstr ""
+
+msgid "Last privacy cleanup:"
+msgstr ""
+
+msgid "Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates."
+msgstr ""
+
+msgid "Local templates"
+msgstr ""
+
+msgid "Login / Register"
+msgstr ""
+
+msgid "Login and registration"
+msgstr ""
+
+msgid "Logs"
+msgstr ""
+
+msgid "Logs are kept for 30 days without message bodies or OTP values. Expired challenges are cleaned after one hour and rate metadata after 24 hours beyond its window. Deactivation stops authentication and preserves permanent data. Configure a system cron at least every five minutes on low-traffic sites."
+msgstr ""
+
+msgid "Maximum attempts per challenge"
+msgstr ""
+
+msgid "Member"
+msgstr ""
+
+msgid "Mobile access, thoughtfully simple."
+msgstr ""
+
+msgid "Mobile authentication is currently unavailable."
+msgstr ""
+
+msgid "Mobile authentication is disabled."
+msgstr ""
+
+msgid "Mobile number"
+msgstr ""
+
+msgid "Modules"
+msgstr ""
+
+msgid "Navigation"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "No events match this filter."
+msgstr ""
+
+msgid "No usable API key. Configure the server secret before saving credentials."
+msgstr ""
+
+msgid "Not checked"
+msgstr ""
+
+msgid "Not run yet"
+msgstr ""
+
+msgid "OTP parameter"
+msgstr ""
+
+msgid "On uninstall, permanently delete ANI-SMS settings, credentials, identity links and logs. WordPress users and orders will remain."
+msgstr ""
+
+msgid "Operation"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Panel credit"
+msgstr ""
+
+msgid "Permission denied."
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Privacy cleanup is delayed. Check the site cron before relying on retention limits."
+msgstr ""
+
+msgid "Privacy policy"
+msgstr ""
+
+msgid "Publish and configure a privacy policy page before enabling mobile authentication."
+msgstr ""
+
+msgid "Recent connection result is still current."
+msgstr ""
+
+msgid "Replace API key (leave blank to keep)"
+msgstr ""
+
+msgid "Resend code"
+msgstr ""
+
+msgid "Resend cooldown (seconds)"
+msgstr ""
+
+msgid "SMS sending is disabled in server configuration."
+msgstr ""
+
+msgid "SMS.ir connection"
+msgstr ""
+
+msgid "SMS.ir is the only provider. Accepted messages are not confirmed deliveries. Counters cover this plugin in the site timezone."
+msgstr ""
+
+msgid "Save changes"
+msgstr ""
+
+msgid "Save module state"
+msgstr ""
+
+msgid "Save uninstall preference"
+msgstr ""
+
+msgid "Send one paid test SMS to this number. This code grants no account access."
+msgstr ""
+
+msgid "Send paid test SMS"
+msgstr ""
+
+msgid "Send verification code"
+msgstr ""
+
+msgid "Sending…"
+msgstr ""
+
+msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes outside the database, then enable ANI_SMS_LIVE_ENABLED only after reviewing the API contract and test account. API keys may also be supplied through ANI_SMS_API_KEY. Never commit these values."
+msgstr ""
+
+msgid "Site issuance limit per hour"
+msgstr ""
+
+msgid "Six-digit verification code"
+msgstr ""
+
+msgid "Standard WordPress login"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Template ID"
+msgstr ""
+
+msgid "Test message accepted by provider; delivery is not confirmed. This code cannot log in."
+msgstr ""
+
+msgid "Test not confirmed. Review logs; do not resend an unknown result blindly."
+msgstr ""
+
+msgid "Test recipient mobile"
+msgstr ""
+
+msgid "The code has expired. Request a new code."
+msgstr ""
+
+msgid "The operation failed. Check the values and server configuration; secrets have not been displayed."
+msgstr ""
+
+msgid "The request or code is invalid, expired, or unavailable for this account."
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Too many requests. Wait before trying again."
+msgstr ""
+
+msgid "Unavailable"
+msgstr ""
+
+msgid "Verified at (UTC)"
+msgstr ""
+
+msgid "Verified mobile"
+msgstr ""
+
+msgid "Verified successfully."
+msgstr ""
+
+msgid "Verify"
+msgstr ""
+
+msgid "Verify and link your mobile"
+msgstr ""
+
+msgid "Wait"
+msgstr ""
+
+msgid "Working…"
+msgstr ""
+
+msgid "You have unsaved changes."
+msgstr ""
+
+msgid "Your mobile is already verified. Changing a linked number is not offered in this release."
+msgstr ""
+
+msgid "Your number is used to verify account ownership. Login does not subscribe you to marketing."
+msgstr ""
+

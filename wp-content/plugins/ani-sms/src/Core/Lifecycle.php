@@ -10,7 +10,7 @@ namespace AniSms\Core;
 final class Lifecycle {
 	public static function supported(): bool {
 		global $wp_version;
-		return version_compare( PHP_VERSION, '8.3', '>=' )
+		return version_compare( (string) phpversion(), '8.3', '>=' )
 			&& version_compare( (string) $wp_version, '6.8', '>=' );
 	}
 
@@ -22,10 +22,20 @@ final class Lifecycle {
 			wp_die( esc_html__( 'ANI-SMS requires WordPress 6.8 and PHP 8.3 or later.', 'ani-sms' ) );
 		}
 		add_option( 'ani_sms_modules', array(), '', false );
+		global $wpdb;
+		try {
+			( new \AniSms\Infrastructure\Database( $wpdb ) )->migrate(); } catch ( \Throwable $error ) {
+			wp_die( esc_html__( 'ANI-SMS requires InnoDB storage and database schema privileges.', 'ani-sms' ) );
+			}
 	}
 
 	public static function deactivate(): void {
-		// No dispatch jobs exist in this milestone. Preserve settings and users.
+		global $wpdb;
+		wp_clear_scheduled_hook( 'ani_sms_cleanup' );
+		if ( \AniSms\Infrastructure\Database::VERSION === get_option( 'ani_sms_schema' ) ) {
+			$store = new \AniSms\Infrastructure\Database( $wpdb );
+			$store->query( "UPDATE {$store->table( 'challenges' )} SET state='expired',digest='' WHERE state IN ('active','pending_send')" );
+		}
 		do_action( 'ani_sms_deactivated' );
 	}
 
