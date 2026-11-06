@@ -54,8 +54,8 @@ final class Admin {
 				if ( 'toplevel_page_ani-sms' !== $hook ) {
 					return; }
 				$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.0.0-rc2' );
-				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.0.0-rc2', true );
+				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.0.0-rc3' );
+				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.0.0-rc3', true );
 				wp_localize_script(
 					'ani-sms-admin',
 					'aniSmsAdminText',
@@ -191,7 +191,7 @@ final class Admin {
 										echo 'aria-current="page"'; }
 					?>
 href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?>
-				</nav></details><small>SMS.ir · 1.0.0-rc2</small></aside>
+				</nav></details><small>SMS.ir · 1.0.0-rc3</small></aside>
 				<main class="ani-main">
 				<div class="ani-stats">
 				<?php

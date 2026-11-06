@@ -4,7 +4,7 @@ Independent WordPress mobile authentication plugin, based on the finalized ANI-S
 
 ## Current checkpoint
 
-Version **1.0.0-rc2** implements the 1.0 feature scope: independent core, optional authentication module, SMS.ir adapter, indexed identity/OTP/rate storage, secure settings, Persian responsive admin, accessible shortcode form, logs, privacy tools and explicit uninstall policy. WooCommerce, campaigns and other notifications are outside 1.0. This is a review candidate, not an assertion that a real SMS.ir account has been verified.
+Version **1.0.0-rc3** implements the 1.0 feature scope: independent core, optional authentication module, SMS.ir adapter, indexed identity/OTP/rate storage, secure settings, Persian responsive admin, accessible shortcode form, logs, privacy tools and explicit uninstall policy. WooCommerce, campaigns and other notifications are outside 1.0. This is a review candidate, not an assertion that a real SMS.ir account has been verified.
 
 ### Local-only OTP walkthrough (1.0.0-rc2)
 

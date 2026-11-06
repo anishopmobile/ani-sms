@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -307,6 +307,9 @@ msgstr "شماره موبایل گیرنده آزمایشی"
 msgid "The code has expired. Request a new code."
 msgstr "کد منقضی شده است. کد جدید درخواست کنید."
 
+msgid "The code is incorrect. Please try again."
+msgstr "کد واردشده اشتباه است. دوباره تلاش کنید."
+
 msgid "The operation failed. Check the values and server configuration; secrets have not been displayed."
 msgstr "عملیات انجام نشد. مقادیر و تنظیمات سرور را بررسی کنید؛ اطلاعات محرمانه نمایش داده نشده است."
 
@@ -315,6 +318,9 @@ msgstr "درخواست یا کد نامعتبر یا منقضی است، یا ا
 
 msgid "Time"
 msgstr "زمان"
+
+msgid "Too many incorrect codes. Request a new code when the resend timer ends."
+msgstr "تعداد کدهای اشتباه بیش از حد مجاز است. پس از پایان زمان انتظار، کد جدید بگیرید."
 
 msgid "Too many requests. Wait before trying again."
 msgstr "تعداد درخواست‌ها زیاد است. پیش از تلاش دوباره کمی صبر کنید."

@@ -1,7 +1,7 @@
 <?php
 /** Persian translations, generated from tools/translations.py. */
 return array(
-	'project-id-version' => 'ANI-SMS 1.0.0-rc2',
+	'project-id-version' => 'ANI-SMS 1.0.0-rc3',
 	'language' => 'fa_IR',
 	'plural-forms' => 'nplurals=2; plural=(n > 1);',
 	'messages' => array(
@@ -107,9 +107,11 @@ return array(
 		'Test not confirmed. Review logs; do not resend an unknown result blindly.' => 'نتیجه ارسال آزمایشی تأیید نشد. رخدادها را بررسی کنید؛ ارسال نامشخص را بدون بررسی تکرار نکنید.',
 		'Test recipient mobile' => 'شماره موبایل گیرنده آزمایشی',
 		'The code has expired. Request a new code.' => 'کد منقضی شده است. کد جدید درخواست کنید.',
+		'The code is incorrect. Please try again.' => 'کد واردشده اشتباه است. دوباره تلاش کنید.',
 		'The operation failed. Check the values and server configuration; secrets have not been displayed.' => 'عملیات انجام نشد. مقادیر و تنظیمات سرور را بررسی کنید؛ اطلاعات محرمانه نمایش داده نشده است.',
 		'The request or code is invalid, expired, or unavailable for this account.' => 'درخواست یا کد نامعتبر یا منقضی است، یا این روش برای حساب مجاز نیست.',
 		'Time' => 'زمان',
+		'Too many incorrect codes. Request a new code when the resend timer ends.' => 'تعداد کدهای اشتباه بیش از حد مجاز است. پس از پایان زمان انتظار، کد جدید بگیرید.',
 		'Too many requests. Wait before trying again.' => 'تعداد درخواست‌ها زیاد است. پیش از تلاش دوباره کمی صبر کنید.',
 		'Unavailable' => 'در دسترس نیست',
 		'Verified at (UTC)' => 'زمان تأیید (UTC)',

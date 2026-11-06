@@ -104,6 +104,19 @@ final class Module implements \AniSms\Core\Module {
 				),
 				429
 			);
+		} catch ( ChallengeRejected $error ) {
+			$message = match ( $error->reason ) {
+				'expired' => __( 'The code has expired. Request a new code.', 'ani-sms' ),
+				'locked' => __( 'Too many incorrect codes. Request a new code when the resend timer ends.', 'ani-sms' ),
+				default => __( 'The code is incorrect. Please try again.', 'ani-sms' ),
+			};
+			wp_send_json_error(
+				array(
+					'message' => $message,
+					'code'    => 'otp_' . $error->reason,
+				),
+				400
+			);
 		} catch ( \InvalidArgumentException $error ) {
 			wp_send_json_error( array( 'message' => __( 'The request or code is invalid, expired, or unavailable for this account.', 'ani-sms' ) ), 400 );
 		} catch ( \Throwable $error ) {

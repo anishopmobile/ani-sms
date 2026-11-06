@@ -1,5 +1,13 @@
 # ANI-SMS progress
 
+## Complete local walkthrough and fixes — 1.0.0-rc3, 2026-11-07
+
+Reproduced the owner's requested cases on the actual localhost site using real 120-second expiry and 60-second resend waits, without database timestamp changes or clock simulation. The RC2 baseline completed 32 browser checks: 29 passed and three UI checks failed (confirmation remained enabled after attempt lock, expired test code remained visible, and expired confirmation remained enabled). The server rejected invalid/expired/locked codes correctly in the baseline.
+
+RC3 clears unusable input/test-code displays, disables confirmation for expired/locked challenges, preserves resend timing and reenables confirmation on a fresh challenge. Wrong entries receive focused/selectable input with aria-invalid; fresh challenges reset that state. Bound challenge failures now have localized invalid/expired/locked messages. Purpose/browser/actor checks still precede lifecycle disclosure; account lookup failures remain generic.
+
+Pre-deployment checks: 30 local OTP assertions, 61 normal-mode regression assertions, 6 concurrency assertions, WPCS Core, PHP/JS syntax and PHPStan level 5 all pass. Complete owner-site browser results are recorded after the post-fix run. Earlier RC1/RC2 counts below remain historical evidence rather than claims that their full matrices were all repeated for RC3.
+
 ## Local-only testing increment — 1.0.0-rc2, 2026-11-07
 
 Implemented at the owner's request: guarded loopback/local OTP simulation without an API/template, challenge-specific on-form code display, retained security/account protections, distinct test/live key IDs, no plaintext persistence/logging and an explicit block on real SMS transport while the test flag is requested. The default remains off. See ADR 0002 and README for activation and limitations.

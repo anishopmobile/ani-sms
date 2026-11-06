@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0-rc3 — 2026-11-07
+
+- Fix expired/attempt-locked form states: clear unusable codes, disable confirmation and recover after a fresh resend.
+- Return localized wrong-code, expired and locked reasons only for an already browser/purpose/actor-bound challenge.
+- Mark wrong-code inputs invalid, select them for correction and reset validation state on a new code.
+- Add a complete real-time browser regression for wrong attempts, lock/recovery, actual expiry, resend invalidation, registration and repeat login.
+
 ## 1.0.0-rc2 — 2026-11-07
 
 - Add explicitly configured local-only OTP testing without an SMS.ir key or template.

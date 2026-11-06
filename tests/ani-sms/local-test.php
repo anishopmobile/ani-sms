@@ -52,4 +52,18 @@ ani_check( $network === 0, 'zero external or loopback HTTP sends' );
 $log = $store->row( "SELECT * FROM {$store->table( 'logs' )} WHERE operation='otp_local_test' ORDER BY id DESC LIMIT 1" );
 ani_check( $log && '' === $log['provider_id'] && ! in_array( $first['local_test_code'], $log, true ), 'test log explicitly labeled without OTP' );
 remove_filter( 'pre_http_request', $interceptor, -1000 );
+function reject_reason( callable $work, string $reason ): void {
+	$actual = '';
+	try { $work(); } catch ( \AniSms\Auth\ChallengeRejected $error ) { $actual = $error->reason; }
+	ani_check( $actual === $reason, 'bound challenge reason: ' . $reason );
+}
+$expired = $otp->issue( '+989121234591', 'expiry-browser', '127.0.0.1', str_repeat( 'd', 32 ) );
+$store->query( $wpdb->prepare( "UPDATE {$store->table( 'challenges' )} SET expires=%d WHERE id=%s", time() - 1, $expired['challenge'] ) );
+reject_reason( fn() => $otp->verify( $expired['challenge'], $expired['local_test_code'], 'expiry-browser', '127.0.0.1' ), 'expired' );
+$locked = $otp->issue( '+989121234592', 'locked-browser', '127.0.0.1', str_repeat( 'e', 32 ) );
+$incorrect = '000000' === $locked['local_test_code'] ? '999999' : '000000';
+for ( $i = 1; $i <= 5; ++$i ) {
+	reject_reason( fn() => $otp->verify( $locked['challenge'], $incorrect, 'locked-browser', '127.0.0.1' ), 5 === $i ? 'locked' : 'invalid' );
+}
+reject_reason( fn() => $otp->verify( $locked['challenge'], $locked['local_test_code'], 'locked-browser', '127.0.0.1' ), 'locked' );
 echo 'PASS local test: ' . $GLOBALS['ani_checks'] . " checks; no SMS or HTTP sent.\n";

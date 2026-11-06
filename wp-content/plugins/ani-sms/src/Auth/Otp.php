@@ -105,14 +105,25 @@ final class Otp {
 			'phone:' . $row['phone'],
 			function () use ( $db, $table, $row, $code, $purpose, $actor ) {
 				// Transaction commits unsuccessful attempt increments as well as successful consumption.
+				$failure = 'invalid';
 				try {
 					$outcome = $this->store->transaction(
-						function () use ( $db, $table, $row, $code, $purpose, $actor ) {
+						function () use ( $db, $table, $row, $code, $purpose, $actor, &$failure ) {
 							$current = $this->store->row( $db->prepare( "SELECT * FROM $table WHERE id=%s FOR UPDATE", $row['id'] ) );
-							if ( ! $current || 'active' !== $current['state'] || $current['expires'] <= time() || ! hash_equals( \AniSms\Security\LocalTest::key_id( $this->secrets ), $current['key_id'] ) ) {
+							if ( ! $current ) {
+								return 0; }
+							if ( 'locked' === $current['state'] ) {
+								$failure = 'locked';
+								return 0; }
+							if ( 'expired' === $current['state'] || $current['expires'] <= time() || ! hash_equals( \AniSms\Security\LocalTest::key_id( $this->secrets ), $current['key_id'] ) ) {
+								$failure = 'expired';
+								return 0; }
+							if ( 'active' !== $current['state'] ) {
 								return 0; }
 							if ( ! hash_equals( $current['digest'], $this->secrets->hash( 'otp', $row['id'] . ':' . $purpose . ':' . $code ) ) ) {
 								$this->store->query( $db->prepare( "UPDATE $table SET attempts=attempts+1,state=IF(attempts>=max_attempts,'locked',state) WHERE id=%s", $row['id'] ) );
+								if ( (int) $current['attempts'] + 1 >= (int) $current['max_attempts'] ) {
+									$failure = 'locked'; }
 								return 0;
 							}
 							if ( ! Settings::enabled() || ! $this->accounts->eligible( $row['phone'], $purpose, $actor ) ) {
@@ -125,7 +136,7 @@ final class Otp {
 				} finally {
 					$this->accounts->clear_created_cache(); }
 				if ( ! $outcome ) {
-					throw new \InvalidArgumentException( 'Invalid or expired code.' ); }
+					throw new ChallengeRejected( $failure ); }
 				return $outcome;
 			}
 		);

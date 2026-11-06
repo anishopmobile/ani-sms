@@ -4,7 +4,7 @@ Tags: sms, authentication, otp, login
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.0.0-rc2
+Stable tag: 1.0.0-rc3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +38,8 @@ Deactivation preserves permanent data and invalidates challenges. Uninstall pres
 
 == Changelog ==
 
-= 1.0.0-rc2 =
+= 1.0.0-rc3 =
+* Correct expired/locked confirmation UI and provide clear, bound-challenge error messages.
 * Explicitly guarded loopback OTP simulation with on-form test codes and no SMS calls.
 * Independent core, module/provider registries, SMS.ir adapter and shared sending boundary.
 * Atomic OTP lifecycle, phone identity, basic abuse controls and standard WordPress sessions.

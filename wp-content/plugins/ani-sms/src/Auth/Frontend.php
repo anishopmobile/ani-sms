@@ -16,8 +16,8 @@ final class Frontend {
 	}
 	private function assets(): void {
 		$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-		wp_enqueue_style( 'ani-sms-front', $base . 'frontend.css', array(), '1.0.0-rc2' );
-		wp_enqueue_script( 'ani-sms-front', $base . 'frontend.js', array(), '1.0.0-rc2', true );
+		wp_enqueue_style( 'ani-sms-front', $base . 'frontend.css', array(), '1.0.0-rc3' );
+		wp_enqueue_script( 'ani-sms-front', $base . 'frontend.js', array(), '1.0.0-rc3', true );
 		wp_localize_script(
 			'ani-sms-front',
 			'aniSmsText',

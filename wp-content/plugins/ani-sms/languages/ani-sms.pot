@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc2\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc3\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -307,6 +307,9 @@ msgstr ""
 msgid "The code has expired. Request a new code."
 msgstr ""
 
+msgid "The code is incorrect. Please try again."
+msgstr ""
+
 msgid "The operation failed. Check the values and server configuration; secrets have not been displayed."
 msgstr ""
 
@@ -314,6 +317,9 @@ msgid "The request or code is invalid, expired, or unavailable for this account.
 msgstr ""
 
 msgid "Time"
+msgstr ""
+
+msgid "Too many incorrect codes. Request a new code when the resend timer ends."
 msgstr ""
 
 msgid "Too many requests. Wait before trying again."
