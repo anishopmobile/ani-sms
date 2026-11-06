@@ -6,6 +6,7 @@
 - Return localized wrong-code, expired and locked reasons only for an already browser/purpose/actor-bound challenge.
 - Mark wrong-code inputs invalid, select them for correction and reset validation state on a new code.
 - Add a complete real-time browser regression for wrong attempts, lock/recovery, actual expiry, resend invalidation, registration and repeat login.
+- Localize network/malformed-response failures, preserve valid OTP input and recover a lost issue reply using the same request ID.
 
 ## 1.0.0-rc2 — 2026-11-07
 
