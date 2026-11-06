@@ -1,0 +1,54 @@
+.smsir-login-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+} 
+
+/* WooCommerce Integration Styles */
+.woocommerce-login-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.woocommerce-account .woocommerce-login-form {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide WooCommerce's default notices when using our form */
+.woocommerce-account .woocommerce-notices-wrapper {
+    display: none;
+}
+
+/* Adjust columns when registration is enabled */
+.woocommerce .u-columns.col2-set {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.woocommerce .u-column1.col-1 {
+    width: 100%;
+    float: none;
+} 
+
+/* Checkout login form styles */
+.woocommerce-checkout .woocommerce-form-login {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.woocommerce-checkout .showlogin {
+    text-decoration: underline;
+    color: #2196F3;
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle {
+    margin-bottom: 1rem;
+} 

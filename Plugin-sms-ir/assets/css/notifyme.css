@@ -1,0 +1,427 @@
+.smsir-notifyme-wrapper {
+  margin: 10px 0;
+}
+
+.smsir-notifyme-button {
+  background-color: #ffbf00;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.smsir-notifyme-button:hover {
+  background-color: #e6ac00;
+}
+
+.smsir-notifyme-button.smsir-notifyme-unsubscribe {
+  background-color: #dc3545;
+}
+
+.smsir-notifyme-button.smsir-notifyme-unsubscribe:hover {
+  background-color: #c82333;
+}
+
+.smsir-notifyme-button::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'%3E%3C/path%3E%3Cpath d='M13.73 21a2 2 0 0 1-3.46 0'%3E%3C/path%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+[dir="rtl"] .smsir-notifyme-button::before {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.smsir-notifyme-default {
+  background-color: #f2f2f2;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.smsir-notifyme-default:hover {
+  background-color: #e5e5e5;
+}
+
+.smsir-notifyme-primary {
+  background-color: #ffbf00;
+  color: #fff;
+  border: 1px solid #ffbf00;
+}
+
+.smsir-notifyme-primary:hover {
+  background-color: #e6ac00;
+  border-color: #e6ac00;
+}
+
+.smsir-notifyme-outline {
+  background-color: transparent;
+  color: #ffbf00;
+  border: 1px solid #ffbf00;
+}
+
+.smsir-notifyme-outline:hover {
+  background-color: rgba(255, 191, 0, 0.1);
+}
+
+.smsir-notifyme-custom {
+  background-color: #6b46c1;
+  color: #ffffff;
+  border: 1px solid #6b46c1;
+}
+
+.smsir-notifyme-custom:hover {
+  background-color: #553c9a;
+  border-color: #553c9a;
+}
+
+.smsir-notifyme-form-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  border: 1px solid #e6e6e6;
+}
+
+.smsir-notifyme-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.smsir-notifyme-form input[type="tel"] {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.smsir-notifyme-message {
+  margin-top: 0.75rem;
+}
+
+.smsir-notifyme-success {
+  padding: 0.75rem;
+  background-color: #ebf7e7;
+  color: #2f855a;
+  border-radius: 4px;
+  border: 1px solid #c6f6d5;
+}
+
+.smsir-notifyme-error {
+  padding: 0.75rem;
+  background-color: #fff5f5;
+  color: #c53030;
+  border-radius: 4px;
+  border: 1px solid #fed7d7;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .smsir-notifyme-wrapper {
+    max-width: 100%;
+  }
+  
+  .smsir-notifyme-form {
+    flex-direction: column;
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] .smsir-notifyme-form {
+  flex-direction: column;
+}
+
+/* WooCommerce integration adjustments */
+.woocommerce div.product form.cart .smsir-notifyme-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+#smsir-notifyme-variation-container {
+  margin: 1.5rem 0;
+}
+
+.single-product div.product #smsir-notifyme-variation-container .smsir-notifyme-button {
+  width: auto;
+}
+
+/* Popup styles */
+.smsir-notifyme-popup,
+#smsir-notifyme-popup,
+#smsir-notifyme-unsubscribe-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.smsir-notifyme-popup-container {
+  background: white;
+  padding: 24px;
+  border-radius: 30px;
+  width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.smsir-notifyme-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.smsir-notifyme-popup-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0D0D0D;
+}
+
+.smsir-notifyme-popup-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #0D0D0D;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.smsir-notifyme-popup-content {
+  text-align: center;
+}
+
+.smsir-notifyme-popup-content p {
+  margin-bottom: 20px;
+  color: #4D4D4D;
+  font-size: 14px;
+}
+
+.smsir-notifyme-message-area {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  display: none; 
+}
+
+.smsir-notifyme-message-area.success {
+  background-color: #e6fffa; /* Light green background */
+  color: #2c7a7b; /* Dark green text */
+  border: 1px solid #b2f5ea; /* Green border */
+}
+
+.smsir-notifyme-message-area.error {
+  background-color: #fff5f5; /* Light red background */
+  color: #c53030; /* Dark red text */
+  border: 1px solid #fed7d7; /* Red border */
+}
+
+.smsir-notifyme-form,
+.smsir-notifyme-unsubscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.smsir-notifyme-phone {
+  padding: 10px 15px;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.smsir-notifyme-submit {
+  background-color: #ffbf00;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.smsir-notifyme-submit:hover {
+  background-color: #e6ac00;
+}
+
+.smsir-notifyme-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.smsir-notifyme-unsubscribe-submit {
+  background-color: #D51D10;
+  color: #ffffff;
+}
+
+.smsir-notifyme-unsubscribe-submit:hover {
+  background-color: #B81A0D;
+}
+
+/* RTL Support */
+[dir="rtl"] .smsir-notifyme-popup-container {
+  text-align: right;
+}
+
+[dir="rtl"] .smsir-notifyme-popup-header h3 {
+  /* Add any specific RTL adjustments if needed */
+}
+
+[dir="rtl"] .smsir-notifyme-submit {
+  /* Add any specific RTL adjustments if needed */
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .smsir-notifyme-popup-container {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .smsir-notifyme-popup-container {
+    width: 95%;
+    margin: 10px;
+    padding: 20px;
+  }
+  .smsir-notifyme-popup-header h3 {
+    font-size: 16px;
+  }
+  .smsir-notifyme-submit {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+}
+
+/* Subscriber List Table Styles */
+.smsir-subscribers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.smsir-subscribers-table th, 
+.smsir-subscribers-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.smsir-subscribers-table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+  color: #333;
+}
+
+.smsir-subscribers-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.smsir-subscribers-table .status-pending {
+  color: #e67e22;
+}
+
+.smsir-subscribers-table .status-sent {
+  color: #27ae60;
+}
+
+.smsir-subscribers-table .status-failed {
+  color: #e74c3c;
+}
+
+.smsir-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.smsir-pagination-button {
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.smsir-pagination-button.active {
+  background-color: #ffbf00;
+  color: white;
+  border-color: #ffbf00;
+}
+
+.smsir-pagination-button:hover:not(.active) {
+  background-color: #e6e6e6;
+}
+
+.smsir-search-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.smsir-search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.smsir-search-button {
+  padding: 8px 16px;
+  background-color: #ffbf00;
+  color: white;
+  border: 1px solid #ffbf00;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.smsir-search-button:hover {
+  background-color: #e6ac00;
+}
+
+.smsir-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.smsir-filter-select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+} 
