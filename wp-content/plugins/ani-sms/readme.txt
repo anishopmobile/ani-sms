@@ -20,6 +20,8 @@ SMS.ir receives destination phone numbers and template parameters when sending a
 
 This is not a confirmation of real-account delivery. Read the repository README and docs/SMSIR-API.md before operational use. No real SMS was sent during automated development tests.
 
+For local development only, ANI_SMS_LOCAL_TEST=true plus WP_ENVIRONMENT_TYPE=local, a loopback site hostname and a loopback connection allow the OTP form to work without an API/template. A private server secret is still required. Codes appear on the local form, real SMS is blocked, and ordinary OTP/account protections remain active. Use a private browser window; registrations create real local subscriber accounts. Disable this flag before real-provider tests or public deployment.
+
 == Installation ==
 
 1. Upload the ani-sms directory or generated ZIP to WordPress.
@@ -37,6 +39,7 @@ Deactivation preserves permanent data and invalidates challenges. Uninstall pres
 == Changelog ==
 
 = 1.0.0-rc2 =
+* Explicitly guarded loopback OTP simulation with on-form test codes and no SMS calls.
 * Independent core, module/provider registries, SMS.ir adapter and shared sending boundary.
 * Atomic OTP lifecycle, phone identity, basic abuse controls and standard WordPress sessions.
 * Persian responsive admin, standalone accessible form, safe diagnostics and privacy lifecycle.

@@ -1,5 +1,11 @@
 # Local installation verification — 2026-11-07
 
+## Subsequent local-test update — 1.0.0-rc2
+
+At the owner's later request, the private local configuration now explicitly enables ANI_SMS_LOCAL_TEST and declares environment local. The actual site URL/peer are loopback, so the form is available without an API or template while ANI_SMS_LIVE_ENABLED remains false. The original no-API fail-closed installation record below describes the earlier RC1 state.
+
+The owner site's browser walkthrough passed 12 checks: visible local-mode/code notices, six-digit code display, wrong-code rejection, registration, core WordPress cookie, retained verified identity, cooldown across a new browser binding and successful login to the same account after waiting the real cooldown. It used a fresh private browser context and created only its own local subscriber; the owner's administrator session/account was not changed. No real SMS or API credential was used. Test accounts and challenges are ordinary local test data, not gateway delivery evidence. Open the login page in an incognito/private window to try it yourself.
+
 At the owner's explicit request, the existing WordPress installation and its existing database were used, rather than another mock-only site. The supplied WordPress login was used to verify the real admin UI; the credential is not stored in this report or repository.
 
 ## Installed state

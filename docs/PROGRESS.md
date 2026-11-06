@@ -6,6 +6,10 @@ Implemented at the owner's request: guarded loopback/local OTP simulation withou
 
 Checks for this increment: WPCS Core and PHPStan level 5 pass; the local-test suite passes 23 assertions, the normal-mode regression suite passes (including no OTP disclosure), and the two-worker concurrency suite passes. Browser verification on the owner installation is recorded after deployment below. The earlier RC1 matrix is a historical record, not a claim that each complete matrix row was repeated for RC2.
 
+Final RC2 evidence: 23 local-mode checks passed in all four WP 6.8/7.1 × PHP 8.3.30/8.5.12 combinations; normal-mode regression passed 61 checks, concurrency passed 6, physical RC2 ZIP installation passed 6 and lifecycle passed 7 on the disposable test installations. The actual owner-site local walkthrough passed 12 browser checks including genuine cooldown and login to the same registered account. Private configuration enables the test flag only on the localhost installation, with live sending false. No mock/API key or secret is committed. Local-test registrations create real local subscriber accounts. See LOCAL-INSTALLATION.md.
+
+RC2 distribution: 37 allowlisted files; SHA256 `50f8c537711eda4e38d91e101f3f62de05a77af2b8f4a704c58e3e790f334e1d`. The code-entry screenshot was visually reviewed on the owner site; the six-digit value (including a leading zero), local-only warning, timer and errors render correctly.
+
 ## Release-candidate checkpoint — 2026-11-07 (Asia/Tehran)
 
 Final specification 2.1 and development prompt are published on `codex/ani-sms-v1`. Implementation plan was committed before feature code.
