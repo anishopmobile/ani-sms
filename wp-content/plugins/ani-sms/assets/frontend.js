@@ -15,9 +15,13 @@
     const call = async payload => {
       const headers = {'Content-Type': 'application/json'};
       if (browser) { headers['X-Ani-CSRF'] = browser.csrf; headers['X-Ani-Nonce'] = browser.nonce; }
-      const response = await fetch(root.dataset.endpoint, {method: 'POST', credentials: 'same-origin', cache: 'no-store', headers, body: JSON.stringify(payload)});
+      let response;
+      try {
+        response = await fetch(root.dataset.endpoint, {method: 'POST', credentials: 'same-origin', cache: 'no-store', headers, body: JSON.stringify(payload)});
+      } catch (_) { throw new Error(text.error); }
       let body;
       try { body = await response.json(); } catch (_) { throw new Error(text.unavailable); }
+      if (!body || typeof body !== 'object' || typeof body.success !== 'boolean' || !body.data || typeof body.data !== 'object') throw new Error(text.unavailable);
       if (!body.success) {
         if (body.data?.retry_after) retryAt = Date.now() + body.data.retry_after * 1000;
         const error = new Error(body.data?.message || text.error);
@@ -33,7 +37,7 @@
       root.querySelectorAll('button').forEach(b => { b.disabled = true; });
       try { await work(); } catch (error) {
         if (['otp_expired', 'otp_locked'].includes(error.code)) stopCode();
-        else if (!codeForm.hidden) {
+        else if (error.code === 'otp_invalid' && !codeForm.hidden) {
           codeForm.elements.code.setAttribute('aria-invalid', 'true');
           codeForm.elements.code.focus(); codeForm.elements.code.select();
         }
@@ -105,6 +109,7 @@
     });
     codeForm.addEventListener('submit', event => {
       event.preventDefault();
+      if (terminal) return;
       if (!codeForm.reportValidity()) return;
       run(async () => {
         const result = await call({op: 'verify', challenge, code: codeForm.elements.code.value});
@@ -116,6 +121,7 @@
         if (destination.origin === location.origin) location.assign(destination.href);
       });
     });
+    codeForm.elements.code.addEventListener('input', () => codeForm.elements.code.removeAttribute('aria-invalid'));
     const interval = setInterval(() => { if (!root.isConnected) clearInterval(interval); else tick(); }, 1000);
   });
 })();
