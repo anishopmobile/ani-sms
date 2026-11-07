@@ -31,3 +31,8 @@ Local login page: http://localhost/ani-sms/?page_id=6
 The official `IPeCompany/smsir-php` base URI and verify payload were additionally cross-checked against ANI-SMS; see SMSIR-API.md. The WordPress reference Plugin-sms-ir was already inspected for functional behavior. Native WordPress HTTP remains the runtime adapter; third-party plugin classes/assets are not copied.
 
 The owner clarified that no SMS.ir API key has been obtained yet and that only the base setup is required now. Real delivery/login/registration through SMS.ir is therefore not reported as passed. Later, configure a real API key, approved template ID and exact parameter through the local admin UI, then explicitly enable live sending in the private local configuration and use a controlled paid-test recipient. The existing loopback-only HTTP exception applies solely to this localhost setup; public deployment requires HTTPS.
+
+
+## Optional order phase installed — 1.1.0-rc1
+
+The development checkout now includes active WooCommerce and the optional order module for local simulation. Open `http://localhost/ani-sms/wp-admin/admin.php?page=ani-sms&tab=woocommerce` for recipient settings, four template mappings and masked queued-job previews. Local template IDs remain 0; no API key is needed. Test orders #14/#15 were created via CRUD and edited through the HPOS order screen. Use the local Process eligible jobs action after five seconds. Configuration backup is outside the document root/Git. Core auth remains enabled and the existing login page is unchanged. See WOOCOMMERCE.md before configuring approved live templates and controlled real recipients; the current dummy test destinations must not be used for paid testing.

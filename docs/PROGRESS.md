@@ -1,5 +1,9 @@
 # ANI-SMS progress
 
+## Optional order notifications — 1.1.0-rc1, 2026-11-07
+
+Implemented the explicitly authorized WooCommerce phase on codex/ani-sms-v1 after the one-time rc3 main promotion. Durable encrypted queue, independent recipients/templates, transition deduplication/coalescing, cancellation guards, local previews and HPOS support are complete. Owner-site UI: 19 configuration/security/module checks and 11 actual-order checks passed after mobile/form-recovery fixes. PHP 8.3/8.5, CPT/HPOS and WooCommerce-absent regression evidence is in [WOOCOMMERCE-TESTS.md](WOOCOMMERCE-TESTS.md). No real SMS was sent.
+
 ## Complete local walkthrough and fixes — 1.0.0-rc3, 2026-11-07
 
 Reproduced the owner's requested cases on the actual localhost site using real 120-second expiry and 60-second resend waits, without database timestamp changes or clock simulation. The RC2 baseline completed 32 browser checks: 29 passed and three UI checks failed (confirmation remained enabled after attempt lock, expired test code remained visible, and expired confirmation remained enabled). The server rejected invalid/expired/locked codes correctly in the baseline.
