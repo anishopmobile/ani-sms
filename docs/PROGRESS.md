@@ -1,3 +1,7 @@
+# Cart reminder checkpoint — contract only
+
+Owner requested implementation plus local return-to-cart, purchase, withdrawal and duplicate-prevention tests. The independent contract and acceptance matrix are in CART.md, CART-TESTS.md and ADR 0007. **Implementation, deployment and tests are pending**: the local runner reported an MXC D: volume enumeration error, alternative execution stalled and Node initialization timed out. No plugin code, schema or release version changed in this checkpoint. Resume by restoring the local runner, inspecting the feature checkout and pending read-only processes, then implement the contract and execute the matrix. No real SMS was sent. main is unchanged.
+
 # Product discount alerts — 1.4.0-rc1, 2026-11-07
 
 Implemented the authorized optional discount module on codex/ani-sms-v1: exact native sales, separate current marketing consent and product intent, immutable local/live modes, encrypted bounded queue, mandatory unsubscribe, sale-change/withdrawal cancellation, privacy and lifecycle. Owner UI: 28 assertions passed with zero browser errors; discount 44, mocked boundary 7, two-client race 4 and 51-recipient batching 6 passed. See DISCOUNT.md and DISCOUNT-TESTS.md. No real API or SMS delivery was used.
