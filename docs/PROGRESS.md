@@ -1,5 +1,9 @@
 # ANI-SMS progress
 
+## Exact-product stock alerts — 1.3.0-rc1, 2026-11-07
+
+Completed the explicitly authorized stock module on codex/ani-sms-v1: simple/exact variation requests, stock-v1 confirmation, immutable modes, cancellation, 30-day expiry, bounded fanout/recovery, transactional settings and local simulation. Owner UI repeat passed 28 checks; stock 43, live-boundary 7 and real two-client concurrency 4 passed, plus dependency/lifecycle/order/campaign/OTP regressions. See STOCK-TESTS.md for exact environments and limits. No real API or SMS delivery was used.
+
 ## Independent consent and campaigns — 1.2.0-rc1, 2026-11-07
 
 Completed spec phase six on codex/ani-sms-v1: pending-only import, verified explicit opt-in, suppression and token opt-out, preview-bound campaign approval, scheduling/pause/resume/cancel, generic queue integration and text/bulk transport. Schema 4 isolates local/live consent and OTP phone proof. Owner-site workflow passed 43 UI assertions; isolated suites passed marketing 42, provider 15 and live-boundary 5, plus OTP/order/concurrency/lifecycle regressions. See MARKETING-TESTS.md for exact environments and limits. No real API or SMS delivery was used.

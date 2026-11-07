@@ -1,4 +1,4 @@
-# ANI-SMS architecture — 1.2 candidate
+# ANI-SMS architecture — 1.3 candidate
 
 Source root: `wp-content/plugins/ani-sms`. The bootstrap registers lifecycle hooks and boots at init priority 5 through a namespace-only loader. `Core/Plugin` is the composition root. Infrastructure has no dependency on WooCommerce, Elementor or a theme.
 
@@ -36,3 +36,8 @@ No bulk jobs exist in 1.0, so there is no unneeded queue dependency. Future queu
 Schema 4 adds the shared encrypted queue/event-state tables, subscribers, versioned consent evidence, campaigns and durable recipient snapshots. Identity proof and consent modes separate local simulations from live marketing. Successful OTP completion stamps proof mode in the same transaction as consumption; old identities remain unknown until reverified. Core queue has generic handlers, conditional claims, leases and deferred work; it has no WooCommerce/marketing business dependency. Paused campaign jobs are excluded from runnable selection.
 
 WooCommerce uses only its CRUD and hooks with HPOS compatibility; marketing uses core identity proof and its own consent state. Billing phones and imports never grant consent. The marketing opt-out route and privacy hooks remain available while the module is disabled; subscriber assets/opt-in and campaign dispatch do not. See WOOCOMMERCE.md, MARKETING.md and ADRs 0003/0004 for event/retention/control policies.
+
+
+## Stock extension
+
+Schema 5 adds stock_requests, unique by exact product/user/mode, with policy/source, encrypted phone and latest-job identity. Stock uses WooCommerce CRUD and its own one-shot request state, not marketing subscribers. Queue completion and reconciliation take the product lock and match the latest job, preventing stale cancellation from overwriting a new revision. Recovery is bounded/rotating; classic product hooks and explicit shortcodes support the public UI. See STOCK.md and ADR 0005.
