@@ -8,16 +8,23 @@ use AniSms\Security\LocalTest;
 use AniSms\Security\Secrets;
 
 final class Admin {
-	public function __construct( private Database $store ) {}
+	public function __construct( private Database $store, private array $pending = array() ) {}
 	public function render(): void {
 		$settings = Settings::get();
-		$queue    = new Queue( $this->store );
-		$reason   = ( new Module( $this->store, $queue ) )->unavailable_reason();
+		$pending  = 'save_woocommerce' === ( $this->pending['ani_op'] ?? '' ) ? $this->pending : array();
+		if ( $pending ) {
+			foreach ( array( 'customer_enabled', 'admin_enabled', 'created_enabled' ) as $key ) {
+				$settings[ $key ] = '1' === ( $pending[ $key ] ?? '' ); }
+			$settings['statuses'] = is_array( $pending['statuses'] ?? null ) ? array_filter( $pending['statuses'], 'is_string' ) : array();
+		}
+		$phones = is_string( $pending['admin_phones'] ?? null ) ? $pending['admin_phones'] : implode( ', ', $settings['admin_phones'] );
+		$queue  = new Queue( $this->store );
+		$reason = ( new Module( $this->store, $queue ) )->unavailable_reason();
 		if ( $reason ) {
 			echo '<p class="ani-feedback">' . esc_html( $reason ) . '</p>'; }
 		echo '<p>' . esc_html__( 'Order notifications are optional. Enable the module and each recipient group separately. Billing phones are used only for that order, never for account linking.', 'ani-sms' ) . '</p>';
 		echo '<p>' . esc_html__( 'Local test: template ID 0 is allowed; no API or SMS is used. Simulated results are not deliveries. Live sending requires approved SMS.ir templates and the server live switch.', 'ani-sms' ) . '</p>';
-		echo '<form method="post" class="ani-settings">';
+		echo '<form method="post" class="ani-settings ani-order-settings">';
 		wp_nonce_field( 'ani_sms_admin' );
 		echo '<input type="hidden" name="ani_op" value="save_woocommerce">';
 		foreach ( array(
@@ -27,8 +34,8 @@ final class Admin {
 		) as $key => $label ) {
 			echo '<label><input type="checkbox" name="' . esc_attr( $key ) . '" value="1" ' . checked( $settings[ $key ], true, false ) . '> ' . esc_html( $label ) . '</label><br>';
 		}
-		echo '<label class="ani-field"><span>' . esc_html__( 'Administrator mobiles (up to five, comma separated)', 'ani-sms' ) . '</span><input name="admin_phones" dir="ltr" maxlength="200" value="' . esc_attr( implode( ', ', $settings['admin_phones'] ) ) . '"></label>';
-		echo '<fieldset><legend>' . esc_html__( 'Notify when status changes to:', 'ani-sms' ) . '</legend>';
+		echo '<label class="ani-field"><span>' . esc_html__( 'Administrator mobiles (up to five, comma separated)', 'ani-sms' ) . '</span><input name="admin_phones" dir="ltr" maxlength="200" value="' . esc_attr( $phones ) . '"></label>';
+		echo '<fieldset class="ani-order-statuses"><legend>' . esc_html__( 'Notify when status changes to:', 'ani-sms' ) . '</legend>';
 		$statuses = function_exists( 'wc_get_order_statuses' ) ? wc_get_order_statuses() : array();
 		foreach ( $statuses as $status => $label ) {
 			$status = substr( $status, 3 );
@@ -40,7 +47,9 @@ final class Admin {
 			$lines = array();
 			foreach ( $settings[ $route ]['mapping'] as $key => $variable ) {
 				$lines[] = $key . '=' . $variable; }
-			echo '<fieldset><legend>' . esc_html( $labels[ $route ] ) . '</legend><label class="ani-field"><span>' . esc_html__( 'Approved template ID', 'ani-sms' ) . '</span><input type="number" min="0" max="2147483647" required name="' . esc_attr( $route ) . '[template]" value="' . esc_attr( (string) $settings[ $route ]['template'] ) . '"></label><label class="ani-field"><span>' . esc_html__( 'Parameter mapping', 'ani-sms' ) . '</span><textarea rows="5" dir="ltr" required name="' . esc_attr( $route ) . '[mapping]">' . esc_textarea( implode( "\n", $lines ) ) . '</textarea></label></fieldset>';
+			$mapping  = is_string( $pending[ $route ]['mapping'] ?? null ) ? $pending[ $route ]['mapping'] : implode( "\n", $lines );
+			$template = is_scalar( $pending[ $route ]['template'] ?? null ) ? (string) $pending[ $route ]['template'] : (string) $settings[ $route ]['template'];
+			echo '<fieldset class="ani-order-route"><legend>' . esc_html( $labels[ $route ] ) . '</legend><label class="ani-field"><span>' . esc_html__( 'Approved template ID', 'ani-sms' ) . '</span><input type="number" min="0" max="2147483647" required name="' . esc_attr( $route ) . '[template]" value="' . esc_attr( $template ) . '"></label><label class="ani-field"><span>' . esc_html__( 'Parameter mapping', 'ani-sms' ) . '</span><textarea rows="5" dir="ltr" wrap="off" required name="' . esc_attr( $route ) . '[mapping]">' . esc_textarea( $mapping ) . '</textarea></label></fieldset>';
 		}
 		echo '<button class="ani-button">' . esc_html__( 'Save changes', 'ani-sms' ) . '</button></form>';
 		echo '<h3>' . esc_html__( 'Recent notification jobs', 'ani-sms' ) . '</h3><p>' . esc_html__( 'Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request.', 'ani-sms' ) . '</p>';
@@ -48,7 +57,7 @@ final class Admin {
 		wp_nonce_field( 'ani_sms_admin' );
 		echo '<input type="hidden" name="ani_op" value="run_order_queue"><button class="ani-button">' . esc_html__( 'Process eligible jobs', 'ani-sms' ) . '</button></form>';
 		$rows = $this->store->db->get_results( "SELECT * FROM {$this->store->table( 'jobs' )} WHERE module='woocommerce' ORDER BY id DESC LIMIT 20", ARRAY_A );
-		echo '<div class="ani-table-scroll"><table><thead><tr>';
+		echo '<div class="ani-table-scroll ani-order-jobs" tabindex="0"><table><thead><tr>';
 		foreach ( array( __( 'Order', 'ani-sms' ), __( 'Route', 'ani-sms' ), __( 'Phone', 'ani-sms' ), __( 'State', 'ani-sms' ), __( 'Error category', 'ani-sms' ), __( 'Local preview', 'ani-sms' ) ) as $label ) {
 			echo '<th scope="col">' . esc_html( $label ) . '</th>'; }
 		echo '</tr></thead><tbody>';

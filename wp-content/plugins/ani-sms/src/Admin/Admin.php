@@ -56,7 +56,7 @@ final class Admin {
 				if ( 'toplevel_page_ani-sms' !== $hook ) {
 					return; }
 				$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.1.0-rc1' );
+				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.1.0-rc1-orders-ui' );
 				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.1.0-rc1', true );
 				wp_localize_script(
 					'ani-sms-admin',
@@ -338,7 +338,7 @@ href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>
 				$this->button( __( 'Save module state', 'ani-sms' ) );
 				break;
 			case 'woocommerce':
-				( new \AniSms\WooCommerce\Admin( $this->store ) )->render();
+				( new \AniSms\WooCommerce\Admin( $this->store, $this->pending ) )->render();
 				break;
 			case 'templates':
 				echo '<p>' . esc_html__( 'Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates.', 'ani-sms' ) . '</p>';

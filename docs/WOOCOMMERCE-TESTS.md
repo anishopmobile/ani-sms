@@ -18,3 +18,10 @@ Use only a disposable WordPress installation with `ANI_SMS_TEST_ENV=true`, envir
 Run `order-transport.php` without the local-test server flag; its provider traffic is mocked. Run `woocommerce-absent.php` in a separate fixture without WooCommerce. `lifecycle.php` exercises explicit purge and therefore belongs only in the disposable fixture.
 
 Production source and distributable contain no test DB credentials, local configuration, API key, SQL dump, vendor SDK, browser dependency or test harness.
+
+
+## Owner installation UI walkthrough
+
+Installed the committed candidate on the owner's `codex/ani-sms-v1` checkout, preserving private configuration. Activated the already-installed WooCommerce and backed up module options outside Git. Initial desktop/mobile configuration walkthrough passed 11 checks; initial actual-order walkthrough passed 12 checks (including job previews, a status save through WooCommerce HPOS UI, simulated results, no duplicate reload and the simulated log filter). External browser and temporary server HTTP guards isolated the run; emails are suppressed only for orders marked `ani-sms-local-test`.
+
+Mobile inspection found narrow textareas and cramped status/table wrapping. Added full-width code fields, grouped status controls and an internally scrolling queue table. Failed settings submissions now retain safe escaped fields for correction while leaving saved options unchanged. The repeat UI run also checks rejected missing-nonce requests and guest access.
