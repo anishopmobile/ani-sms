@@ -2,7 +2,7 @@
 /** Original WordPress HTTP adapter; no third-party SDK runtime. @package AniSms */
 namespace AniSms\Provider;
 
-final class SmsIr implements Provider {
+final class SmsIr implements TransactionalProvider {
 	public function __construct( #[\SensitiveParameter] private string $key ) {}
 	public function capabilities(): array {
 		return array(
@@ -17,21 +17,37 @@ final class SmsIr implements Provider {
 		$phone = \AniSms\Support\Phone::normalize( $phone );
 		if ( $template < 1 || ! preg_match( '/^[A-Za-z][A-Za-z0-9_]{0,39}$/D', $parameter ) || ! preg_match( '/^[0-9]{6}$/D', $code ) ) {
 			return new Result( 'failed', 'configuration' ); }
+		return $this->send_parameters( $phone, $template, array( $parameter => $code ) );
+	}
+	public function send_parameters( string $phone, int $template, array $parameters ): Result {
+		if ( \AniSms\Security\LocalTest::requested() ) {
+			return new Result( 'failed', 'local_test_enabled' );
+		}
+		$phone = \AniSms\Support\Phone::normalize( $phone );
+		if ( $template < 1 || count( $parameters ) < 1 || count( $parameters ) > 10 ) {
+			return new Result( 'failed', 'configuration' );
+		}
+		$items = array();
+		foreach ( $parameters as $name => $value ) {
+			if ( ! is_string( $name ) || ! preg_match( '/^[A-Za-z][A-Za-z0-9_]{0,39}$/D', $name ) || ! is_string( $value ) || '' === $value || mb_strlen( $value ) > 200 || preg_match( '/[\x00-\x1F\x7F]/u', $value ) ) {
+				return new Result( 'failed', 'configuration' );
+			}
+			$items[] = array(
+				'name'  => $name,
+				'value' => $value,
+			);
+		}
 		return $this->request(
 			'POST',
 			'/v1/send/verify/',
 			array(
 				'mobile'     => '0' . substr( $phone, 3 ),
 				'templateId' => $template,
-				'parameters' => array(
-					array(
-						'name'  => $parameter,
-						'value' => $code,
-					),
-				),
+				'parameters' => $items,
 			)
 		);
 	}
+
 	public function connection(): Result {
 		$result = $this->request( 'GET', '/v1/credit' );
 		return new Result( $result->state, $result->error, credit: $result->credit, operation: 'connection' );

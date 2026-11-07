@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ANI-SMS
  * Description: Independent modular SMS infrastructure and mobile authentication.
- * Version: 1.0.0-rc3
+ * Version: 1.1.0-rc1
  * Requires at least: 6.8
  * Requires PHP: 8.3
  * License: GPL-2.0-or-later
@@ -32,4 +32,13 @@ add_action(
 		$plugin->boot();
 	},
 	5
+);
+
+add_action(
+	'before_woocommerce_init',
+	static function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
 );

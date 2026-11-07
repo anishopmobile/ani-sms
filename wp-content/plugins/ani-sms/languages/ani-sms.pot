@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.0.0-rc3\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.1.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -31,7 +31,13 @@ msgstr ""
 msgid "Account connection succeeded. This does not verify the OTP template or message delivery."
 msgstr ""
 
+msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
+msgstr ""
+
 msgid "Add [ani_sms_auth] to a WordPress page. HTTPS is required. Exclude that page and admin-ajax authentication responses from page/CDN caching. Browser tokens are fetched separately and never embedded in cached HTML."
+msgstr ""
+
+msgid "Administrator mobiles (up to five, comma separated)"
 msgstr ""
 
 msgid "All"
@@ -44,6 +50,9 @@ msgid "Another authentication handler requires a reviewed compatibility adapter.
 msgstr ""
 
 msgid "Approved OTP template ID"
+msgstr ""
+
+msgid "Approved template ID"
 msgstr ""
 
 msgid "Authentication dependencies are available."
@@ -100,6 +109,9 @@ msgstr ""
 msgid "Enable JavaScript to use mobile authentication, or use the standard login."
 msgstr ""
 
+msgid "Enable WooCommerce order notifications"
+msgstr ""
+
 msgid "Enable mobile authentication"
 msgstr ""
 
@@ -121,6 +133,9 @@ msgstr ""
 msgid "If this number is eligible, a code has been sent."
 msgstr ""
 
+msgid "Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request."
+msgstr ""
+
 msgid "Last checked:"
 msgstr ""
 
@@ -131,6 +146,9 @@ msgid "Local OTP test mode is active. No SMS is sent; codes are shown on the loc
 msgstr ""
 
 msgid "Local OTP testing requires a local environment, a loopback site URL and a loopback connection."
+msgstr ""
+
+msgid "Local preview"
 msgstr ""
 
 msgid "Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates."
@@ -145,6 +163,9 @@ msgstr ""
 msgid "Local test mode: no SMS is sent. Test codes appear here. New registrations create real local WordPress accounts. Privileged accounts still use the standard login."
 msgstr ""
 
+msgid "Local test: template ID 0 is allowed; no API or SMS is used. Simulated results are not deliveries. Live sending requires approved SMS.ir templates and the server live switch."
+msgstr ""
+
 msgid "Login / Register"
 msgstr ""
 
@@ -155,6 +176,9 @@ msgid "Logs"
 msgstr ""
 
 msgid "Logs are kept for 30 days without message bodies or OTP values. Expired challenges are cleaned after one hour and rate metadata after 24 hours beyond its window. Deactivation stops authentication and preserves permanent data. Configure a system cron at least every five minutes on low-traffic sites."
+msgstr ""
+
+msgid "Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:"
 msgstr ""
 
 msgid "Maximum attempts per challenge"
@@ -196,6 +220,18 @@ msgstr ""
 msgid "Not run yet"
 msgstr ""
 
+msgid "Notify administrator recipients"
+msgstr ""
+
+msgid "Notify customer"
+msgstr ""
+
+msgid "Notify on order creation"
+msgstr ""
+
+msgid "Notify when status changes to:"
+msgstr ""
+
 msgid "OTP parameter"
 msgstr ""
 
@@ -205,10 +241,34 @@ msgstr ""
 msgid "Operation"
 msgstr ""
 
+msgid "Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling."
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Order created · administrator"
+msgstr ""
+
+msgid "Order created · customer"
+msgstr ""
+
+msgid "Order notifications"
+msgstr ""
+
+msgid "Order notifications are optional. Enable the module and each recipient group separately. Billing phones are used only for that order, never for account linking."
+msgstr ""
+
 msgid "Overview"
 msgstr ""
 
 msgid "Panel credit"
+msgstr ""
+
+msgid "Parameter mapping"
+msgstr ""
+
+msgid "Parameters · no SMS sent"
 msgstr ""
 
 msgid "Permission denied."
@@ -226,10 +286,19 @@ msgstr ""
 msgid "Privacy policy"
 msgstr ""
 
+msgid "Process eligible jobs"
+msgstr ""
+
 msgid "Publish and configure a privacy policy page before enabling mobile authentication."
 msgstr ""
 
+msgid "Queue data cannot be matched after server key rotation; it expires within 24 hours through scheduled cleanup."
+msgstr ""
+
 msgid "Recent connection result is still current."
+msgstr ""
+
+msgid "Recent notification jobs"
 msgstr ""
 
 msgid "Replace API key (leave blank to keep)"
@@ -239,6 +308,9 @@ msgid "Resend code"
 msgstr ""
 
 msgid "Resend cooldown (seconds)"
+msgstr ""
+
+msgid "Route"
 msgstr ""
 
 msgid "SMS sending is disabled in server configuration."
@@ -287,6 +359,12 @@ msgid "State"
 msgstr ""
 
 msgid "Status"
+msgstr ""
+
+msgid "Status changed · administrator"
+msgstr ""
+
+msgid "Status changed · customer"
 msgstr ""
 
 msgid "Template ID"

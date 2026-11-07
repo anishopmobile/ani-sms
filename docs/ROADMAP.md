@@ -14,8 +14,12 @@
 
 Real SMS.ir account/template contract and a deliberate paid test using credentials outside the repository. No real message has been sent during this work. Review candidate installation and acceptance by the owner do not imply permission to merge main or publish a GitHub release.
 
-## Later product phases — not implemented and not authorized by the 1.0 scope
+## Later product phases — still deferred
 
-Optional WooCommerce transactional notifications; consent/subscribers/campaigns and their queue; back-in-stock, discounts, abandoned carts, newsletter and explicitly selected form integrations. Each needs its documented trigger/recipient/consent/cancellation contract. No placeholder pages or mandatory WooCommerce/Elementor dependency are included.
+Consent/subscribers/campaigns; back-in-stock, discounts, abandoned carts, newsletter and explicitly selected form integrations. Each needs its documented trigger/recipient/consent/cancellation contract. No placeholder pages or mandatory WooCommerce/Elementor dependency are included.
 
 Other providers/channels, fallback, CAPTCHA, advanced velocity checks, registration time windows and Woodmart-specific integrations remain excluded until a separate instruction.
+
+## Authorized 1.1 order phase
+
+Optional WooCommerce transactional notifications and their generic durable queue are implemented in 1.1.0-rc1. See WOOCOMMERCE.md and decision 0003. Real SMS.ir delivery remains an external release gate.

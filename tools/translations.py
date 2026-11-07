@@ -5,6 +5,34 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+'Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling.': 'اعلان اختیاری سفارش از شماره صورتحساب و مقادیر نمایشی سفارش در قالب تراکنشی SMS.ir استفاده می\u200cکند. داده رمزگذاری\u200cشده صف پس از ۲۴ ساعت منقضی و متن اعلان واقعی پس از رسیدن به نتیجه نهایی فوراً حذف می\u200cشود. شبیه\u200cسازی لوکال پیامکی ارسال نمی\u200cکند. لاگ ماسک\u200cشده پس از ۳۰ روز حذف می\u200cشود. شماره صورتحساب به هویت ورود متصل نمی\u200cشود. خروجی و حذف داده صف با ایمیل صورتحساب ممکن است؛ نسخه پشتیبان نیازمند رسیدگی جداگانه است.',
+
+    'Order notifications': 'اعلان\u200cهای سفارش',
+    'Activate WooCommerce to use order notifications. Saved settings are preserved.': 'برای اعلان\u200cهای سفارش، ووکامرس را فعال کنید. تنظیمات ذخیره\u200cشده حفظ می\u200cشوند.',
+    'Enable WooCommerce order notifications': 'فعال\u200cسازی اعلان\u200cهای سفارش ووکامرس',
+    'Order notifications are optional. Enable the module and each recipient group separately. Billing phones are used only for that order, never for account linking.': 'اعلان\u200cهای سفارش اختیاری\u200cاند. ماژول و هر گروه گیرنده را جداگانه فعال کنید. شماره صورتحساب فقط برای همان سفارش استفاده می\u200cشود و به حساب کاربری متصل نمی\u200cشود.',
+    'Local test: template ID 0 is allowed; no API or SMS is used. Simulated results are not deliveries. Live sending requires approved SMS.ir templates and the server live switch.': 'در تست لوکال شناسه قالب ۰ مجاز است؛ API استفاده نمی\u200cشود و پیامکی ارسال نمی\u200cشود. نتیجه شبیه\u200cسازی به معنی تحویل پیامک نیست. ارسال واقعی به قالب تأییدشده SMS.ir و فعال\u200cسازی ارسال در تنظیمات سرور نیاز دارد.',
+    'Notify customer': 'اعلان به مشتری',
+    'Notify administrator recipients': 'اعلان به شماره\u200cهای مدیر',
+    'Notify on order creation': 'اعلان هنگام ثبت سفارش',
+    'Administrator mobiles (up to five, comma separated)': 'شماره\u200cهای مدیر (حداکثر پنج شماره، جداشده با کاما)',
+    'Notify when status changes to:': 'اعلان هنگام تغییر وضعیت به:',
+    'Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:': 'قالب نگاشت: ExactPanelParameter=variable، هر نگاشت در یک خط. متغیرهای مجاز:',
+    'Approved template ID': 'شناسه قالب تأییدشده',
+    'Parameter mapping': 'نگاشت پارامترها',
+    'Recent notification jobs': 'اعلان\u200cهای اخیر در صف',
+    'Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request.': 'اعلان\u200cهای صف پس از ۲۴ ساعت منقضی می\u200cشوند. نتایج نامشخص خودکار تکرار نمی\u200cشوند. اجرای WP-Cron به بازدید سایت وابسته است؛ برای ارسال به\u200cموقع، cron سیستم را هر دقیقه اجرا کنید. صف لوکال فقط از اتصال loopback اجرا می\u200cشود.',
+    'Process eligible jobs': 'پردازش اعلان\u200cهای آماده',
+    'Order': 'سفارش',
+    'Route': 'مسیر اعلان',
+    'Local preview': 'پیش\u200cنمایش لوکال',
+    'Parameters · no SMS sent': 'پارامترها · پیامکی ارسال نشده',
+    'Order created · customer': 'ثبت سفارش · مشتری',
+    'Order created · administrator': 'ثبت سفارش · مدیر',
+    'Status changed · customer': 'تغییر وضعیت · مشتری',
+    'Status changed · administrator': 'تغییر وضعیت · مدیر',
+    'Queue data cannot be matched after server key rotation; it expires within 24 hours through scheduled cleanup.': 'پس از تعویض کلید سرور، تطبیق داده\u200cهای صف ممکن نیست؛ داده\u200cها پس از ۲۴ ساعت با پاک\u200cسازی زمان\u200cبندی\u200cشده حذف می\u200cشوند.',
+
     'Too many incorrect codes. Request a new code when the resend timer ends.': 'تعداد کدهای اشتباه بیش از حد مجاز است. پس از پایان زمان انتظار، کد جدید بگیرید.',
     'The code is incorrect. Please try again.': 'کد واردشده اشتباه است. دوباره تلاش کنید.',
     'Test code created. No SMS was sent.': 'کد آزمایشی ساخته شد. پیامکی ارسال نشده است.',
@@ -135,7 +163,7 @@ language_dir = root / 'languages'
 language_dir.mkdir(exist_ok=True)
 def quote(s):
     return json.dumps(s, ensure_ascii=False)
-header = 'Project-Id-Version: ANI-SMS 1.0.0-rc3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
+header = 'Project-Id-Version: ANI-SMS 1.1.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
 pot = 'msgid ""\nmsgstr ' + quote(header.replace('Language: fa_IR', 'Language: ')) + '\n\n'
 po = 'msgid ""\nmsgstr ' + quote(header) + '\n\n'
 for msg in sorted(messages):
@@ -147,7 +175,7 @@ for msg in sorted(messages):
 def php(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 entries = ',\n'.join('\t\t' + php(k) + ' => ' + php(v) for k, v in sorted(translations.items()))
-catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.0.0-rc3',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
+catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.1.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
 (language_dir / 'ani-sms-fa_IR.l10n.php').write_text(catalog, encoding='utf-8')
 missing = messages - translations.keys()
 print(f'Generated {len(translations)} Persian translations; {len(missing)} strings untranslated.')

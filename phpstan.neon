@@ -7,3 +7,5 @@ parameters:
     bootstrapFiles:
         - wp-content/plugins/ani-sms/src/autoload.php
     tmpDir: .phpstan-cache
+    scanFiles:
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php

@@ -22,8 +22,11 @@ final class Settings {
 		return array_merge( self::defaults(), is_array( $saved ) ? $saved : array() );
 	}
 	public static function enabled(): bool {
+		return self::module_enabled( 'auth' );
+	}
+	public static function module_enabled( string $id ): bool {
 		$ids = get_option( 'ani_sms_modules', array() );
-		return is_array( $ids ) && in_array( 'auth', $ids, true );
+		return is_array( $ids ) && in_array( $id, $ids, true );
 	}
 	public static function key( Secrets $secrets ): string {
 		$config = defined( 'ANI_SMS_API_KEY' ) ? ANI_SMS_API_KEY : getenv( 'ANI_SMS_API_KEY' );

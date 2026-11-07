@@ -53,3 +53,7 @@ There is no bulk queue or delivery polling in 1.0 because only short-lived OTP/t
 Run `composer install` and `npm ci` for development tools, then `composer test`, `composer style` and `composer analyse`. Integration, race, lifecycle and Playwright/axe instructions are in `docs/TESTING.md`. Tests refuse to run against a WordPress configuration lacking the explicit local/test database guard. No development dependency is required in the production ZIP.
 
 Existing WordPress files and `Plugin-sms-ir/` are preserved. Only the new plugin directory is included by the package builder. Original ANI-SMS code is licensed GPL-2.0-or-later; existing upstream files retain their licenses.
+
+## 1.1.0-rc1: optional order notifications
+
+The explicitly authorized WooCommerce phase adds creation/status events, independent recipient routes, a durable encrypted queue and loopback-only simulated previews. Core authentication remains independent. See [configuration and event policy](docs/WOOCOMMERCE.md), [validation](docs/WOOCOMMERCE-TESTS.md), and [decision 0003](docs/decisions/0003-order-notifications.md). Main contains only the rc3 baseline; the new module is on `codex/ani-sms-v1`.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0-rc1 — 2026-11-07
+
+- Add optional WooCommerce creation/status notifications, separate customer/admin routing and safe multi-variable templates.
+- Add encrypted durable queue, bounded workers, transition deduplication/coalescing and stale-snapshot cancellation.
+- Add loopback-only simulated order previews, privacy erasure/export, dependency guards and HPOS compatibility.
+- Preserve the rc3 main baseline; order work is confined to codex/ani-sms-v1.
+
 ## 1.0.0-rc3 — 2026-11-07
 
 - Fix expired/attempt-locked form states: clear unusable codes, disable confirmation and recover after a fresh resend.

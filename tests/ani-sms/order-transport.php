@@ -1,0 +1,34 @@
+<?php
+require __DIR__.'/bootstrap.php';
+$calls=0;$reply='accepted';
+add_filter('pre_http_request',function($pre,$args,$url)use(&$calls,&$reply){
+	++$calls;
+	ani_check('https://api.sms.ir/v1/send/verify/'===$url && 'POST'===$args['method'],'fixed verify endpoint');
+	$body=json_decode($args['body'],true);
+	ani_check('09120000001'===$body['mobile'] && 123===$body['templateId'] && 2===count($body['parameters']),'exact multi-parameter provider payload');
+	return 'unknown'===$reply?new WP_Error('timeout','simulated'):array('response'=>array('code'=>200),'body'=>'{"status":1,"data":{"messageId":123456}}','headers'=>array());
+},10,3);
+$provider=new AniSms\Provider\SmsIr('dummy-test-key');
+$result=$provider->send_parameters('09120000001',123,array('OrderNumber'=>'42','Status'=>'در حال انجام'));
+ani_check($result->accepted() && '123456'===$result->message_id,'multi-variable transactional acceptance');
+$reply='unknown';$result=$provider->send_parameters('09120000001',123,array('OrderNumber'=>'42','Status'=>'در حال انجام'));
+ani_check('unknown'===$result->state && 2===$calls && !$result->retryable,'ambiguous POST has no automatic retry');
+$before=$calls;
+ani_check('failed'===$provider->send_parameters('09120000001',123,array('Bad Param'=>'x'))->state,'invalid panel parameter rejected');
+ani_check('failed'===$provider->send_parameters('09120000001',123,array('Status'=>str_repeat('a',201)))->state,'oversized value rejected');
+ani_check('failed'===$provider->send_parameters('09120000001',0,array('Status'=>'x'))->state,'zero live template rejected');
+ani_check($before===$calls,'invalid configuration never reaches HTTP');
+$store=new AniSms\Infrastructure\Database($wpdb);$store->migrate();
+$queue=new AniSms\Infrastructure\Queue($store);
+update_option('ani_sms_modules',array('queue-test'));
+$attempts=0;
+$queue->register('queue-test',function()use(&$attempts){++$attempts;return new AniSms\Provider\Result('unknown','transport');});
+$queue->enqueue(array('job_key'=>hash('sha256',random_bytes(32)),'module'=>'queue-test','subject'=>'test:unknown','sequence'=>1,'route'=>'status_customer','mode'=>'live','user_id'=>0,'email_hash'=>'','phone_mask'=>'','available'=>0),array());
+$queue->drain();$queue->drain();
+ani_check(1===$attempts,'durable worker never retries an unknown provider result');
+$queue->enqueue(array('job_key'=>hash('sha256',random_bytes(32)),'module'=>'queue-test','subject'=>'test:local','sequence'=>1,'route'=>'status_customer','mode'=>'local','user_id'=>0,'email_hash'=>'','phone_mask'=>'','available'=>0),array());
+$queue->drain();
+ani_check(1===$attempts,'stored local job never becomes a live send when local mode is off');
+$store->query("DELETE FROM {$store->table('jobs')} WHERE module='queue-test'");
+update_option('ani_sms_modules',array('auth'));
+echo 'Order transport checks: '.$GLOBALS['ani_checks']." passed; HTTP mocked\n";

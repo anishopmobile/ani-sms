@@ -27,9 +27,19 @@ final class Plugin {
 			wp_schedule_event( time() + 300, 'hourly', 'ani_sms_cleanup' ); }
 		( new \AniSms\Admin\Admin( $store ) )->boot();
 		( new \AniSms\Privacy\Privacy( $store ) )->boot();
+		( new \AniSms\Privacy\Jobs( $store ) )->boot();
+		$queue = new \AniSms\Infrastructure\Queue( $store );
+		$queue->boot();
+		add_action( 'ani_sms_dispatch_soon', array( $queue, 'drain' ) );
 		$auth    = new \AniSms\Auth\Module( $store );
 		$modules = new ModuleRegistry();
 		$modules->register( $auth );
+		$available = class_exists( 'WooCommerce' );
+		if ( (bool) get_option( 'ani_sms_wc_available', false ) !== $available ) {
+			update_option( 'ani_sms_wc_generation', bin2hex( random_bytes( 16 ) ), false );
+			update_option( 'ani_sms_wc_available', $available, false );
+		}
+		$modules->register( new \AniSms\WooCommerce\Module( $store, $queue ) );
 		$enabled = get_option( 'ani_sms_modules', array() );
 		$modules->boot( is_array( $enabled ) ? $enabled : array() );
 		$reason = Settings::enabled() ? $auth->unavailable_reason() : __( 'Mobile authentication is disabled.', 'ani-sms' );

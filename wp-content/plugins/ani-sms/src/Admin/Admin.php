@@ -12,24 +12,26 @@ final class Admin {
 	private bool $error    = false;
 	private array $pending = array();
 	private const TABS     = array(
-		'overview'   => 'Overview',
-		'connection' => 'SMS.ir connection',
-		'auth'       => 'Login and registration',
-		'modules'    => 'Modules',
-		'templates'  => 'Local templates',
-		'logs'       => 'Logs',
-		'help'       => 'Help',
+		'overview'    => 'Overview',
+		'connection'  => 'SMS.ir connection',
+		'auth'        => 'Login and registration',
+		'modules'     => 'Modules',
+		'woocommerce' => 'Order notifications',
+		'templates'   => 'Local templates',
+		'logs'        => 'Logs',
+		'help'        => 'Help',
 	);
 	public function __construct( private Database $store ) {}
 	private function tabs(): array {
 		return array(
-			'overview'   => __( 'Overview', 'ani-sms' ),
-			'connection' => __( 'SMS.ir connection', 'ani-sms' ),
-			'auth'       => __( 'Login and registration', 'ani-sms' ),
-			'modules'    => __( 'Modules', 'ani-sms' ),
-			'templates'  => __( 'Local templates', 'ani-sms' ),
-			'logs'       => __( 'Logs', 'ani-sms' ),
-			'help'       => __( 'Help', 'ani-sms' ),
+			'overview'    => __( 'Overview', 'ani-sms' ),
+			'connection'  => __( 'SMS.ir connection', 'ani-sms' ),
+			'auth'        => __( 'Login and registration', 'ani-sms' ),
+			'modules'     => __( 'Modules', 'ani-sms' ),
+			'woocommerce' => __( 'Order notifications', 'ani-sms' ),
+			'templates'   => __( 'Local templates', 'ani-sms' ),
+			'logs'        => __( 'Logs', 'ani-sms' ),
+			'help'        => __( 'Help', 'ani-sms' ),
 		);
 	}
 	public function boot(): void {
@@ -54,8 +56,8 @@ final class Admin {
 				if ( 'toplevel_page_ani-sms' !== $hook ) {
 					return; }
 				$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.0.0-rc3' );
-				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.0.0-rc3', true );
+				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.1.0-rc1' );
+				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.1.0-rc1', true );
 				wp_localize_script(
 					'ani-sms-admin',
 					'aniSmsAdminText',
@@ -128,8 +130,27 @@ final class Admin {
 				case 'save_auth':
 					update_option( 'ani_sms_settings', Settings::validate( array_merge( array( 'registration' => '0' ), array_intersect_key( $input, array_flip( array( 'registration', 'expiry', 'cooldown', 'attempts', 'site_limit' ) ) ) ) ), false );
 					break;
+				case 'save_woocommerce':
+					if ( ! function_exists( 'wc_get_order_statuses' ) ) {
+						throw new \RuntimeException( 'WooCommerce unavailable.' ); }
+					update_option( 'ani_sms_wc_settings', \AniSms\WooCommerce\Settings::validate( $input ), false );
+					break;
+				case 'run_order_queue':
+					do_action( 'ani_sms_dispatch' );
+					break;
 				case 'save_modules':
-					update_option( 'ani_sms_modules', '1' === ( $input['auth_enabled'] ?? '' ) ? array( 'auth' ) : array(), false );
+					$ids = array();
+					if ( '1' === ( $input['auth_enabled'] ?? '' ) ) {
+						$ids[] = 'auth'; }
+					if ( '1' === ( $input['woocommerce_enabled'] ?? '' ) ) {
+						$ids[] = 'woocommerce'; }
+					if ( in_array( 'woocommerce', $ids, true ) !== Settings::module_enabled( 'woocommerce' ) ) {
+						update_option( 'ani_sms_wc_generation', bin2hex( random_bytes( 16 ) ), false );
+					}
+					update_option( 'ani_sms_modules', $ids, false );
+					if ( ! Settings::module_enabled( 'woocommerce' ) ) {
+						$this->store->query( "UPDATE {$this->store->table( 'jobs' )} SET state='cancelled',error_code='module_disabled',payload='' WHERE module='woocommerce' AND state='queued'" );
+					}
 					if ( ! Settings::enabled() ) {
 						$this->store->query( "UPDATE {$this->store->table( 'challenges' )} SET state='expired',digest='' WHERE state IN ('active','pending_send')" ); }
 					break;
@@ -173,8 +194,8 @@ final class Admin {
 		$account    = get_transient( 'ani_sms_account' );
 		$start      = ( new \DateTimeImmutable( 'today', wp_timezone() ) )->getTimestamp();
 		$db         = $this->store->db;
-		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms') AND state='accepted'", $start ) );
-		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms') AND state IN ('failed','unknown')", $start ) );
+		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification') AND state='accepted'", $start ) );
+		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification') AND state IN ('failed','unknown')", $start ) );
 		$connection = ! is_array( $account ) ? __( 'Not checked', 'ani-sms' ) : ( 'accepted' === $account['state'] ? __( 'Connected', 'ani-sms' ) : __( 'Connection failed', 'ani-sms' ) );
 		?>
 		<div class="wrap ani-admin">
@@ -191,7 +212,7 @@ final class Admin {
 										echo 'aria-current="page"'; }
 					?>
 href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?>
-				</nav></details><small>SMS.ir · 1.0.0-rc3</small></aside>
+				</nav></details><small>SMS.ir · 1.1.0-rc1</small></aside>
 				<main class="ani-main">
 				<div class="ani-stats">
 				<?php
@@ -313,7 +334,11 @@ href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>
 				echo '<p>' . esc_html( '' === $reason ? __( 'Authentication dependencies are available.', 'ani-sms' ) : $reason ) . '</p>';
 				$this->form( 'save_modules' );
 				echo '<label><input type="checkbox" name="auth_enabled" value="1" ' . checked( Settings::enabled(), true, false ) . '> ' . esc_html__( 'Enable mobile authentication', 'ani-sms' ) . '</label>';
+				echo '<br><label><input type="checkbox" name="woocommerce_enabled" value="1" ' . checked( Settings::module_enabled( 'woocommerce' ), true, false ) . '> ' . esc_html__( 'Enable WooCommerce order notifications', 'ani-sms' ) . '</label>';
 				$this->button( __( 'Save module state', 'ani-sms' ) );
+				break;
+			case 'woocommerce':
+				( new \AniSms\WooCommerce\Admin( $this->store ) )->render();
 				break;
 			case 'templates':
 				echo '<p>' . esc_html__( 'Local template: account verification. Create and approve the template in SMS.ir first. Configure its ID and exact code parameter under Connection. This plugin never creates, edits or deletes panel templates.', 'ani-sms' ) . '</p>';
@@ -334,14 +359,14 @@ href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>
 	}
 	private function logs(): void {
 		$db    = $this->store->db;
-		$state = is_string( $_GET['state'] ?? null ) && in_array( $_GET['state'], array( 'accepted', 'failed', 'unknown' ), true ) ? $_GET['state'] : '';
+		$state = is_string( $_GET['state'] ?? null ) && in_array( $_GET['state'], array( 'accepted', 'failed', 'unknown', 'simulated', 'cancelled' ), true ) ? $_GET['state'] : '';
 		$page  = max( 1, min( 100000, absint( $_GET['logpage'] ?? 1 ) ) );
 		$table = $this->store->table( 'logs' );
 		$where = '' !== $state ? $db->prepare( ' WHERE state=%s', $state ) : '';
 		$count = (int) $db->get_var( "SELECT COUNT(*) FROM $table$where" );
 		$rows  = $db->get_results( $db->prepare( "SELECT * FROM $table$where ORDER BY id DESC LIMIT 20 OFFSET %d", ( $page - 1 ) * 20 ), ARRAY_A );
 		echo '<form method="get"><input type="hidden" name="page" value="ani-sms"><input type="hidden" name="tab" value="logs"><label>' . esc_html__( 'Status', 'ani-sms' ) . ' <select name="state"><option value="">' . esc_html__( 'All', 'ani-sms' ) . '</option>';
-		foreach ( array( 'accepted', 'failed', 'unknown' ) as $value ) {
+		foreach ( array( 'accepted', 'failed', 'unknown', 'simulated', 'cancelled' ) as $value ) {
 			echo '<option value="' . esc_attr( $value ) . '" ' . selected( $state, $value, false ) . '>' . esc_html( $value ) . '</option>'; }
 		echo '</select></label> <button class="ani-button">' . esc_html__( 'Filter', 'ani-sms' ) . '</button></form><div class="ani-table-scroll"><table><thead><tr>';
 		foreach ( array( __( 'Time', 'ani-sms' ), __( 'Operation', 'ani-sms' ), __( 'State', 'ani-sms' ), __( 'Phone', 'ani-sms' ), __( 'Error category', 'ani-sms' ) ) as $label ) {
