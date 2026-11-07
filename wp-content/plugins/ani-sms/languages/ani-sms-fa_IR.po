@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.1.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -31,6 +31,9 @@ msgstr "پذیرفته‌شده امروز · این افزونه"
 msgid "Account connection succeeded. This does not verify the OTP template or message delivery."
 msgstr "اتصال حساب موفق بود. این نتیجه، درستی قالب ورود یا تحویل پیامک را تأیید نمی‌کند."
 
+msgid "Action"
+msgstr "عملیات"
+
 msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
 msgstr "برای اعلان‌های سفارش، ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
 
@@ -49,11 +52,20 @@ msgstr "ایجاد حساب مشترک جدید، مشروط به فعال‌ب�
 msgid "Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login."
 msgstr "سازگاری افزونه احراز هویت دیگری باید بررسی شود. فعلاً از ورود استاندارد وردپرس استفاده کنید."
 
+msgid "Approve campaign"
+msgstr "تأیید کمپین"
+
 msgid "Approved OTP template ID"
 msgstr "شناسه قالب تأییدشده کد یک‌بارمصرف"
 
 msgid "Approved template ID"
 msgstr "شناسه قالب تأییدشده"
+
+msgid "Audience exceeds the 200-recipient limit. Split contacts into smaller groups."
+msgstr "تعداد مخاطبان بیشتر از سقف ۲۰۰ است. مخاطبان را به گروه‌های کوچک‌تر تقسیم کنید."
+
+msgid "Audience group (blank means all consented contacts)"
+msgstr "گروه مخاطب (خالی: همه مخاطبان دارای رضایت)"
 
 msgid "Authentication dependencies are available."
 msgstr "پیش‌نیازهای ورود پیامکی در دسترس‌اند."
@@ -63,6 +75,12 @@ msgstr "ورود پیامکی در دسترس نیست. از ورود استان
 
 msgid "Authentication is unavailable. Use the standard login."
 msgstr "ورود پیامکی در دسترس نیست. از ورود استاندارد استفاده کنید."
+
+msgid "Campaign title"
+msgstr "عنوان کمپین"
+
+msgid "Cancel campaign"
+msgstr "لغو کمپین"
 
 msgid "Changes saved."
 msgstr "تغییرات ذخیره شد."
@@ -82,6 +100,15 @@ msgstr "کلید SMS.ir و شناسه قالب تأییدشده کد ورود ر
 msgid "Configure the server secret key and sodium encryption."
 msgstr "کلید محرمانه سرور و رمزگذاری sodium را تنظیم کنید."
 
+msgid "Confirm optional subscription"
+msgstr "تأیید اشتراک اختیاری"
+
+msgid "Confirm that you want to stop marketing SMS from this site."
+msgstr "توقف دریافت پیامک بازاریابی این سایت را تأیید کنید."
+
+msgid "Confirm unsubscribe"
+msgstr "تأیید انصراف"
+
 msgid "Connected"
 msgstr "متصل"
 
@@ -93,6 +120,15 @@ msgstr "خطا در اتصال"
 
 msgid "Connection failed. Try again."
 msgstr "ارتباط برقرار نشد. دوباره تلاش کنید."
+
+msgid "Consent source"
+msgstr "منبع رضایت"
+
+msgid "Consent version"
+msgstr "نسخه رضایت"
+
+msgid "Create campaign draft"
+msgstr "ساخت پیش‌نویس کمپین"
 
 msgid "Credit is the balance returned by your panel, not a promised number of SMS. Its billing unit depends on your SMS.ir account."
 msgstr "اعتبار، موجودی گزارش‌شده پنل است و تعداد تضمین‌شده پیامک نیست. واحد محاسبه را در حساب SMS.ir خود بررسی کنید."
@@ -106,6 +142,9 @@ msgstr "حذف کلید API ذخیره‌شده"
 msgid "Edit number"
 msgstr "ویرایش شماره"
 
+msgid "Eligible recipients (deduplicated, maximum 200):"
+msgstr "گیرنده‌های مجاز پس از حذف تکراری‌ها (حداکثر ۲۰۰):"
+
 msgid "Enable JavaScript to use mobile authentication, or use the standard login."
 msgstr "برای ورود پیامکی جاوااسکریپت را فعال کنید یا از ورود استاندارد استفاده کنید."
 
@@ -114,6 +153,15 @@ msgstr "فعال‌سازی اعلان‌های سفارش ووکامرس"
 
 msgid "Enable mobile authentication"
 msgstr "فعال‌سازی ورود پیامکی"
+
+msgid "Enable subscribers and marketing campaigns"
+msgstr "فعال‌سازی مخاطبان و کمپین‌های پیامکی"
+
+msgid "Enable the marketing module under Modules before creating campaigns."
+msgstr "پیش از ساخت کمپین، ماژول بازاریابی را در بخش ماژول‌ها فعال کنید."
+
+msgid "Erase personal data; retain suppression"
+msgstr "حذف داده شخصی با حفظ انصراف"
 
 msgid "Error category"
 msgstr "دسته خطا"
@@ -130,8 +178,23 @@ msgstr "اعمال فیلتر"
 msgid "Help"
 msgstr "راهنما"
 
+msgid "I approve this audience and schedule. Live mode can incur SMS charges."
+msgstr "این مخاطبان و زمان‌بندی را تأیید می‌کنم. حالت واقعی ممکن است هزینه پیامک داشته باشد."
+
+msgid "I explicitly agree to receive marketing SMS from this site on my verified mobile."
+msgstr "صریحاً با دریافت پیامک بازاریابی این سایت روی شماره تأییدشده خود موافقم."
+
+msgid "Identity verified for erasure"
+msgstr "هویت درخواست‌کننده حذف را بررسی کردم"
+
 msgid "If this number is eligible, a code has been sent."
 msgstr "در صورت مجازبودن ورود با این شماره، کد برای شما ارسال شده است."
+
+msgid "Import pending contacts (maximum 50)"
+msgstr "افزودن مخاطب در انتظار (حداکثر ۵۰ شماره)"
+
+msgid "Import without consent"
+msgstr "افزودن بدون اعطای رضایت"
 
 msgid "Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request."
 msgstr "اعلان‌های صف پس از ۲۴ ساعت منقضی می‌شوند. نتایج نامشخص خودکار تکرار نمی‌شوند. اجرای WP-Cron به بازدید سایت وابسته است؛ برای ارسال به‌موقع، cron سیستم را هر دقیقه اجرا کنید. صف لوکال فقط از اتصال loopback اجرا می‌شود."
@@ -147,6 +210,18 @@ msgstr "حالت تست لوکال OTP فعال است. پیامکی ارسال 
 
 msgid "Local OTP testing requires a local environment, a loopback site URL and a loopback connection."
 msgstr "حالت تست OTP فقط با محیط local، نشانی سایت localhost و اتصال loopback مجاز است."
+
+msgid "Local campaigns send no SMS and require no API or sending line. Live marketing uses a permitted SMS.ir sending line, never an OTP template. Delivery to blocked numbers is not promised."
+msgstr "کمپین لوکال پیامکی ارسال نمی‌کند و به API یا خط ارسال نیاز ندارد. بازاریابی واقعی از خط مجاز SMS.ir استفاده می‌کند، نه قالب OTP. تحویل به شماره‌های مسدود تضمین نمی‌شود."
+
+msgid "Local group"
+msgstr "گروه محلی"
+
+msgid "Local group tag (letters, digits, dash or underscore)"
+msgstr "برچسب گروه محلی (حروف انگلیسی، عدد، خط تیره یا زیرخط)"
+
+msgid "Local message preview · no SMS sent"
+msgstr "پیش‌نمایش پیام لوکال · پیامکی ارسال نشده"
 
 msgid "Local preview"
 msgstr "پیش‌نمایش لوکال"
@@ -169,6 +244,9 @@ msgstr "در تست لوکال شناسه قالب ۰ مجاز است؛ API اس
 msgid "Login / Register"
 msgstr "ورود / ثبت‌نام"
 
+msgid "Login and purchases do not grant marketing consent. You can unsubscribe at any time."
+msgstr "ورود و خرید به معنی رضایت برای بازاریابی نیست. هر زمان می‌توانید انصراف بدهید."
+
 msgid "Login and registration"
 msgstr "ورود و ثبت‌نام"
 
@@ -181,11 +259,17 @@ msgstr "رخدادها بدون متن پیام و کد ورود تا ۳۰ رو�
 msgid "Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:"
 msgstr "قالب نگاشت: ExactPanelParameter=variable، هر نگاشت در یک خط. متغیرهای مجاز:"
 
+msgid "Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly."
+msgstr "بازاریابی از ورود و سفارش مستقل است. واردکردن شماره فقط مخاطب در انتظار می‌سازد و رضایت یا انصراف را تغییر نمی‌دهد. کد [ani_sms_marketing] را در برگه حسابِ بدون کش قرار دهید تا کاربران دارای شماره تأییدشده، جداگانه رضایت بدهند."
+
 msgid "Maximum attempts per challenge"
 msgstr "حداکثر تلاش برای هر کد"
 
 msgid "Member"
 msgstr "عضو"
+
+msgid "Message (up to 1000 characters; variables: {site_name}, {unsubscribe_url})"
+msgstr "متن پیام (حداکثر ۱۰۰۰ نویسه؛ متغیرها: {site_name} و {unsubscribe_url})"
 
 msgid "Mobile access, thoughtfully simple."
 msgstr "ورود موبایلی، ساده و امن"
@@ -198,6 +282,9 @@ msgstr "ورود پیامکی غیرفعال است."
 
 msgid "Mobile number"
 msgstr "شماره موبایل"
+
+msgid "Mobiles, one per line"
+msgstr "شماره‌ها، هر شماره در یک خط"
 
 msgid "Modules"
 msgstr "ماژول‌ها"
@@ -241,6 +328,12 @@ msgstr "هنگام حذف افزونه، تنظیمات، کلید ذخیره‌
 msgid "Operation"
 msgstr "عملیات"
 
+msgid "Optional SMS subscription"
+msgstr "اشتراک اختیاری پیامک"
+
+msgid "Optional marketing requires separate explicit consent on a verified mobile. Encrypted mobiles, consent source/version/time and withdrawal records support subscription management. SMS.ir receives the mobile, message and a random unsubscribe link only when a live campaign is approved. No SMS is sent in local mode. Campaign data expires after 30 days; queued jobs expire 24 hours after their scheduled time. Erasure removes personal data but retains a keyed phone suppression fingerprint to prevent reimport from restoring consent. This fingerprint remains until a verified fresh opt-in or an explicit complete plugin purge. Server logs and backups need separate retention; redact unsubscribe tokens from access logs."
+msgstr "بازاریابی اختیاری به رضایت صریح و جداگانه روی شماره تأییدشده نیاز دارد. شماره رمزگذاری‌شده، منبع، نسخه و زمان رضایت و سابقه انصراف برای مدیریت اشتراک نگهداری می‌شود. فقط پس از تأیید کمپین واقعی، شماره، متن و لینک تصادفی انصراف به SMS.ir ارسال می‌شوند. در حالت لوکال پیامکی ارسال نمی‌شود. داده کمپین پس از ۳۰ روز و کار صف پس از ۲۴ ساعت از زمان برنامه‌ریزی‌شده منقضی می‌شود. حذف داده شخصی، اثرانگشت کلیددار شماره را برای جلوگیری از احیای رضایت با واردکردن مجدد حفظ می‌کند. این اثرانگشت تا رضایت جدید و تأییدشده یا پاک‌سازی صریح کل افزونه باقی می‌ماند. نگهداری لاگ سرور و پشتیبان جداگانه مدیریت شود و توکن انصراف از لاگ دسترسی حذف شود."
+
 msgid "Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling."
 msgstr "اعلان اختیاری سفارش از شماره صورتحساب و مقادیر نمایشی سفارش در قالب تراکنشی SMS.ir استفاده می‌کند. داده رمزگذاری‌شده صف پس از ۲۴ ساعت منقضی و متن اعلان واقعی پس از رسیدن به نتیجه نهایی فوراً حذف می‌شود. شبیه‌سازی لوکال پیامکی ارسال نمی‌کند. لاگ ماسک‌شده پس از ۳۰ روز حذف می‌شود. شماره صورتحساب به هویت ورود متصل نمی‌شود. خروجی و حذف داده صف با ایمیل صورتحساب ممکن است؛ نسخه پشتیبان نیازمند رسیدگی جداگانه است."
 
@@ -271,11 +364,23 @@ msgstr "نگاشت پارامترها"
 msgid "Parameters · no SMS sent"
 msgstr "پارامترها · پیامکی ارسال نشده"
 
+msgid "Pause campaign"
+msgstr "توقف موقت کمپین"
+
 msgid "Permission denied."
 msgstr "اجازه دسترسی ندارید."
 
+msgid "Permitted sending line (blank for local simulation)"
+msgstr "خط ارسال مجاز (برای شبیه‌سازی لوکال خالی بماند)"
+
+msgid "Personal marketing data was removed. A keyed suppression fingerprint remains to prevent accidental resubscription by import."
+msgstr "داده شخصی بازاریابی حذف شد. برای جلوگیری از عضویت ناخواسته با واردکردن مجدد، فقط اثرانگشت کلیددار شماره در فهرست انصراف حفظ می‌شود."
+
 msgid "Phone"
 msgstr "شماره"
+
+msgid "Please try again shortly."
+msgstr "لطفاً کمی بعد دوباره تلاش کنید."
 
 msgid "Previous"
 msgstr "قبلی"
@@ -295,8 +400,14 @@ msgstr "پیش از فعال‌سازی ورود پیامکی، برگه حری�
 msgid "Queue data cannot be matched after server key rotation; it expires within 24 hours through scheduled cleanup."
 msgstr "پس از تعویض کلید سرور، تطبیق داده‌های صف ممکن نیست؛ داده‌ها پس از ۲۴ ساعت با پاک‌سازی زمان‌بندی‌شده حذف می‌شوند."
 
+msgid "Recent campaigns"
+msgstr "کمپین‌های اخیر"
+
 msgid "Recent connection result is still current."
 msgstr "نتیجه بررسی اخیر هنوز معتبر است."
+
+msgid "Recent contacts"
+msgstr "مخاطبان اخیر"
 
 msgid "Recent notification jobs"
 msgstr "اعلان‌های اخیر در صف"
@@ -310,11 +421,17 @@ msgstr "ارسال مجدد کد"
 msgid "Resend cooldown (seconds)"
 msgstr "فاصله ارسال مجدد (ثانیه)"
 
+msgid "Resume campaign"
+msgstr "ادامه کمپین"
+
 msgid "Route"
 msgstr "مسیر اعلان"
 
 msgid "SMS sending is disabled in server configuration."
 msgstr "ارسال پیامک در تنظیمات سرور غیرفعال است."
+
+msgid "SMS subscription"
+msgstr "اشتراک پیامک"
 
 msgid "SMS.ir connection"
 msgstr "اتصال SMS.ir"
@@ -325,11 +442,20 @@ msgstr "تنها سامانه پیامکی این افزونه SMS.ir است. پ
 msgid "Save changes"
 msgstr "ذخیره تغییرات"
 
+msgid "Save draft and preview"
+msgstr "ذخیره پیش‌نویس و پیش‌نمایش"
+
+msgid "Save group"
+msgstr "ذخیره گروه"
+
 msgid "Save module state"
 msgstr "ذخیره وضعیت ماژول"
 
 msgid "Save uninstall preference"
 msgstr "ذخیره سیاست حذف افزونه"
+
+msgid "Schedule in site timezone (within seven days; blank means now)"
+msgstr "زمان در منطقه زمانی سایت (تا هفت روز؛ خالی: اکنون)"
 
 msgid "Send one paid test SMS to this number. This code grants no account access."
 msgstr "یک پیامک آزمایشی با کسر هزینه به این شماره ارسال شود. این کد امکان ورود به حساب را ندارد."
@@ -345,6 +471,9 @@ msgstr "در حال ارسال…"
 
 msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes outside the database, then enable ANI_SMS_LIVE_ENABLED only after reviewing the API contract and test account. API keys may also be supplied through ANI_SMS_API_KEY. Never commit these values."
 msgstr "تنظیم سرور: ANI_SMS_SECRET_KEY را خارج از دیتابیس به‌صورت base64 از ۳۲ بایت تصادفی تعریف کنید. ANI_SMS_LIVE_ENABLED را فقط پس از بررسی قرارداد API و حساب آزمایشی فعال کنید. کلید API را می‌توان از ANI_SMS_API_KEY هم تأمین کرد. این مقادیر نباید وارد مخزن شوند."
+
+msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
+msgstr "برای مدیریت اشتراک اختیاری پیامک، با شماره تأییدشده وارد شوید."
 
 msgid "Site issuance limit per hour"
 msgstr "سقف صدور کد سایت در هر ساعت"
@@ -366,6 +495,18 @@ msgstr "تغییر وضعیت · مدیر"
 
 msgid "Status changed · customer"
 msgstr "تغییر وضعیت · مشتری"
+
+msgid "Subscribers and campaigns"
+msgstr "مخاطبان و کمپین‌ها"
+
+msgid "Subscription could not be changed. Verify your mobile and try again."
+msgstr "تغییر اشتراک انجام نشد. شماره خود را تأیید و دوباره تلاش کنید."
+
+msgid "Subscription preferences updated."
+msgstr "تنظیمات اشتراک به‌روز شد."
+
+msgid "Suppress"
+msgstr "ثبت انصراف"
 
 msgid "Template ID"
 msgstr "شناسه قالب"
@@ -405,6 +546,18 @@ msgstr "تعداد درخواست‌ها زیاد است. پیش از تلاش �
 
 msgid "Unavailable"
 msgstr "در دسترس نیست"
+
+msgid "Unsubscribe from marketing SMS"
+msgstr "انصراف از پیامک بازاریابی"
+
+msgid "Unsubscribe request processed. No account login is required."
+msgstr "درخواست انصراف پردازش شد. ورود به حساب لازم نیست."
+
+msgid "Unsubscribe:"
+msgstr "لغو عضویت:"
+
+msgid "Updated at (UTC)"
+msgstr "آخرین تغییر (UTC)"
 
 msgid "Verified at (UTC)"
 msgstr "زمان تأیید (UTC)"

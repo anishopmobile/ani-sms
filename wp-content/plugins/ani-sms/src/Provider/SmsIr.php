@@ -2,13 +2,13 @@
 /** Original WordPress HTTP adapter; no third-party SDK runtime. @package AniSms */
 namespace AniSms\Provider;
 
-final class SmsIr implements TransactionalProvider {
+final class SmsIr implements TransactionalProvider, TextProvider {
 	public function __construct( #[\SensitiveParameter] private string $key ) {}
 	public function capabilities(): array {
 		return array(
 			'template'   => true,
 			'connection' => true,
-			'text'       => false,
+			'text'       => true,
 			'delivery'   => false,
 		); }
 	public function send_template( string $phone, int $template, string $parameter, #[\SensitiveParameter] string $code ): Result {
@@ -48,6 +48,23 @@ final class SmsIr implements TransactionalProvider {
 		);
 	}
 
+	public function send_text( string $phone, string $line, string $text ): Result {
+		if ( \AniSms\Security\LocalTest::requested() ) {
+			return new Result( 'failed', 'local_test_enabled' ); }
+		if ( ! preg_match( '/^[1-9][0-9]{4,19}$/D', $line ) || '' === trim( $text ) || mb_strlen( $text ) > 1500 || preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', $text ) ) {
+			return new Result( 'failed', 'configuration' ); }
+		$phone = \AniSms\Support\Phone::normalize( $phone );
+		return $this->request(
+			'POST',
+			'/v1/send/bulk',
+			array(
+				'lineNumber'   => $line,
+				'messageText'  => $text,
+				'mobiles'      => array( '0' . substr( $phone, 3 ) ),
+				'sendDateTime' => null,
+			)
+		);
+	}
 	public function connection(): Result {
 		$result = $this->request( 'GET', '/v1/credit' );
 		return new Result( $result->state, $result->error, credit: $result->credit, operation: 'connection' );
@@ -86,7 +103,8 @@ final class SmsIr implements TransactionalProvider {
 			$credit = $body['data'] ?? null;
 			return is_int( $credit ) || is_float( $credit ) ? new Result( 'accepted', credit: (float) $credit ) : new Result( 'failed', 'malformed' );
 		}
-		$id = $body['data']['messageId'] ?? null;
+		$ids = $body['data']['messageIds'] ?? null;
+		$id  = '/v1/send/bulk' === $path ? ( is_array( $ids ) && 1 === count( $ids ) ? $ids[0] : null ) : ( $body['data']['messageId'] ?? null );
 		if ( ! is_int( $id ) || $id < 1 ) {
 			return new Result( 'unknown', 'malformed' ); }
 		return new Result( 'accepted', message_id: (string) $id );

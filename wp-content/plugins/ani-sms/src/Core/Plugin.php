@@ -34,6 +34,21 @@ final class Plugin {
 		$auth    = new \AniSms\Auth\Module( $store );
 		$modules = new ModuleRegistry();
 		$modules->register( $auth );
+		$modules->register( new \AniSms\Marketing\Module( $store, $queue ) );
+		( new \AniSms\Marketing\Frontend( $store ) )->boot();
+		( new \AniSms\Marketing\Privacy( $store ) )->boot();
+		add_action(
+			'update_option_ani_sms_modules',
+			static function ( $old, $next ) use ( $store ) {
+				if ( is_array( $old ) && in_array( 'marketing', $old, true ) && ( ! is_array( $next ) || ! in_array( 'marketing', $next, true ) ) ) {
+					$store->query( "UPDATE {$store->table( 'jobs' )} SET state='cancelled',error_code='module_disabled',payload='' WHERE module='marketing' AND state IN ('queued','paused')" );
+					$store->query( "UPDATE {$store->table( 'campaigns' )} SET state='cancelled' WHERE state IN ('approved','paused')" );
+					$store->query( "UPDATE {$store->table( 'campaign_recipients' )} SET state='cancelled' WHERE state IN ('queued','paused')" );
+				}
+			},
+			10,
+			2
+		);
 		$available = class_exists( 'WooCommerce' );
 		if ( (bool) get_option( 'ani_sms_wc_available', false ) !== $available ) {
 			update_option( 'ani_sms_wc_generation', bin2hex( random_bytes( 16 ) ), false );

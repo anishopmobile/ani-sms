@@ -5,6 +5,58 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+    'Subscribers and campaigns': 'مخاطبان و کمپین\u200cها',
+    'Enable subscribers and marketing campaigns': 'فعال\u200cسازی مخاطبان و کمپین\u200cهای پیامکی',
+    'Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly.': 'بازاریابی از ورود و سفارش مستقل است. واردکردن شماره فقط مخاطب در انتظار می\u200cسازد و رضایت یا انصراف را تغییر نمی\u200cدهد. کد [ani_sms_marketing] را در برگه حسابِ بدون کش قرار دهید تا کاربران دارای شماره تأییدشده، جداگانه رضایت بدهند.',
+    'Enable the marketing module under Modules before creating campaigns.': 'پیش از ساخت کمپین، ماژول بازاریابی را در بخش ماژول\u200cها فعال کنید.',
+    'Local campaigns send no SMS and require no API or sending line. Live marketing uses a permitted SMS.ir sending line, never an OTP template. Delivery to blocked numbers is not promised.': 'کمپین لوکال پیامکی ارسال نمی\u200cکند و به API یا خط ارسال نیاز ندارد. بازاریابی واقعی از خط مجاز SMS.ir استفاده می\u200cکند، نه قالب OTP. تحویل به شماره\u200cهای مسدود تضمین نمی\u200cشود.',
+    'Import pending contacts (maximum 50)': 'افزودن مخاطب در انتظار (حداکثر ۵۰ شماره)',
+    'Mobiles, one per line': 'شماره\u200cها، هر شماره در یک خط',
+    'Local group tag (letters, digits, dash or underscore)': 'برچسب گروه محلی (حروف انگلیسی، عدد، خط تیره یا زیرخط)',
+    'Import without consent': 'افزودن بدون اعطای رضایت',
+    'Recent contacts': 'مخاطبان اخیر',
+    'Consent version': 'نسخه رضایت',
+    'Consent source': 'منبع رضایت',
+    'Updated at (UTC)': 'آخرین تغییر (UTC)',
+    'Local group': 'گروه محلی',
+    'Save group': 'ذخیره گروه',
+    'Action': 'عملیات',
+    'Suppress': 'ثبت انصراف',
+    'Identity verified for erasure': 'هویت درخواست\u200cکننده حذف را بررسی کردم',
+    'Erase personal data; retain suppression': 'حذف داده شخصی با حفظ انصراف',
+    'Create campaign draft': 'ساخت پیش\u200cنویس کمپین',
+    'Campaign title': 'عنوان کمپین',
+    'Message (up to 1000 characters; variables: {site_name}, {unsubscribe_url})': 'متن پیام (حداکثر ۱۰۰۰ نویسه؛ متغیرها: {site_name} و {unsubscribe_url})',
+    'Audience group (blank means all consented contacts)': 'گروه مخاطب (خالی: همه مخاطبان دارای رضایت)',
+    'Permitted sending line (blank for local simulation)': 'خط ارسال مجاز (برای شبیه\u200cسازی لوکال خالی بماند)',
+    'Schedule in site timezone (within seven days; blank means now)': 'زمان در منطقه زمانی سایت (تا هفت روز؛ خالی: اکنون)',
+    'Save draft and preview': 'ذخیره پیش\u200cنویس و پیش\u200cنمایش',
+    'Recent campaigns': 'کمپین\u200cهای اخیر',
+    'Eligible recipients (deduplicated, maximum 200):': 'گیرنده\u200cهای مجاز پس از حذف تکراری\u200cها (حداکثر ۲۰۰):',
+    'I approve this audience and schedule. Live mode can incur SMS charges.': 'این مخاطبان و زمان\u200cبندی را تأیید می\u200cکنم. حالت واقعی ممکن است هزینه پیامک داشته باشد.',
+    'Approve campaign': 'تأیید کمپین',
+    'Audience exceeds the 200-recipient limit. Split contacts into smaller groups.': 'تعداد مخاطبان بیشتر از سقف ۲۰۰ است. مخاطبان را به گروه\u200cهای کوچک\u200cتر تقسیم کنید.',
+    'Pause campaign': 'توقف موقت کمپین',
+    'Resume campaign': 'ادامه کمپین',
+    'Cancel campaign': 'لغو کمپین',
+    'Local message preview · no SMS sent': 'پیش\u200cنمایش پیام لوکال · پیامکی ارسال نشده',
+    'Sign in with a verified mobile to manage optional SMS subscriptions.': 'برای مدیریت اشتراک اختیاری پیامک، با شماره تأییدشده وارد شوید.',
+    'Optional SMS subscription': 'اشتراک اختیاری پیامک',
+    'Login and purchases do not grant marketing consent. You can unsubscribe at any time.': 'ورود و خرید به معنی رضایت برای بازاریابی نیست. هر زمان می\u200cتوانید انصراف بدهید.',
+    'Subscription preferences updated.': 'تنظیمات اشتراک به\u200cروز شد.',
+    'Unsubscribe from marketing SMS': 'انصراف از پیامک بازاریابی',
+    'I explicitly agree to receive marketing SMS from this site on my verified mobile.': 'صریحاً با دریافت پیامک بازاریابی این سایت روی شماره تأییدشده خود موافقم.',
+    'Confirm optional subscription': 'تأیید اشتراک اختیاری',
+    'Subscription could not be changed. Verify your mobile and try again.': 'تغییر اشتراک انجام نشد. شماره خود را تأیید و دوباره تلاش کنید.',
+    'Please try again shortly.': 'لطفاً کمی بعد دوباره تلاش کنید.',
+    'Unsubscribe request processed. No account login is required.': 'درخواست انصراف پردازش شد. ورود به حساب لازم نیست.',
+    'Confirm that you want to stop marketing SMS from this site.': 'توقف دریافت پیامک بازاریابی این سایت را تأیید کنید.',
+    'Confirm unsubscribe': 'تأیید انصراف',
+    'SMS subscription': 'اشتراک پیامک',
+    'Unsubscribe:': 'لغو عضویت:',
+    'Personal marketing data was removed. A keyed suppression fingerprint remains to prevent accidental resubscription by import.': 'داده شخصی بازاریابی حذف شد. برای جلوگیری از عضویت ناخواسته با واردکردن مجدد، فقط اثرانگشت کلیددار شماره در فهرست انصراف حفظ می\u200cشود.',
+    'Optional marketing requires separate explicit consent on a verified mobile. Encrypted mobiles, consent source/version/time and withdrawal records support subscription management. SMS.ir receives the mobile, message and a random unsubscribe link only when a live campaign is approved. No SMS is sent in local mode. Campaign data expires after 30 days; queued jobs expire 24 hours after their scheduled time. Erasure removes personal data but retains a keyed phone suppression fingerprint to prevent reimport from restoring consent. This fingerprint remains until a verified fresh opt-in or an explicit complete plugin purge. Server logs and backups need separate retention; redact unsubscribe tokens from access logs.': 'بازاریابی اختیاری به رضایت صریح و جداگانه روی شماره تأییدشده نیاز دارد. شماره رمزگذاری\u200cشده، منبع، نسخه و زمان رضایت و سابقه انصراف برای مدیریت اشتراک نگهداری می\u200cشود. فقط پس از تأیید کمپین واقعی، شماره، متن و لینک تصادفی انصراف به SMS.ir ارسال می\u200cشوند. در حالت لوکال پیامکی ارسال نمی\u200cشود. داده کمپین پس از ۳۰ روز و کار صف پس از ۲۴ ساعت از زمان برنامه\u200cریزی\u200cشده منقضی می\u200cشود. حذف داده شخصی، اثرانگشت کلیددار شماره را برای جلوگیری از احیای رضایت با واردکردن مجدد حفظ می\u200cکند. این اثرانگشت تا رضایت جدید و تأییدشده یا پاک\u200cسازی صریح کل افزونه باقی می\u200cماند. نگهداری لاگ سرور و پشتیبان جداگانه مدیریت شود و توکن انصراف از لاگ دسترسی حذف شود.',
+
 'Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling.': 'اعلان اختیاری سفارش از شماره صورتحساب و مقادیر نمایشی سفارش در قالب تراکنشی SMS.ir استفاده می\u200cکند. داده رمزگذاری\u200cشده صف پس از ۲۴ ساعت منقضی و متن اعلان واقعی پس از رسیدن به نتیجه نهایی فوراً حذف می\u200cشود. شبیه\u200cسازی لوکال پیامکی ارسال نمی\u200cکند. لاگ ماسک\u200cشده پس از ۳۰ روز حذف می\u200cشود. شماره صورتحساب به هویت ورود متصل نمی\u200cشود. خروجی و حذف داده صف با ایمیل صورتحساب ممکن است؛ نسخه پشتیبان نیازمند رسیدگی جداگانه است.',
 
     'Order notifications': 'اعلان\u200cهای سفارش',
@@ -163,7 +215,7 @@ language_dir = root / 'languages'
 language_dir.mkdir(exist_ok=True)
 def quote(s):
     return json.dumps(s, ensure_ascii=False)
-header = 'Project-Id-Version: ANI-SMS 1.1.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
+header = 'Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
 pot = 'msgid ""\nmsgstr ' + quote(header.replace('Language: fa_IR', 'Language: ')) + '\n\n'
 po = 'msgid ""\nmsgstr ' + quote(header) + '\n\n'
 for msg in sorted(messages):
@@ -175,7 +227,7 @@ for msg in sorted(messages):
 def php(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 entries = ',\n'.join('\t\t' + php(k) + ' => ' + php(v) for k, v in sorted(translations.items()))
-catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.1.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
+catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.2.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
 (language_dir / 'ani-sms-fa_IR.l10n.php').write_text(catalog, encoding='utf-8')
 missing = messages - translations.keys()
 print(f'Generated {len(translations)} Persian translations; {len(missing)} strings untranslated.')

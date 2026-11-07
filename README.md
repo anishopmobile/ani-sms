@@ -57,3 +57,7 @@ Existing WordPress files and `Plugin-sms-ir/` are preserved. Only the new plugin
 ## 1.1.0-rc1: optional order notifications
 
 The explicitly authorized WooCommerce phase adds creation/status events, independent recipient routes, a durable encrypted queue and loopback-only simulated previews. Core authentication remains independent. See [configuration and event policy](docs/WOOCOMMERCE.md), [validation](docs/WOOCOMMERCE-TESTS.md), and [decision 0003](docs/decisions/0003-order-notifications.md). Main contains only the rc3 baseline; the new module is on `codex/ani-sms-v1`.
+
+## 1.2.0-rc1: explicit consent and campaigns
+
+Optional independent subscribers/campaign module with pending-only imports, verified-account opt-in, opaque opt-out, preview-bound approval, scheduling, pause/cancel and local simulation. See [contract and setup](docs/MARKETING.md) and [test evidence](docs/MARKETING-TESTS.md). `[ani_sms_marketing]` renders the separate account subscription form. Marketing uses a permitted sending line rather than OTP templates; no real SMS was sent.

@@ -45,7 +45,7 @@ final class Queue {
 				$table = $this->store->table( 'jobs' );
 				// A worker may have died after the provider accepted its POST. Never retry its lease.
 				$this->store->query( $db->prepare( "UPDATE $table SET state='unknown',error_code='worker_interrupted',payload='' WHERE state='processing' AND lease < %d", time() ) );
-				$this->store->query( $db->prepare( "UPDATE $table SET state='cancelled',error_code='expired',payload='' WHERE state='queued' AND expires < %d", time() ) );
+				$this->store->query( $db->prepare( "UPDATE $table SET state='cancelled',error_code='expired',payload='' WHERE state IN ('queued','paused') AND expires < %d", time() ) );
 				$rows     = $db->get_results( $db->prepare( "SELECT * FROM $table WHERE state='queued' AND available <= %d ORDER BY id LIMIT 10", time() ), ARRAY_A );
 				$deadline = microtime( true ) + 20;
 				foreach ( $rows as $row ) {
@@ -77,7 +77,13 @@ final class Queue {
 		);
 	}
 	private function finish( array $row, Result $result ): void {
+		if ( 'deferred' === $result->state ) {
+			$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'jobs' )} SET state='queued',available=%d,lease=0 WHERE id=%d", time() + 60, $row['id'] ) );
+			return;
+		}
 		$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'jobs' )} SET state=%s,error_code=%s,payload=%s,lease=0 WHERE id=%d", $result->state, $result->error, 'simulated' === $result->state ? $row['payload'] : '', $row['id'] ) );
-		( new Log( $this->store ) )->record( 'local' === $row['mode'] ? 'wc_local_test' : 'wc_notification', $result->state, $result->error, provider_id: $result->message_id, correlation: $result->correlation );
+		do_action( 'ani_sms_job_finished', $row, $result );
+		$operation = 'marketing' === $row['module'] ? 'campaign' : 'wc_notification';
+		( new Log( $this->store ) )->record( 'local' === $row['mode'] ? ( 'marketing' === $row['module'] ? 'campaign_local_test' : 'wc_local_test' ) : $operation, $result->state, $result->error, provider_id: $result->message_id, correlation: $result->correlation );
 	}
 }

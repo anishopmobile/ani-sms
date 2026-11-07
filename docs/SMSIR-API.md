@@ -27,3 +27,7 @@ No bulk sending, delivery polling, message-status mapping, template administrati
 ## Remaining external release prerequisite
 
 The sources establish the implemented shape, not account-specific availability or a successful real transaction. Before production release, an operator must verify the current status-1 acceptance semantics, account credit unit and limits, active approved template and parameter spelling, and one explicitly requested paid test to a controlled number. `ANI_SMS_LIVE_ENABLED` defaults off until that operational review. A live smoke test was intentionally not run without credentials and explicit real-message test configuration. The candidate is not labeled operationally certified.
+
+## 1.2 text campaigns
+
+`send_text()` uses the official PHP SDK bulkSend contract at fixed POST /v1/send/bulk with lineNumber, messageText, one-item mobiles and sendDateTime:null. Acceptance requires one positive integer data.messageIds item. HTTP ambiguity stays unknown without retry. Text capability is now implemented, solely for explicitly approved consented campaigns; earlier OTP-only scope statements describe the 1.0 baseline. See MARKETING.md.

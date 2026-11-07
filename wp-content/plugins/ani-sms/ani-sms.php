@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ANI-SMS
  * Description: Independent modular SMS infrastructure and mobile authentication.
- * Version: 1.1.0-rc1
+ * Version: 1.2.0-rc1
  * Requires at least: 6.8
  * Requires PHP: 8.3
  * License: GPL-2.0-or-later

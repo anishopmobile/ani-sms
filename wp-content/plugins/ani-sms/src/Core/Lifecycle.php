@@ -37,7 +37,9 @@ final class Lifecycle {
 		update_option( 'ani_sms_wc_generation', bin2hex( random_bytes( 16 ) ), false );
 		if ( \AniSms\Infrastructure\Database::VERSION === get_option( 'ani_sms_schema' ) ) {
 			$store = new \AniSms\Infrastructure\Database( $wpdb );
-			$store->query( "UPDATE {$store->table( 'jobs' )} SET state='cancelled',error_code='deactivated',payload='' WHERE state='queued'" );
+			$store->query( "UPDATE {$store->table( 'campaigns' )} SET state='cancelled' WHERE state IN ('approved','paused')" );
+			$store->query( "UPDATE {$store->table( 'campaign_recipients' )} SET state='cancelled' WHERE state IN ('queued','paused')" );
+			$store->query( "UPDATE {$store->table( 'jobs' )} SET state='cancelled',error_code='deactivated',payload='' WHERE state IN ('queued','paused')" );
 			$store->query( "UPDATE {$store->table( 'challenges' )} SET state='expired',digest='' WHERE state IN ('active','pending_send')" );
 		}
 		do_action( 'ani_sms_deactivated' );

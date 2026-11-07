@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0-rc1 — 2026-11-07
+
+- Add independent subscribers/consent/campaign module, verified explicit opt-in, pending-only import and durable suppression.
+- Add opaque unsubscribe links, versioned consent history, privacy export/erasure and local group tags.
+- Add preview-bound campaign approval, scheduling, pause/resume/cancel and zero-HTTP local simulation.
+- Extend core queue without starving order jobs; add fixed SMS.ir text/bulk transport and immutable campaign modes.
+
 ## 1.1.0-rc1 — 2026-11-07
 
 - Add optional WooCommerce creation/status notifications, separate customer/admin routing and safe multi-variable templates.

@@ -17,6 +17,7 @@ final class Admin {
 		'auth'        => 'Login and registration',
 		'modules'     => 'Modules',
 		'woocommerce' => 'Order notifications',
+		'marketing'   => 'Subscribers and campaigns',
 		'templates'   => 'Local templates',
 		'logs'        => 'Logs',
 		'help'        => 'Help',
@@ -29,6 +30,7 @@ final class Admin {
 			'auth'        => __( 'Login and registration', 'ani-sms' ),
 			'modules'     => __( 'Modules', 'ani-sms' ),
 			'woocommerce' => __( 'Order notifications', 'ani-sms' ),
+			'marketing'   => __( 'Subscribers and campaigns', 'ani-sms' ),
 			'templates'   => __( 'Local templates', 'ani-sms' ),
 			'logs'        => __( 'Logs', 'ani-sms' ),
 			'help'        => __( 'Help', 'ani-sms' ),
@@ -56,8 +58,8 @@ final class Admin {
 				if ( 'toplevel_page_ani-sms' !== $hook ) {
 					return; }
 				$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.1.0-rc1-orders-ui' );
-				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.1.0-rc1', true );
+				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.2.0-rc1-orders-ui' );
+				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.2.0-rc1', true );
 				wp_localize_script(
 					'ani-sms-admin',
 					'aniSmsAdminText',
@@ -130,6 +132,16 @@ final class Admin {
 				case 'save_auth':
 					update_option( 'ani_sms_settings', Settings::validate( array_merge( array( 'registration' => '0' ), array_intersect_key( $input, array_flip( array( 'registration', 'expiry', 'cooldown', 'attempts', 'site_limit' ) ) ) ) ), false );
 					break;
+				case 'marketing_import':
+				case 'marketing_create':
+				case 'marketing_approve':
+				case 'marketing_control':
+				case 'marketing_tag':
+				case 'marketing_erase':
+				case 'marketing_suppress':
+				case 'marketing_process':
+					( new \AniSms\Marketing\Admin( $this->store ) )->action( $op, $input );
+					break;
 				case 'save_woocommerce':
 					if ( ! function_exists( 'wc_get_order_statuses' ) ) {
 						throw new \RuntimeException( 'WooCommerce unavailable.' ); }
@@ -140,6 +152,8 @@ final class Admin {
 					break;
 				case 'save_modules':
 					$ids = array();
+					if ( '1' === ( $input['marketing_enabled'] ?? '' ) ) {
+						$ids[] = 'marketing'; }
 					if ( '1' === ( $input['auth_enabled'] ?? '' ) ) {
 						$ids[] = 'auth'; }
 					if ( '1' === ( $input['woocommerce_enabled'] ?? '' ) ) {
@@ -194,8 +208,8 @@ final class Admin {
 		$account    = get_transient( 'ani_sms_account' );
 		$start      = ( new \DateTimeImmutable( 'today', wp_timezone() ) )->getTimestamp();
 		$db         = $this->store->db;
-		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification') AND state='accepted'", $start ) );
-		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification') AND state IN ('failed','unknown')", $start ) );
+		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign') AND state='accepted'", $start ) );
+		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign') AND state IN ('failed','unknown')", $start ) );
 		$connection = ! is_array( $account ) ? __( 'Not checked', 'ani-sms' ) : ( 'accepted' === $account['state'] ? __( 'Connected', 'ani-sms' ) : __( 'Connection failed', 'ani-sms' ) );
 		?>
 		<div class="wrap ani-admin">
@@ -212,7 +226,7 @@ final class Admin {
 										echo 'aria-current="page"'; }
 					?>
 href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?>
-				</nav></details><small>SMS.ir · 1.1.0-rc1</small></aside>
+				</nav></details><small>SMS.ir · 1.2.0-rc1</small></aside>
 				<main class="ani-main">
 				<div class="ani-stats">
 				<?php
@@ -335,7 +349,11 @@ href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>
 				$this->form( 'save_modules' );
 				echo '<label><input type="checkbox" name="auth_enabled" value="1" ' . checked( Settings::enabled(), true, false ) . '> ' . esc_html__( 'Enable mobile authentication', 'ani-sms' ) . '</label>';
 				echo '<br><label><input type="checkbox" name="woocommerce_enabled" value="1" ' . checked( Settings::module_enabled( 'woocommerce' ), true, false ) . '> ' . esc_html__( 'Enable WooCommerce order notifications', 'ani-sms' ) . '</label>';
+				echo '<br><label><input type="checkbox" name="marketing_enabled" value="1" ' . checked( Settings::module_enabled( 'marketing' ), true, false ) . '> ' . esc_html__( 'Enable subscribers and marketing campaigns', 'ani-sms' ) . '</label>';
 				$this->button( __( 'Save module state', 'ani-sms' ) );
+				break;
+			case 'marketing':
+				( new \AniSms\Marketing\Admin( $this->store, $this->pending ) )->render();
 				break;
 			case 'woocommerce':
 				( new \AniSms\WooCommerce\Admin( $this->store, $this->pending ) )->render();

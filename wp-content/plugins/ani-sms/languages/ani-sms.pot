@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.1.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -31,6 +31,9 @@ msgstr ""
 msgid "Account connection succeeded. This does not verify the OTP template or message delivery."
 msgstr ""
 
+msgid "Action"
+msgstr ""
+
 msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
 msgstr ""
 
@@ -49,10 +52,19 @@ msgstr ""
 msgid "Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login."
 msgstr ""
 
+msgid "Approve campaign"
+msgstr ""
+
 msgid "Approved OTP template ID"
 msgstr ""
 
 msgid "Approved template ID"
+msgstr ""
+
+msgid "Audience exceeds the 200-recipient limit. Split contacts into smaller groups."
+msgstr ""
+
+msgid "Audience group (blank means all consented contacts)"
 msgstr ""
 
 msgid "Authentication dependencies are available."
@@ -62,6 +74,12 @@ msgid "Authentication is unavailable. Use the standard login or try again later.
 msgstr ""
 
 msgid "Authentication is unavailable. Use the standard login."
+msgstr ""
+
+msgid "Campaign title"
+msgstr ""
+
+msgid "Cancel campaign"
 msgstr ""
 
 msgid "Changes saved."
@@ -82,6 +100,15 @@ msgstr ""
 msgid "Configure the server secret key and sodium encryption."
 msgstr ""
 
+msgid "Confirm optional subscription"
+msgstr ""
+
+msgid "Confirm that you want to stop marketing SMS from this site."
+msgstr ""
+
+msgid "Confirm unsubscribe"
+msgstr ""
+
 msgid "Connected"
 msgstr ""
 
@@ -92,6 +119,15 @@ msgid "Connection failed"
 msgstr ""
 
 msgid "Connection failed. Try again."
+msgstr ""
+
+msgid "Consent source"
+msgstr ""
+
+msgid "Consent version"
+msgstr ""
+
+msgid "Create campaign draft"
 msgstr ""
 
 msgid "Credit is the balance returned by your panel, not a promised number of SMS. Its billing unit depends on your SMS.ir account."
@@ -106,6 +142,9 @@ msgstr ""
 msgid "Edit number"
 msgstr ""
 
+msgid "Eligible recipients (deduplicated, maximum 200):"
+msgstr ""
+
 msgid "Enable JavaScript to use mobile authentication, or use the standard login."
 msgstr ""
 
@@ -113,6 +152,15 @@ msgid "Enable WooCommerce order notifications"
 msgstr ""
 
 msgid "Enable mobile authentication"
+msgstr ""
+
+msgid "Enable subscribers and marketing campaigns"
+msgstr ""
+
+msgid "Enable the marketing module under Modules before creating campaigns."
+msgstr ""
+
+msgid "Erase personal data; retain suppression"
 msgstr ""
 
 msgid "Error category"
@@ -130,7 +178,22 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+msgid "I approve this audience and schedule. Live mode can incur SMS charges."
+msgstr ""
+
+msgid "I explicitly agree to receive marketing SMS from this site on my verified mobile."
+msgstr ""
+
+msgid "Identity verified for erasure"
+msgstr ""
+
 msgid "If this number is eligible, a code has been sent."
+msgstr ""
+
+msgid "Import pending contacts (maximum 50)"
+msgstr ""
+
+msgid "Import without consent"
 msgstr ""
 
 msgid "Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request."
@@ -146,6 +209,18 @@ msgid "Local OTP test mode is active. No SMS is sent; codes are shown on the loc
 msgstr ""
 
 msgid "Local OTP testing requires a local environment, a loopback site URL and a loopback connection."
+msgstr ""
+
+msgid "Local campaigns send no SMS and require no API or sending line. Live marketing uses a permitted SMS.ir sending line, never an OTP template. Delivery to blocked numbers is not promised."
+msgstr ""
+
+msgid "Local group"
+msgstr ""
+
+msgid "Local group tag (letters, digits, dash or underscore)"
+msgstr ""
+
+msgid "Local message preview · no SMS sent"
 msgstr ""
 
 msgid "Local preview"
@@ -169,6 +244,9 @@ msgstr ""
 msgid "Login / Register"
 msgstr ""
 
+msgid "Login and purchases do not grant marketing consent. You can unsubscribe at any time."
+msgstr ""
+
 msgid "Login and registration"
 msgstr ""
 
@@ -181,10 +259,16 @@ msgstr ""
 msgid "Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:"
 msgstr ""
 
+msgid "Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly."
+msgstr ""
+
 msgid "Maximum attempts per challenge"
 msgstr ""
 
 msgid "Member"
+msgstr ""
+
+msgid "Message (up to 1000 characters; variables: {site_name}, {unsubscribe_url})"
 msgstr ""
 
 msgid "Mobile access, thoughtfully simple."
@@ -197,6 +281,9 @@ msgid "Mobile authentication is disabled."
 msgstr ""
 
 msgid "Mobile number"
+msgstr ""
+
+msgid "Mobiles, one per line"
 msgstr ""
 
 msgid "Modules"
@@ -241,6 +328,12 @@ msgstr ""
 msgid "Operation"
 msgstr ""
 
+msgid "Optional SMS subscription"
+msgstr ""
+
+msgid "Optional marketing requires separate explicit consent on a verified mobile. Encrypted mobiles, consent source/version/time and withdrawal records support subscription management. SMS.ir receives the mobile, message and a random unsubscribe link only when a live campaign is approved. No SMS is sent in local mode. Campaign data expires after 30 days; queued jobs expire 24 hours after their scheduled time. Erasure removes personal data but retains a keyed phone suppression fingerprint to prevent reimport from restoring consent. This fingerprint remains until a verified fresh opt-in or an explicit complete plugin purge. Server logs and backups need separate retention; redact unsubscribe tokens from access logs."
+msgstr ""
+
 msgid "Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling."
 msgstr ""
 
@@ -271,10 +364,22 @@ msgstr ""
 msgid "Parameters · no SMS sent"
 msgstr ""
 
+msgid "Pause campaign"
+msgstr ""
+
 msgid "Permission denied."
 msgstr ""
 
+msgid "Permitted sending line (blank for local simulation)"
+msgstr ""
+
+msgid "Personal marketing data was removed. A keyed suppression fingerprint remains to prevent accidental resubscription by import."
+msgstr ""
+
 msgid "Phone"
+msgstr ""
+
+msgid "Please try again shortly."
 msgstr ""
 
 msgid "Previous"
@@ -295,7 +400,13 @@ msgstr ""
 msgid "Queue data cannot be matched after server key rotation; it expires within 24 hours through scheduled cleanup."
 msgstr ""
 
+msgid "Recent campaigns"
+msgstr ""
+
 msgid "Recent connection result is still current."
+msgstr ""
+
+msgid "Recent contacts"
 msgstr ""
 
 msgid "Recent notification jobs"
@@ -310,10 +421,16 @@ msgstr ""
 msgid "Resend cooldown (seconds)"
 msgstr ""
 
+msgid "Resume campaign"
+msgstr ""
+
 msgid "Route"
 msgstr ""
 
 msgid "SMS sending is disabled in server configuration."
+msgstr ""
+
+msgid "SMS subscription"
 msgstr ""
 
 msgid "SMS.ir connection"
@@ -325,10 +442,19 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+msgid "Save draft and preview"
+msgstr ""
+
+msgid "Save group"
+msgstr ""
+
 msgid "Save module state"
 msgstr ""
 
 msgid "Save uninstall preference"
+msgstr ""
+
+msgid "Schedule in site timezone (within seven days; blank means now)"
 msgstr ""
 
 msgid "Send one paid test SMS to this number. This code grants no account access."
@@ -344,6 +470,9 @@ msgid "Sending…"
 msgstr ""
 
 msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes outside the database, then enable ANI_SMS_LIVE_ENABLED only after reviewing the API contract and test account. API keys may also be supplied through ANI_SMS_API_KEY. Never commit these values."
+msgstr ""
+
+msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
 msgstr ""
 
 msgid "Site issuance limit per hour"
@@ -365,6 +494,18 @@ msgid "Status changed · administrator"
 msgstr ""
 
 msgid "Status changed · customer"
+msgstr ""
+
+msgid "Subscribers and campaigns"
+msgstr ""
+
+msgid "Subscription could not be changed. Verify your mobile and try again."
+msgstr ""
+
+msgid "Subscription preferences updated."
+msgstr ""
+
+msgid "Suppress"
 msgstr ""
 
 msgid "Template ID"
@@ -404,6 +545,18 @@ msgid "Too many requests. Wait before trying again."
 msgstr ""
 
 msgid "Unavailable"
+msgstr ""
+
+msgid "Unsubscribe from marketing SMS"
+msgstr ""
+
+msgid "Unsubscribe request processed. No account login is required."
+msgstr ""
+
+msgid "Unsubscribe:"
+msgstr ""
+
+msgid "Updated at (UTC)"
 msgstr ""
 
 msgid "Verified at (UTC)"
