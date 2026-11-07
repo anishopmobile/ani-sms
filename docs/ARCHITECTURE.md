@@ -1,4 +1,4 @@
-# ANI-SMS architecture — 1.0 candidate
+# ANI-SMS architecture — 1.2 candidate
 
 Source root: `wp-content/plugins/ani-sms`. The bootstrap registers lifecycle hooks and boots at init priority 5 through a namespace-only loader. `Core/Plugin` is the composition root. Infrastructure has no dependency on WooCommerce, Elementor or a theme.
 
@@ -6,7 +6,7 @@ Source root: `wp-content/plugins/ani-sms`. The bootstrap registers lifecycle hoo
 
 - `Core`: lifecycle, settings, module contract/registry and provider registry. The module registry refuses duplicate/late registration and loads enabled modules only when prerequisites exist. Privileged settings persist the next request's state; disabling invalidates live challenges immediately.
 - `Infrastructure`: trusted table names, checked SQL/transactions, connection-scoped named locks, idempotent dbDelta schema migration, bounded cleanup, redacted logging and shared Sender. SQL error suppression is temporary around private-data operations and restored after each operation.
-- `Provider`: interface, normalized Result and original SMS.ir HTTP adapter. Result includes state, error category, message ID, provider/operation, correlation and retryability. Only template/connection capabilities are advertised. No raw provider payload crosses this boundary.
+- `Provider`: interface, normalized Result and original SMS.ir HTTP adapter. Result includes state, error category, message ID, provider/operation, correlation and retryability. Template, account-connection and single-recipient text/bulk capabilities are advertised. No raw provider payload crosses this boundary.
 - `Security`: server-only master key, domain-separated HMAC, sodium credential encryption and atomic phone/IP/site quotas.
 - `Auth`: account policy, OTP state machine, signed guest binding, narrow same-origin AJAX endpoint, shortcode renderer and browser script. No reusable plugin session replaces WordPress cookies.
 - `Admin` and `Privacy`: scoped admin pages, capability/nonce-protected actions, masked logs, personal-data exporter/eraser and deletion hooks. The core registers an informative shortcode fallback when authentication is disabled/unavailable.
@@ -29,3 +29,10 @@ Only after verification does the endpoint apply WordPress authentication policy 
 Expiration checks are synchronous; cleanup is hourly and depends on healthy site cron only for physical deletion. Deactivation clears the scheduled hook and invalidates live challenges but preserves permanent data. Uninstall defaults to preservation; explicit purge removes only ANI-SMS data.
 
 No bulk jobs exist in 1.0, so there is no unneeded queue dependency. Future queue/event contracts and delivery polling remain in the specification/roadmap. The package builder includes only plugin files, source, assets, translations and license; the existing WordPress installation, config, database dump, reference plugin and dev tools are excluded.
+
+
+## Optional phase extensions
+
+Schema 4 adds the shared encrypted queue/event-state tables, subscribers, versioned consent evidence, campaigns and durable recipient snapshots. Identity proof and consent modes separate local simulations from live marketing. Successful OTP completion stamps proof mode in the same transaction as consumption; old identities remain unknown until reverified. Core queue has generic handlers, conditional claims, leases and deferred work; it has no WooCommerce/marketing business dependency. Paused campaign jobs are excluded from runnable selection.
+
+WooCommerce uses only its CRUD and hooks with HPOS compatibility; marketing uses core identity proof and its own consent state. Billing phones and imports never grant consent. The marketing opt-out route and privacy hooks remain available while the module is disabled; subscriber assets/opt-in and campaign dispatch do not. See WOOCOMMERCE.md, MARKETING.md and ADRs 0003/0004 for event/retention/control policies.

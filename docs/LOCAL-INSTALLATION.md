@@ -36,3 +36,10 @@ The owner clarified that no SMS.ir API key has been obtained yet and that only t
 ## Optional order phase installed — 1.1.0-rc1
 
 The development checkout now includes active WooCommerce and the optional order module for local simulation. Open `http://localhost/ani-sms/wp-admin/admin.php?page=ani-sms&tab=woocommerce` for recipient settings, four template mappings and masked queued-job previews. Local template IDs remain 0; no API key is needed. Test orders #14/#15 were created via CRUD and edited through the HPOS order screen. Use the local Process eligible jobs action after five seconds. Configuration backup is outside the document root/Git. Core auth remains enabled and the existing login page is unchanged. See WOOCOMMERCE.md before configuring approved live templates and controlled real recipients; the current dummy test destinations must not be used for paid testing.
+
+
+## Independent marketing phase installed — 1.2.0-rc1
+
+Open `http://localhost/ani-sms/wp-admin/admin.php?page=ani-sms&tab=marketing` for pending contacts and campaigns. The marked test subscription page is `http://localhost/ani-sms/?page_id=16`. Use a private window, sign in through the existing OTP page and then explicitly subscribe on page 16. A standard administrator without a verified mobile is not offered an opt-in form. This does not alter the owner's consent or login session.
+
+Final schema-4 UI fixture group: `local-458505`; campaigns #8/#9/#10/#11 demonstrate cancelled scheduled work, simulated sending, opt-out after enqueue and module disable, respectively. All are local-mode records; the final test contact is suppressed. Existing earlier marked test groups were not promoted to live consent. The distributed module defaults off; it is enabled only in this owner's local settings for further tests. The temporary background-HTTP guard is removed and temporary admin tokens revoked after testing. Real marketing needs a public HTTPS unsubscribe URL, permitted line, live-verified phone/consent and privately configured API; local proof/consent is excluded even after flipping server flags.

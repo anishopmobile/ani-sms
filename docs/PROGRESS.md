@@ -1,5 +1,9 @@
 # ANI-SMS progress
 
+## Independent consent and campaigns — 1.2.0-rc1, 2026-11-07
+
+Completed spec phase six on codex/ani-sms-v1: pending-only import, verified explicit opt-in, suppression and token opt-out, preview-bound campaign approval, scheduling/pause/resume/cancel, generic queue integration and text/bulk transport. Schema 4 isolates local/live consent and OTP phone proof. Owner-site workflow passed 43 UI assertions; isolated suites passed marketing 42, provider 15 and live-boundary 5, plus OTP/order/concurrency/lifecycle regressions. See MARKETING-TESTS.md for exact environments and limits. No real API or SMS delivery was used.
+
 ## Optional order notifications — 1.1.0-rc1, 2026-11-07
 
 Implemented the explicitly authorized WooCommerce phase on codex/ani-sms-v1 after the one-time rc3 main promotion. Durable encrypted queue, independent recipients/templates, transition deduplication/coalescing, cancellation guards, local previews and HPOS support are complete. Owner-site UI: 19 configuration/security/module checks and 11 actual-order checks passed after mobile/form-recovery fixes. PHP 8.3/8.5, CPT/HPOS and WooCommerce-absent regression evidence is in [WOOCOMMERCE-TESTS.md](WOOCOMMERCE-TESTS.md). No real SMS was sent.

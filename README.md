@@ -1,10 +1,10 @@
 # ANI-SMS
 
-Independent WordPress mobile authentication plugin, based on the finalized ANI-SMS-SPEC.md 2.1.
+Independent WordPress SMS infrastructure with optional authentication, WooCommerce order notifications and explicit-consent campaigns. Based on ANI-SMS-SPEC.md 2.1 and its authorized phase addenda.
 
 ## Current checkpoint
 
-Version **1.0.0-rc3** implements the 1.0 feature scope: independent core, optional authentication module, SMS.ir adapter, indexed identity/OTP/rate storage, secure settings, Persian responsive admin, accessible shortcode form, logs, privacy tools and explicit uninstall policy. WooCommerce, campaigns and other notifications are outside 1.0. This is a review candidate, not an assertion that a real SMS.ir account has been verified.
+Version **1.2.0-rc1** includes the completed authentication baseline, optional WooCommerce order notifications, and an independent subscribers/consent/campaign module. Each module and recipient route is opt-in. Campaign consent is separate from login/purchases, and local consent/phone proofs never enter a live audience. The candidate is installed and tested on the owner's development branch; no real SMS.ir delivery has been verified. See the module-specific setup and evidence links below.
 
 ### Local-only OTP walkthrough (1.0.0-rc2)
 
@@ -17,7 +17,7 @@ Requirements: WordPress 6.8+, PHP 8.3+, sodium, MySQL/MariaDB with InnoDB and co
 ## Install and configure
 
 1. Install the ZIP produced by `python tools/package.py`, or copy only `wp-content/plugins/ani-sms/` into a staging site's plugins directory. The repository also contains an existing WordPress installation and database dump; neither belongs in the plugin ZIP and neither is required for installation.
-2. Generate 32 cryptographically random bytes and encode as base64, for example `php -r "echo base64_encode(random_bytes(32)), PHP_EOL;"`. Define this value as `ANI_SMS_SECRET_KEY` in server configuration outside the database, or provide it as an environment variable. Never commit it. Sodium must be enabled. Rotation invalidates outstanding challenges and requires replacing a database-encrypted API key.
+2. Generate 32 cryptographically random bytes and encode as base64, for example `php -r "echo base64_encode(random_bytes(32)), PHP_EOL;"`. Define this value as `ANI_SMS_SECRET_KEY` in server configuration outside the database, or provide it as an environment variable. Never commit it. Sodium must be enabled. Rotation invalidates outstanding challenges and requires replacing a database-encrypted API key; marketing also fails closed until its keyed suppression data has a reviewed migration.
 3. Activate ANI-SMS. In the ANI-SMS menu configure the SMS.ir API key, an approved OTP template ID and its exact code parameter name. A blank API field keeps the stored key; deletion is explicit. `ANI_SMS_API_KEY` in server configuration/environment takes precedence over the encrypted database credential. Its value is never returned to the browser.
 4. Use **Check connection** to query account credit without sending SMS. API acceptance does not establish delivery or template validity. Create/approve templates in the SMS.ir panel; this plugin only maintains local mappings.
 5. Review `docs/SMSIR-API.md`. Set the server-only boolean constant `ANI_SMS_LIVE_ENABLED` to `true` only for the intended staging/production account after its contract has been checked. The default is disabled. A paid test send additionally requires an explicit checkbox and recipient. Tests in this repository never send real SMS.

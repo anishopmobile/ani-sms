@@ -28,12 +28,19 @@ Only valid successful API acceptance activates an eligible OTP. `accepted` is no
 
 ## Administration and data
 
-Every mutation verifies manage_options and a WordPress nonce; public form input is narrowly typed. SQL values are prepared and custom table names come from fixed internal allowlists. SQL error suppression is scoped to ANI-SMS data operations and restored immediately; it is not a global WordPress logging switch. Output is escaped at rendering. Redirect destinations are server-defined home URLs and client-checked for same origin.
+Administrative mutations verify manage_options and a WordPress nonce; verified-user subscription forms additionally require same-origin POST and an account nonce. Public opt-out requires a random bearer token plus explicit confirmation POST and is intentionally available without account login. All public input is narrowly typed. SQL values are prepared and custom table names come from fixed internal allowlists. SQL error suppression is scoped to ANI-SMS data operations and restored immediately; it is not a global WordPress logging switch. Output is escaped at rendering. Redirect destinations are server-defined home URLs and client-checked for same origin.
 
-Identity records hold canonical phone, WP user ID and verification time. Challenges hold the short-lived phone/binding/purpose/actor/digest metadata. Rate keys are HMAC hashes; logs contain only correlation, purpose/state/error category, masked phone, provider message ID and UTC time. No message bodies are retained. Cron cleanup is bounded and indexed; missed cron or extreme backlog can extend physical retention, so operators must monitor it. Default windows and purge behavior are in README.
+Identity records hold canonical phone, WP user ID and verification time. Challenges hold the short-lived phone/binding/purpose/actor/digest metadata. Rate keys are HMAC hashes; logs contain only correlation, purpose/state/error category, masked phone, provider message ID and UTC time. Logs retain no message bodies. Approved campaign drafts are encrypted operational data with a 30-day retention limit; per-recipient queue snapshots expire 24 hours after scheduling. Cron cleanup is bounded and indexed; missed cron or extreme backlog can extend physical retention, so operators must monitor it. Default windows and purge behavior are in README.
 
 Privacy tools map verified request email to a WordPress user, then export or remove the identity/challenges. No email is fabricated for phone-only users. An authenticated administrator must verify a phone-only claimant separately before using `Privacy::remove_user($id)`; that method is an internal service, not a public endpoint. Never infer marketing consent from authentication. Multisite and account merging are unsupported.
 
 ## Explicitly absent
 
 No reCAPTCHA, advanced velocity check, scheduled registration restriction, extra provider, channel fallback, Woodmart adapter, marketing or WooCommerce module is shipped in 1.0. None of these exclusions relax the baseline protections above.
+
+
+## 1.1/1.2 extensions
+
+Order billing phones cannot create identities. Marketing requires explicit versioned consent on a verified identity, with local/live proof and consent modes checked independently from campaign/job modes. Legacy/local proof cannot grant live consent. Imports preserve suppression; changing groups rotates the recipient revision. Campaign approval binds the previewed audience, and dispatch rechecks consent/campaign state under recipient/campaign locks. Unknown POST results are terminal. Key-ID mismatch blocks keyed suppression operations until reviewed migration; never delete this guard to restore sending.
+
+Phone/token fields and campaign drafts are encrypted, token lookup and suppression use domain-separated HMAC, and opt-out pages prevent referrer/cache leakage. Privacy erasure deliberately retains a minimal suppression fingerprint, disclosed in policy content. No CSV/Excel export is exposed. Temporary browser sessions, local API settings and test tokens are excluded from Git and package output.
