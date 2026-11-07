@@ -1,6 +1,6 @@
 <?php
 /**
- * Preserve all data by default. Destructive cleanup is not offered yet.
+ * Preserve data by default; purge only explicitly enabled plugin-owned data.
  *
  * @package AniSms
  */

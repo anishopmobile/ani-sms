@@ -58,22 +58,29 @@ final class Subscribers {
 		$phone = $this->store->value( $this->store->db->prepare( "SELECT phone FROM {$this->store->table( 'identities' )} WHERE user_id=%d", $user_id ) );
 		if ( ! is_string( $phone ) || ! get_user_by( 'id', $user_id ) ) {
 			throw new \InvalidArgumentException( 'Verified identity required.' ); }
+		$local = \AniSms\Security\LocalTest::active();
+		if ( \AniSms\Security\LocalTest::requested() && ! $local ) {
+			throw new \RuntimeException( 'Local consent guard.' ); }
+		$mode       = $local ? 'local' : 'live';
+		$proof_mode = $this->store->value( $this->store->db->prepare( "SELECT verification_mode FROM {$this->store->table( 'identities' )} WHERE user_id=%d", $user_id ) );
+		if ( ! $local && ( 'live' !== $proof_mode || 'https' !== wp_parse_url( home_url(), PHP_URL_SCHEME ) ) ) {
+			throw new \RuntimeException( 'Live phone verification required.' ); }
 		$id      = $this->import( $phone, '' );
 		$secrets = new Secrets();
 		return $this->store->lock(
 			'subscriber:' . $secrets->hash( 'subscriber-phone', $phone ),
-			function () use ( $id, $phone, $user_id, $secrets ) {
+			function () use ( $id, $phone, $user_id, $secrets, $mode ) {
 				return $this->store->transaction(
-					function () use ( $id, $phone, $user_id, $secrets ) {
+					function () use ( $id, $phone, $user_id, $secrets, $mode ) {
 						$row   = $this->by_phone( $phone );
 						$owner = $this->store->value( $this->store->db->prepare( "SELECT user_id FROM {$this->store->table( 'identities' )} WHERE phone=%s", $phone ) );
 						if ( (int) $owner !== $user_id ) {
 							throw new \RuntimeException( 'Identity changed.' ); }
-						if ( 'consented' === $row['state'] && (int) $row['user_id'] === $user_id && self::VERSION === $row['version'] ) {
+						if ( 'consented' === $row['state'] && (int) $row['user_id'] === $user_id && self::VERSION === $row['version'] && $mode === $row['mode'] ) {
 							return $id; }
 						$token = bin2hex( random_bytes( 32 ) );
-						$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET phone=%s,user_id=%d,state='consented',source='account_form',version=%s,revision=%s,token=%s,token_hash=%s,updated=%d WHERE id=%d", $secrets->encrypt( $phone ), $user_id, self::VERSION, bin2hex( random_bytes( 16 ) ), $secrets->encrypt( $token ), $secrets->hash( 'unsubscribe', $token ), time(), $id ) );
-						$this->evidence( $id, 'granted', 'account_form' );
+						$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET phone=%s,user_id=%d,mode=%s,state='consented',source='account_form',version=%s,revision=%s,token=%s,token_hash=%s,updated=%d WHERE id=%d", $secrets->encrypt( $phone ), $user_id, $mode, self::VERSION, bin2hex( random_bytes( 16 ) ), $secrets->encrypt( $token ), $secrets->hash( 'unsubscribe', $token ), time(), $id ) );
+						$this->evidence( $id, 'granted', 'account_form_' . $mode );
 						return $id;
 					}
 				);
@@ -112,7 +119,7 @@ final class Subscribers {
 						$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'jobs' )} SET state='cancelled',error_code='suppressed',payload='' WHERE module='marketing' AND sequence=%d AND state IN ('queued','paused')", $id ) );
 						$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'campaign_recipients' )} SET state='cancelled' WHERE subscriber_id=%d AND state IN ('queued','paused')", $id ) );
 						if ( $erase ) {
-								$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET phone='',user_id=0,source='privacy',version='',tag='',token='',token_hash='' WHERE id=%d", $id ) );
+								$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET phone='',user_id=0,mode='',source='privacy',version='',tag='',token='',token_hash='' WHERE id=%d", $id ) );
 							foreach ( array( 'consents', 'campaign_recipients' ) as $table ) {
 								$this->store->query( $db->prepare( "DELETE FROM {$this->store->table( $table )} WHERE subscriber_id=%d", $id ) ); }
 							$this->store->query( $db->prepare( "DELETE FROM {$this->store->table( 'jobs' )} WHERE module='marketing' AND sequence=%d", $id ) );

@@ -61,8 +61,9 @@ final class Campaigns {
 		return (int) $this->store->db->insert_id;
 	}
 	public function audience( array $campaign ): array {
-		$where = '' !== $campaign['tag'] ? $this->store->db->prepare( ' AND tag=%s', $campaign['tag'] ) : '';
-		$rows  = $this->store->db->get_results( "SELECT * FROM {$this->store->table( 'subscribers' )} WHERE state='consented'$where ORDER BY id LIMIT 201", ARRAY_A );
+		$mode_clause = $this->store->db->prepare( ' AND mode=%s', $campaign['mode'] );
+		$where       = '' !== $campaign['tag'] ? $this->store->db->prepare( ' AND tag=%s', $campaign['tag'] ) : '';
+		$rows        = $this->store->db->get_results( "SELECT * FROM {$this->store->table( 'subscribers' )} WHERE state='consented'$mode_clause$where ORDER BY id LIMIT 201", ARRAY_A );
 		if ( count( $rows ) > self::LIMIT ) {
 			throw new \InvalidArgumentException( 'Split audience into smaller tags.' ); }
 		return $rows;
@@ -176,7 +177,7 @@ final class Campaigns {
 					'subscriber:' . $row['phone_hash'],
 					function () use ( $campaign, $job, $payload, $row ) {
 						$current = $this->store->row( $this->store->db->prepare( "SELECT * FROM {$this->store->table( 'subscribers' )} WHERE id=%d", $row['id'] ) );
-						if ( ! $current || 'consented' !== $current['state'] || $current['revision'] !== $payload['revision'] || Subscribers::VERSION !== $current['version'] ) {
+						if ( ! $current || 'consented' !== $current['state'] || $current['revision'] !== $payload['revision'] || Subscribers::VERSION !== $current['version'] || $current['mode'] !== $job['mode'] ) {
 							return new Result( 'cancelled', 'consent_changed' ); }
 						if ( 'local' === $job['mode'] ) {
 							return new Result( LocalTest::active() ? 'simulated' : 'cancelled', LocalTest::active() ? '' : 'local_guard' ); }

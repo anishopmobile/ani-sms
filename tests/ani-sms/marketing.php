@@ -35,6 +35,7 @@ ani_rejects(fn()=>$sub->consent($user,true,'old-version'),'old consent version r
 ani_rejects(fn()=>$sub->consent($user2,true,Subscribers::VERSION),'unverified mobile rejected');
 ani_check($id===$sub->consent($user,true,Subscribers::VERSION),'explicit verified consent recorded');
 $row=$state($id);$token=$secrets->decrypt($row['token']);
+ani_check('local'===$row['mode']&&0===count($campaigns->audience(array('mode'=>'live','tag'=>'test'))),'local consent is excluded from live campaigns');
 ani_check('consented'===$row['state']&&Subscribers::VERSION===$row['version']&&'account_form'===$row['source'],'source/version retained');
 ani_check(!str_contains($row['phone'],$normalized)&&!str_contains($row['token'],$token),'phone and token encrypted');
 ani_check(!str_contains($sub->url($row),'0912')&&strlen($token)===64,'random token link does not expose phone');

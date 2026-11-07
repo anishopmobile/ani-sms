@@ -48,6 +48,7 @@ final class Accounts {
 			throw new \RuntimeException( 'Account policy declined.' ); }
 		$id = $this->identity( $phone );
 		if ( $id ) {
+			$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'identities' )} SET verified_at=%d,verification_mode=%s WHERE phone=%s AND user_id=%d", time(), \AniSms\Security\LocalTest::active() ? 'local' : 'live', $phone, $id ) );
 			return $id; }
 		if ( 'link' === $purpose ) {
 			$id = $actor;
@@ -65,7 +66,7 @@ final class Accounts {
 			$this->created[] = (int) $id;
 		}
 		try {
-			$this->store->query( $this->store->db->prepare( "INSERT INTO {$this->store->table( 'identities' )} (phone,user_id,verified_at) VALUES (%s,%d,%d)", $phone, $id, time() ) );
+			$this->store->query( $this->store->db->prepare( "INSERT INTO {$this->store->table( 'identities' )} (phone,user_id,verified_at,verification_mode) VALUES (%s,%d,%d,%s)", $phone, $id, time(), \AniSms\Security\LocalTest::active() ? 'local' : 'live' ) );
 		} catch ( \Throwable $error ) {
 			clean_user_cache( $id );
 			throw $error;
