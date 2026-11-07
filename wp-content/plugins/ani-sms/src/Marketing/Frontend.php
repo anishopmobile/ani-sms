@@ -18,7 +18,9 @@ final class Frontend {
 		add_action( 'template_redirect', array( $this, 'unsubscribe' ), 1 );
 	}
 	public function render(): string {
-		if ( ! \AniSms\Core\Settings::module_enabled( 'marketing' ) || ! is_user_logged_in() ) {
+		if ( ! \AniSms\Core\Settings::module_enabled( 'marketing' ) ) {
+			return '<p>' . esc_html__( 'Marketing subscriptions are currently disabled.', 'ani-sms' ) . '</p>'; }
+		if ( ! is_user_logged_in() ) {
 			return '<p>' . esc_html__( 'Sign in with a verified mobile to manage optional SMS subscriptions.', 'ani-sms' ) . '</p>'; }
 		$row = ( new Subscribers( $this->store ) )->for_user( get_current_user_id() );
 		ob_start();

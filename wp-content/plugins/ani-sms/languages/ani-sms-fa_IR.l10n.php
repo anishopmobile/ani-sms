@@ -92,6 +92,7 @@ return array(
 		'Logs are kept for 30 days without message bodies or OTP values. Expired challenges are cleaned after one hour and rate metadata after 24 hours beyond its window. Deactivation stops authentication and preserves permanent data. Configure a system cron at least every five minutes on low-traffic sites.' => 'رخدادها بدون متن پیام و کد ورود تا ۳۰ روز نگهداری می‌شوند. داده کدهای منقضی و محدودسازی به‌صورت دوره‌ای پاک می‌شود. غیرفعال‌سازی، ورود پیامکی را متوقف می‌کند و داده دائمی را حفظ می‌کند. در سایت کم‌ترافیک، cron سیستم را طبق راهنما تنظیم کنید.',
 		'Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:' => 'قالب نگاشت: ExactPanelParameter=variable، هر نگاشت در یک خط. متغیرهای مجاز:',
 		'Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly.' => 'بازاریابی از ورود و سفارش مستقل است. واردکردن شماره فقط مخاطب در انتظار می‌سازد و رضایت یا انصراف را تغییر نمی‌دهد. کد [ani_sms_marketing] را در برگه حسابِ بدون کش قرار دهید تا کاربران دارای شماره تأییدشده، جداگانه رضایت بدهند.',
+		'Marketing subscriptions are currently disabled.' => 'اشتراک بازاریابی در حال حاضر غیرفعال است.',
 		'Maximum attempts per challenge' => 'حداکثر تلاش برای هر کد',
 		'Member' => 'عضو',
 		'Message (up to 1000 characters; variables: {site_name}, {unsubscribe_url})' => 'متن پیام (حداکثر ۱۰۰۰ نویسه؛ متغیرها: {site_name} و {unsubscribe_url})',

@@ -262,6 +262,9 @@ msgstr ""
 msgid "Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly."
 msgstr ""
 
+msgid "Marketing subscriptions are currently disabled."
+msgstr ""
+
 msgid "Maximum attempts per challenge"
 msgstr ""
 

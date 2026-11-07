@@ -262,6 +262,9 @@ msgstr "قالب نگاشت: ExactPanelParameter=variable، هر نگاشت در
 msgid "Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly."
 msgstr "بازاریابی از ورود و سفارش مستقل است. واردکردن شماره فقط مخاطب در انتظار می‌سازد و رضایت یا انصراف را تغییر نمی‌دهد. کد [ani_sms_marketing] را در برگه حسابِ بدون کش قرار دهید تا کاربران دارای شماره تأییدشده، جداگانه رضایت بدهند."
 
+msgid "Marketing subscriptions are currently disabled."
+msgstr "اشتراک بازاریابی در حال حاضر غیرفعال است."
+
 msgid "Maximum attempts per challenge"
 msgstr "حداکثر تلاش برای هر کد"
 

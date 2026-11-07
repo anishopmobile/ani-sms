@@ -5,6 +5,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+    'Marketing subscriptions are currently disabled.': 'اشتراک بازاریابی در حال حاضر غیرفعال است.',
     'Subscribers and campaigns': 'مخاطبان و کمپین\u200cها',
     'Enable subscribers and marketing campaigns': 'فعال\u200cسازی مخاطبان و کمپین\u200cهای پیامکی',
     'Marketing is independent of login and orders. Imports are pending only and never grant consent or remove suppression. Add [ani_sms_marketing] to an uncached account page for verified users to opt in explicitly.': 'بازاریابی از ورود و سفارش مستقل است. واردکردن شماره فقط مخاطب در انتظار می\u200cسازد و رضایت یا انصراف را تغییر نمی\u200cدهد. کد [ani_sms_marketing] را در برگه حسابِ بدون کش قرار دهید تا کاربران دارای شماره تأییدشده، جداگانه رضایت بدهند.',

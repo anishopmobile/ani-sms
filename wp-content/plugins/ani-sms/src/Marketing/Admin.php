@@ -5,6 +5,7 @@ use AniSms\Infrastructure\Database;
 use AniSms\Infrastructure\Queue;
 
 final class Admin {
+	private string $form_operation = '';
 	public function __construct( private Database $store, private array $pending = array() ) {}
 	public function action( string $operation, array $input ): void {
 		if ( ! \AniSms\Core\Settings::module_enabled( 'marketing' ) ) {
@@ -25,8 +26,10 @@ final class Admin {
 					( new Subscribers( $this->store ) )->import( $phone, $tag ); }
 				break;
 			case 'marketing_create':
-				$campaigns->create( $input );
-				break;
+				$created = $campaigns->create( $input );
+				( new \AniSms\Infrastructure\Log( $this->store ) )->record( 'admin_marketing_create', 'accepted' );
+				wp_safe_redirect( admin_url( 'admin.php?page=ani-sms&tab=marketing&campaign=' . $created ), 303 );
+				exit;
 			case 'marketing_approve':
 				$campaigns->approve( $id, is_string( $input['preview'] ?? null ) ? $input['preview'] : '', '1' === ( $input['confirm'] ?? '' ), get_current_user_id() );
 				break;
@@ -52,12 +55,13 @@ final class Admin {
 		}
 	}
 	private function form( string $operation, int $id = 0 ): void {
+		$this->form_operation = $operation;
 		echo '<form method="post" class="ani-settings ani-order-settings">';
 		wp_nonce_field( 'ani_sms_admin' );
 		echo '<input type="hidden" name="ani_op" value="' . esc_attr( $operation ) . '"><input type="hidden" name="campaign" value="' . esc_attr( (string) $id ) . '">';
 	}
 	private function field( string $name, string $label, string $type = 'text', string $value = '' ): void {
-		if ( in_array( $this->pending['ani_op'] ?? '', array( 'marketing_create', 'marketing_import' ), true ) && is_string( $this->pending[ $name ] ?? null ) ) {
+		if ( ( $this->pending['ani_op'] ?? '' ) === $this->form_operation && in_array( $this->form_operation, array( 'marketing_create', 'marketing_import' ), true ) && is_string( $this->pending[ $name ] ?? null ) ) {
 			$value = $this->pending[ $name ]; }
 		echo '<label class="ani-field"><span>' . esc_html( $label ) . '</span>';
 		if ( 'textarea' === $type ) {
