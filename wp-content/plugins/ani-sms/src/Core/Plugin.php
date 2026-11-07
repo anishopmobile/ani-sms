@@ -34,6 +34,10 @@ final class Plugin {
 		$auth    = new \AniSms\Auth\Module( $store );
 		$modules = new ModuleRegistry();
 		$modules->register( $auth );
+		$modules->register( new \AniSms\Discount\Module( $store, $queue ) );
+		( new \AniSms\Discount\Frontend( $store ) )->boot();
+		( new \AniSms\Discount\Privacy( $store ) )->boot();
+		( new \AniSms\Discount\Policy( $store ) )->boot();
 		$modules->register( new \AniSms\Stock\Module( $store, $queue ) );
 		( new \AniSms\Stock\Frontend( $store ) )->boot();
 		( new \AniSms\Stock\Privacy( $store ) )->boot();

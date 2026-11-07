@@ -18,7 +18,7 @@ ani_check( ! is_wp_error( $result ) && is_plugin_active( 'ani-sms/ani-sms.php' )
 $class_file = ( new ReflectionClass( AniSms\Core\Lifecycle::class ) )->getFileName();
 ani_check( str_starts_with( wp_normalize_path( $class_file ), wp_normalize_path( WP_PLUGIN_DIR . '/ani-sms/' ) ), 'loaded classes come from installed ZIP' );
 $metadata = get_plugin_data( WP_PLUGIN_DIR . '/ani-sms/ani-sms.php', false, false );
-ani_check( '1.3.0-rc1' === $metadata['Version'], 'package version metadata' );
+ani_check( '1.4.0-rc1' === $metadata['Version'], 'package version metadata' );
 deactivate_plugins( 'ani-sms/ani-sms.php' );
 ani_check( ! is_plugin_active( 'ani-sms/ani-sms.php' ), 'package deactivates cleanly' );
 $result = activate_plugin( 'ani-sms/ani-sms.php' );

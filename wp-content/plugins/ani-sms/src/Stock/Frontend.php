@@ -20,7 +20,7 @@ final class Frontend {
 			'wp_enqueue_scripts',
 			static function () {
 				if ( \AniSms\Core\Settings::module_enabled( 'stock' ) && ( ( function_exists( 'is_product' ) && is_product() ) || ( is_singular() && has_shortcode( (string) get_post_field( 'post_content', get_queried_object_id() ), 'ani_sms_stock' ) ) ) ) {
-					wp_enqueue_style( 'ani-sms-stock', plugins_url( 'assets/stock.css', dirname( __DIR__, 2 ) . '/ani-sms.php' ), array(), '1.3.0-rc1' ); }
+					wp_enqueue_style( 'ani-sms-stock', plugins_url( 'assets/stock.css', dirname( __DIR__, 2 ) . '/ani-sms.php' ), array(), '1.4.0-rc1' ); }
 			}
 		);
 	}

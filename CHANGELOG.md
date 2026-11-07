@@ -1,3 +1,9 @@
+# 1.4.0-rc1
+
+- Add opt-in one-shot product discount alerts, current marketing consent, native Woo sale scheduling, encrypted bounded queue and local no-API simulation.
+- Cancel pending promotions on global withdrawal and ownership changes; prevent inheriting another account’s marketing consent.
+- Add Persian admin/public forms, cancellation, privacy and lifecycle integration.
+
 # Changelog
 
 ## 1.3.0-rc1 — 2026-11-07

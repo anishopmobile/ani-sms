@@ -4,7 +4,7 @@ Tags: sms, authentication, otp, login
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.3.0-rc1
+Stable tag: 1.4.0-rc1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +38,11 @@ Deactivation preserves permanent data and invalidates challenges. Uninstall pres
 
 == Changelog ==
 
-= 1.3.0-rc1 =
+= 1.4.0-rc1 =
+* Optional one-shot exact-product discount alerts with separate current marketing consent, native sale dates, mandatory unsubscribe and local no-API preview.
+* Encrypted bounded sale snapshots, price-change/withdrawal cancellation, privacy and consent-ownership checks.
+
+= 1.0.0-rc3 =
 * Correct expired/locked confirmation UI and provide clear, bound-challenge error messages.
 * Explicitly guarded loopback OTP simulation with on-form test codes and no SMS calls.
 * Independent core, module/provider registries, SMS.ir adapter and shared sending boundary.

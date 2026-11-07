@@ -1,3 +1,7 @@
+# Product discount alerts — 1.4.0-rc1, 2026-11-07
+
+Implemented the authorized optional discount module on codex/ani-sms-v1: exact native sales, separate current marketing consent and product intent, immutable local/live modes, encrypted bounded queue, mandatory unsubscribe, sale-change/withdrawal cancellation, privacy and lifecycle. Owner UI: 28 assertions passed with zero browser errors; discount 44, mocked boundary 7, two-client race 4 and 51-recipient batching 6 passed. See DISCOUNT.md and DISCOUNT-TESTS.md. No real API or SMS delivery was used.
+
 # ANI-SMS progress
 
 ## Exact-product stock alerts — 1.3.0-rc1, 2026-11-07

@@ -35,11 +35,16 @@ final class Lifecycle {
 		wp_unschedule_hook( 'ani_sms_stock_scan' );
 		wp_unschedule_hook( 'ani_sms_stock_children' );
 		wp_clear_scheduled_hook( 'ani_sms_stock_recovery' );
+		wp_unschedule_hook( 'ani_sms_discount_scan' );
+		wp_unschedule_hook( 'ani_sms_discount_children' );
+		wp_unschedule_hook( 'ani_sms_discount_boundary' );
+		wp_clear_scheduled_hook( 'ani_sms_discount_recovery' );
 		wp_clear_scheduled_hook( 'ani_sms_dispatch' );
 		wp_clear_scheduled_hook( 'ani_sms_dispatch_soon' );
 		update_option( 'ani_sms_wc_generation', bin2hex( random_bytes( 16 ) ), false );
 		if ( \AniSms\Infrastructure\Database::VERSION === get_option( 'ani_sms_schema' ) ) {
 			$store = new \AniSms\Infrastructure\Database( $wpdb );
+			$store->query( "UPDATE {$store->table( 'discount_requests' )} SET state='cancelled',phone='' WHERE state IN ('waiting','queued')" );
 			$store->query( "UPDATE {$store->table( 'stock_requests' )} SET state='cancelled',phone='' WHERE state IN ('waiting','queued')" );
 			$store->query( "UPDATE {$store->table( 'campaigns' )} SET state='cancelled' WHERE state IN ('approved','paused')" );
 			$store->query( "UPDATE {$store->table( 'campaign_recipients' )} SET state='cancelled' WHERE state IN ('queued','paused')" );

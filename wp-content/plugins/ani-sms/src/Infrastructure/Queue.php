@@ -86,11 +86,13 @@ final class Queue {
 		$operation = array(
 			'marketing' => 'campaign',
 			'stock'     => 'stock_notification',
+			'discount'  => 'discount_notification',
 		)[ $row['module'] ] ?? 'wc_notification';
 		( new Log( $this->store ) )->record(
 			'local' === $row['mode'] ? ( array(
 				'marketing' => 'campaign_local_test',
 				'stock'     => 'stock_local_test',
+				'discount'  => 'discount_local_test',
 			)[ $row['module'] ] ?? 'wc_local_test' ) : $operation,
 			$result->state,
 			$result->error,

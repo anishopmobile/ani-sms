@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.3.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.4.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -33,6 +33,9 @@ msgstr "اتصال حساب موفق بود. این نتیجه، درستی قا
 
 msgid "Action"
 msgstr "عملیات"
+
+msgid "Activate WooCommerce to use discount alerts. Saved settings are preserved."
+msgstr "برای اطلاع‌رسانی تخفیف ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
 
 msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
 msgstr "برای اعلان‌های سفارش، ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
@@ -100,6 +103,9 @@ msgstr "عنوان کمپین"
 msgid "Cancel campaign"
 msgstr "لغو کمپین"
 
+msgid "Cancel discount alert"
+msgstr "لغو اطلاع‌رسانی تخفیف"
+
 msgid "Cancel stock alert"
 msgstr "لغو درخواست موجودشدن"
 
@@ -108,6 +114,9 @@ msgstr "تغییرات ذخیره شد."
 
 msgid "Check connection · no SMS"
 msgstr "آزمون اتصال · بدون ارسال پیامک"
+
+msgid "Classic product pages show the form automatically. Block templates can use [ani_sms_discount product_id=\"123\"]. Use [ani_sms_discount] for account requests. Prices are catalog values, not personalized tax or coupon quotes."
+msgstr "فرم در صفحه کلاسیک کالا خودکار نمایش داده می‌شود. در قالب بلوکی از [ani_sms_discount product_id=\"123\"] و برای مدیریت درخواست‌ها از [ani_sms_discount] استفاده کنید. قیمت‌ها کاتالوگی هستند؛ مالیات شخصی یا کوپن محاسبه نمی‌شود."
 
 msgid "Code lifetime (seconds)"
 msgstr "عمر کد (ثانیه)"
@@ -157,8 +166,29 @@ msgstr "اعتبار، موجودی گزارش‌شده پنل است و تعد�
 msgid "Current account password"
 msgstr "رمز فعلی حساب"
 
+msgid "Current marketing consent is required for discount alerts."
+msgstr "اطلاع‌رسانی تخفیف به رضایت معتبر دریافت پیامک تبلیغاتی نیاز دارد."
+
 msgid "Delete database API key"
 msgstr "حذف کلید API ذخیره‌شده"
+
+msgid "Discount alert could not be changed. Verify your mobile and product selection, then try again."
+msgstr "درخواست تخفیف تغییر نکرد. موبایل و انتخاب کالا را بررسی و دوباره تلاش کنید."
+
+msgid "Discount alert preferences updated."
+msgstr "تنظیمات اطلاع‌رسانی تخفیف به‌روز شد."
+
+msgid "Discount alerts are unavailable."
+msgstr "اطلاع‌رسانی تخفیف در دسترس نیست."
+
+msgid "Discount alerts need current marketing consent and a separate request for the exact product or variation. One alert per request, valid for 30 days. No price or stock is reserved."
+msgstr "اعلان تخفیف به رضایت معتبر بازاریابی و درخواست مستقل برای کالای دقیق نیاز دارد. هر درخواست تا ۳۰ روز برای یک اعلان معتبر است. قیمت یا موجودی رزرو نمی‌شود."
+
+msgid "Discount alerts require separate product requests and current marketing consent on a verified mobile. Requests last 30 days and allow one promotional message for the exact product or variation. Withdrawal cancels pending alerts. Catalog prices may change before purchase. Live SMS.ir marketing-line messages include a random unsubscribe link; local alerts send no SMS. Queue snapshots expire within 24 hours; terminal phones clear and request metadata expires after 30 days. Erasure and user deletion remove pending work."
+msgstr "اعلان تخفیف به درخواست مستقل کالا و رضایت معتبر بازاریابی با موبایل تأییدشده نیاز دارد. درخواست ۳۰ روز برای یک پیام تبلیغاتی کالای دقیق اعتبار دارد. لغو رضایت اعلان‌های معلق را لغو می‌کند. قیمت ممکن است پیش از خرید تغییر کند. پیام واقعی خط تبلیغاتی SMS.ir دارای پیوند تصادفی لغو اشتراک است؛ در حالت محلی پیامکی ارسال نمی‌شود. تصویر صف حداکثر ۲۴ ساعت اعتبار دارد؛ شماره درخواست نهایی پاک و فراداده پس از ۳۰ روز حذف می‌شود. حذف حساب یا داده، کار معلق را حذف می‌کند."
+
+msgid "Discount message variables: product_name, product_url, site_name, regular_price, sale_price, discount_percent, unsubscribe_url"
+msgstr "متغیرهای پیام تخفیف: product_name، product_url، site_name، regular_price، sale_price، discount_percent و unsubscribe_url"
 
 msgid "Edit number"
 msgstr "ویرایش شماره"
@@ -178,8 +208,14 @@ msgstr "فعال‌سازی اطلاع‌رسانی موجودشدن کالا"
 msgid "Enable mobile authentication"
 msgstr "فعال‌سازی ورود پیامکی"
 
+msgid "Enable product discount alerts"
+msgstr "فعال‌سازی اطلاع‌رسانی تخفیف کالا"
+
 msgid "Enable subscribers and marketing campaigns"
 msgstr "فعال‌سازی مخاطبان و کمپین‌های پیامکی"
+
+msgid "Enable the marketing consent module before discount alerts."
+msgstr "پیش از اطلاع‌رسانی تخفیف، ماژول رضایت بازاریابی را فعال کنید."
 
 msgid "Enable the marketing module under Modules before creating campaigns."
 msgstr "پیش از ساخت کمپین، ماژول بازاریابی را در بخش ماژول‌ها فعال کنید."
@@ -195,6 +231,9 @@ msgstr "خطاهای امروز · این افزونه"
 
 msgid "Exact OTP parameter name"
 msgstr "نام دقیق پارامتر کد در قالب"
+
+msgid "Exact not currently discounted product or variation"
+msgstr "کالا یا تنوع دقیق که اکنون تخفیف ندارد"
 
 msgid "Exact out-of-stock product or variation"
 msgstr "محصول یا تنوع ناموجود موردنظر"
@@ -234,6 +273,9 @@ msgstr "آخرین بررسی:"
 
 msgid "Last privacy cleanup:"
 msgstr "آخرین پاک‌سازی داده‌ها:"
+
+msgid "Live discount messages use a permitted SMS.ir marketing line, never an OTP template. Local simulation needs no API or sending line."
+msgstr "اعلان واقعی تخفیف از خط تبلیغاتی مجاز SMS.ir ارسال می‌شود. قالب کد ورود مجاز نیست. شبیه‌سازی محلی به API یا خط ارسال نیاز ندارد."
 
 msgid "Local OTP test mode is active. No SMS is sent; codes are shown on the local form. Open the login page in a private window to test registration without changing your administrator session."
 msgstr "حالت تست لوکال OTP فعال است. پیامکی ارسال نمی‌شود و کد روی فرم لوکال نمایش داده می‌شود. برای آزمون ثبت‌نام، برگه ورود را در پنجره ناشناس باز کنید تا نشست مدیر شما تغییر نکند."
@@ -288,6 +330,9 @@ msgstr "رخدادها"
 
 msgid "Logs are kept for 30 days without message bodies or OTP values. Expired challenges are cleaned after one hour and rate metadata after 24 hours beyond its window. Deactivation stops authentication and preserves permanent data. Configure a system cron at least every five minutes on low-traffic sites."
 msgstr "رخدادها بدون متن پیام و کد ورود تا ۳۰ روز نگهداری می‌شوند. داده کدهای منقضی و محدودسازی به‌صورت دوره‌ای پاک می‌شود. غیرفعال‌سازی، ورود پیامکی را متوقف می‌کند و داده دائمی را حفظ می‌کند. در سایت کم‌ترافیک، cron سیستم را طبق راهنما تنظیم کنید."
+
+msgid "Manage SMS subscription"
+msgstr "مدیریت اشتراک پیامکی"
 
 msgid "Mapping format: ExactPanelParameter=variable, one per line. Allowed variables:"
 msgstr "قالب نگاشت: ExactPanelParameter=variable، هر نگاشت در یک خط. متغیرهای مجاز:"
@@ -349,6 +394,9 @@ msgstr "اعلان به شماره‌های مدیر"
 msgid "Notify customer"
 msgstr "اعلان به مشتری"
 
+msgid "Notify me about a discount"
+msgstr "تخفیف این کالا را خبر بده"
+
 msgid "Notify me when available"
 msgstr "وقتی موجود شد خبرم کن"
 
@@ -366,6 +414,9 @@ msgstr "هنگام حذف افزونه، تنظیمات، کلید ذخیره‌
 
 msgid "One alert for the exact product or variation, valid for 30 days. This is not marketing consent or a stock reservation."
 msgstr "یک اعلان برای همان محصول یا تنوع، با اعتبار ۳۰ روز. این درخواست رضایت بازاریابی یا رزرو موجودی نیست."
+
+msgid "One discount alert for this exact product or variation, valid for 30 days. Current marketing consent is also required. Catalog prices can change before purchase."
+msgstr "یک اعلان تخفیف برای همین کالا یا تنوع، با اعتبار ۳۰ روز. رضایت معتبر بازاریابی نیز لازم است. قیمت کالا ممکن است پیش از خرید تغییر کند."
 
 msgid "Operation"
 msgstr "عملیات"
@@ -442,6 +493,9 @@ msgstr "پردازش اعلان‌های آماده"
 msgid "Product"
 msgstr "محصول"
 
+msgid "Product discount alerts"
+msgstr "اطلاع‌رسانی تخفیف کالا"
+
 msgid "Publish and configure a privacy policy page before enabling mobile authentication."
 msgstr "پیش از فعال‌سازی ورود پیامکی، برگه حریم خصوصی را منتشر و در تنظیمات وردپرس انتخاب کنید."
 
@@ -468,6 +522,9 @@ msgstr "درخواست"
 
 msgid "Request cancelled"
 msgstr "درخواست لغو شد"
+
+msgid "Request discount alert"
+msgstr "ثبت درخواست اطلاع‌رسانی تخفیف"
 
 msgid "Request expired"
 msgstr "درخواست منقضی شد"
@@ -526,6 +583,9 @@ msgstr "برای این انتخاب، یک پیامک موجودشدن به ش�
 msgid "Send one paid test SMS to this number. This code grants no account access."
 msgstr "یک پیامک آزمایشی با کسر هزینه به این شماره ارسال شود. این کد امکان ورود به حساب را ندارد."
 
+msgid "Send one promotional discount SMS for this selection to my verified mobile."
+msgstr "برای این انتخاب، یک پیامک تبلیغاتی تخفیف به موبایل تأییدشده من ارسال شود."
+
 msgid "Send paid test SMS"
 msgstr "ارسال پیامک آزمایشی با هزینه"
 
@@ -540,6 +600,9 @@ msgstr "تنظیم سرور: ANI_SMS_SECRET_KEY را خارج از دیتابی�
 
 msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
 msgstr "برای مدیریت اشتراک اختیاری پیامک، با شماره تأییدشده وارد شوید."
+
+msgid "Sign in with a verified mobile to request a discount alert."
+msgstr "برای درخواست اطلاع‌رسانی تخفیف با موبایل تأییدشده وارد شوید."
 
 msgid "Sign in with a verified mobile to request a stock alert."
 msgstr "برای ثبت درخواست موجودشدن، با شماره تأییدشده وارد شوید."
@@ -585,6 +648,9 @@ msgstr "مخاطبان و کمپین‌ها"
 
 msgid "Subscription could not be changed. Verify your mobile and try again."
 msgstr "تغییر اشتراک انجام نشد. شماره خود را تأیید و دوباره تلاش کنید."
+
+msgid "Subscription preferences page URL (same site)"
+msgstr "نشانی صفحه مدیریت اشتراک (در همین سایت)"
 
 msgid "Subscription preferences updated."
 msgstr "تنظیمات اشتراک به‌روز شد."
@@ -660,6 +726,9 @@ msgstr "تأیید و اتصال شماره موبایل"
 
 msgid "Wait"
 msgstr "انتظار"
+
+msgid "Waiting for a discount"
+msgstr "منتظر تخفیف"
 
 msgid "Waiting for availability"
 msgstr "منتظر موجودشدن"

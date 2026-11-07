@@ -1,3 +1,5 @@
+Product discount alerts: **1.4.0-rc1**. See [contract](docs/DISCOUNT.md) and [validation](docs/DISCOUNT-TESTS.md).
+
 # ANI-SMS
 
 Independent WordPress SMS infrastructure with optional authentication, WooCommerce order notifications and explicit-consent campaigns. Based on ANI-SMS-SPEC.md 2.1 and its authorized phase addenda.

@@ -4,7 +4,8 @@ import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
-translations = {
+translations = {'Product discount alerts': 'اطلاع\u200cرسانی تخفیف کالا', 'Enable product discount alerts': 'فعال\u200cسازی اطلاع\u200cرسانی تخفیف کالا', 'Waiting for a discount': 'منتظر تخفیف', 'Discount alerts are unavailable.': 'اطلاع\u200cرسانی تخفیف در دسترس نیست.', 'Current marketing consent is required for discount alerts.': 'اطلاع\u200cرسانی تخفیف به رضایت معتبر دریافت پیامک تبلیغاتی نیاز دارد.', 'Manage SMS subscription': 'مدیریت اشتراک پیامکی', 'Notify me about a discount': 'تخفیف این کالا را خبر بده', 'Request discount alert': 'ثبت درخواست اطلاع\u200cرسانی تخفیف', 'Cancel discount alert': 'لغو اطلاع\u200cرسانی تخفیف', 'Discount alert preferences updated.': 'تنظیمات اطلاع\u200cرسانی تخفیف به\u200cروز شد.', 'Exact not currently discounted product or variation': 'کالا یا تنوع دقیق که اکنون تخفیف ندارد', 'Subscription preferences page URL (same site)': 'نشانی صفحه مدیریت اشتراک (در همین سایت)', 'Sign in with a verified mobile to request a discount alert.': 'برای درخواست اطلاع\u200cرسانی تخفیف با موبایل تأییدشده وارد شوید.', 'Enable the marketing consent module before discount alerts.': 'پیش از اطلاع\u200cرسانی تخفیف، ماژول رضایت بازاریابی را فعال کنید.', 'Activate WooCommerce to use discount alerts. Saved settings are preserved.': 'برای اطلاع\u200cرسانی تخفیف ووکامرس را فعال کنید. تنظیمات ذخیره\u200cشده حفظ می\u200cشوند.', 'Send one promotional discount SMS for this selection to my verified mobile.': 'برای این انتخاب، یک پیامک تبلیغاتی تخفیف به موبایل تأییدشده من ارسال شود.', 'Discount alert could not be changed. Verify your mobile and product selection, then try again.': 'درخواست تخفیف تغییر نکرد. موبایل و انتخاب کالا را بررسی و دوباره تلاش کنید.', 'One discount alert for this exact product or variation, valid for 30 days. Current marketing consent is also required. Catalog prices can change before purchase.': 'یک اعلان تخفیف برای همین کالا یا تنوع، با اعتبار ۳۰ روز. رضایت معتبر بازاریابی نیز لازم است. قیمت کالا ممکن است پیش از خرید تغییر کند.', 'Discount alerts need current marketing consent and a separate request for the exact product or variation. One alert per request, valid for 30 days. No price or stock is reserved.': 'اعلان تخفیف به رضایت معتبر بازاریابی و درخواست مستقل برای کالای دقیق نیاز دارد. هر درخواست تا ۳۰ روز برای یک اعلان معتبر است. قیمت یا موجودی رزرو نمی\u200cشود.', 'Live discount messages use a permitted SMS.ir marketing line, never an OTP template. Local simulation needs no API or sending line.': 'اعلان واقعی تخفیف از خط تبلیغاتی مجاز SMS.ir ارسال می\u200cشود. قالب کد ورود مجاز نیست. شبیه\u200cسازی محلی به API یا خط ارسال نیاز ندارد.', 'Discount message variables: product_name, product_url, site_name, regular_price, sale_price, discount_percent, unsubscribe_url': 'متغیرهای پیام تخفیف: product_name، product_url، site_name، regular_price، sale_price، discount_percent و unsubscribe_url', 'Classic product pages show the form automatically. Block templates can use [ani_sms_discount product_id="123"]. Use [ani_sms_discount] for account requests. Prices are catalog values, not personalized tax or coupon quotes.': 'فرم در صفحه کلاسیک کالا خودکار نمایش داده می\u200cشود. در قالب بلوکی از [ani_sms_discount product_id="123"] و برای مدیریت درخواست\u200cها از [ani_sms_discount] استفاده کنید. قیمت\u200cها کاتالوگی هستند؛ مالیات شخصی یا کوپن محاسبه نمی\u200cشود.', 'Discount alerts require separate product requests and current marketing consent on a verified mobile. Requests last 30 days and allow one promotional message for the exact product or variation. Withdrawal cancels pending alerts. Catalog prices may change before purchase. Live SMS.ir marketing-line messages include a random unsubscribe link; local alerts send no SMS. Queue snapshots expire within 24 hours; terminal phones clear and request metadata expires after 30 days. Erasure and user deletion remove pending work.': 'اعلان تخفیف به درخواست مستقل کالا و رضایت معتبر بازاریابی با موبایل تأییدشده نیاز دارد. درخواست ۳۰ روز برای یک پیام تبلیغاتی کالای دقیق اعتبار دارد. لغو رضایت اعلان\u200cهای معلق را لغو می\u200cکند. قیمت ممکن است پیش از خرید تغییر کند. پیام واقعی خط تبلیغاتی SMS.ir دارای پیوند تصادفی لغو اشتراک است؛ در حالت محلی پیامکی ارسال نمی\u200cشود. تصویر صف حداکثر ۲۴ ساعت اعتبار دارد؛ شماره درخواست نهایی پاک و فراداده پس از ۳۰ روز حذف می\u200cشود. حذف حساب یا داده، کار معلق را حذف می\u200cکند.'}
+translations.update({
     'Waiting for availability': 'منتظر موجودشدن',
     'Alert queued': 'اعلان در صف ارسال است',
     'Simulated; no SMS sent': 'شبیه\u200cسازی شد؛ پیامکی ارسال نشد',
@@ -235,7 +236,7 @@ translations = {
     'ANI-SMS requires InnoDB storage and database schema privileges.': 'ANI-SMS به ذخیره‌سازی InnoDB و مجوز ایجاد ساختار دیتابیس نیاز دارد.',
     'ANI-SMS requires WordPress 6.8 and PHP 8.3 or later.': 'ANI-SMS به وردپرس ۶٫۸ و PHP ۸٫۳ یا جدیدتر نیاز دارد.',
     'ANI-SMS multisite activation is not supported in this development build.': 'در این نسخه، فعال‌سازی ANI-SMS روی وردپرس شبکه پشتیبانی نمی‌شود.',
-}
+})
 messages = set(translations)
 pattern = re.compile(r"(?:__|_e|esc_html__|esc_html_e|translate)\(\s*'((?:\\.|[^'])*)'\s*,\s*'ani-sms'", re.S)
 for file in root.rglob('*.php'):
@@ -246,7 +247,7 @@ language_dir = root / 'languages'
 language_dir.mkdir(exist_ok=True)
 def quote(s):
     return json.dumps(s, ensure_ascii=False)
-header = 'Project-Id-Version: ANI-SMS 1.3.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
+header = 'Project-Id-Version: ANI-SMS 1.4.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
 pot = 'msgid ""\nmsgstr ' + quote(header.replace('Language: fa_IR', 'Language: ')) + '\n\n'
 po = 'msgid ""\nmsgstr ' + quote(header) + '\n\n'
 for msg in sorted(messages):
@@ -258,9 +259,10 @@ for msg in sorted(messages):
 def php(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 entries = ',\n'.join('\t\t' + php(k) + ' => ' + php(v) for k, v in sorted(translations.items()))
-catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.3.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
+catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.4.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
 (language_dir / 'ani-sms-fa_IR.l10n.php').write_text(catalog, encoding='utf-8')
 missing = messages - translations.keys()
 print(f'Generated {len(translations)} Persian translations; {len(missing)} strings untranslated.')
 for msg in missing:
     print(msg)
+

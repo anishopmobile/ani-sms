@@ -16,7 +16,8 @@ final class Subscribers {
 	}
 	public function for_user( int $id ): ?array {
 		$phone = $this->store->value( $this->store->db->prepare( "SELECT phone FROM {$this->store->table( 'identities' )} WHERE user_id=%d", $id ) );
-		return is_string( $phone ) ? $this->by_phone( $phone ) : null;
+		$row   = is_string( $phone ) ? $this->by_phone( $phone ) : null;
+		return $row && (int) $row['user_id'] === $id ? $row : null;
 	}
 	private function by_phone( string $phone ): ?array {
 		return $this->store->row( $this->store->db->prepare( "SELECT * FROM {$this->store->table( 'subscribers' )} WHERE phone_hash=%s", ( new Secrets() )->hash( 'subscriber-phone', Phone::normalize( $phone ) ) ) );
@@ -118,6 +119,7 @@ final class Subscribers {
 						$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET state='suppressed',revision=%s,updated=%d WHERE id=%d", bin2hex( random_bytes( 16 ) ), time(), $id ) );
 						$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'jobs' )} SET state='cancelled',error_code='suppressed',payload='' WHERE module='marketing' AND sequence=%d AND state IN ('queued','paused')", $id ) );
 						$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'campaign_recipients' )} SET state='cancelled' WHERE subscriber_id=%d AND state IN ('queued','paused')", $id ) );
+						do_action( 'ani_sms_marketing_withdrawn', $id, $erase );
 						if ( $erase ) {
 								$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'subscribers' )} SET phone='',user_id=0,mode='',source='privacy',version='',tag='',token='',token_hash='' WHERE id=%d", $id ) );
 							foreach ( array( 'consents', 'campaign_recipients' ) as $table ) {
