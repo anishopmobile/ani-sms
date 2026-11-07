@@ -43,7 +43,9 @@ final class Module implements \AniSms\Core\Module {
 			'ani_sms_job_finished',
 			function ( $job, $result ) use ( $service ) {
 				if ( 'stock' === $job['module'] ) {
-					$service->reconcile();
+					try {
+						$service->completed( $job, $result ); } catch ( \RuntimeException $busy ) {
+						/* Recover from the durable final job state on the next pass. */ }
 				} },
 			10,
 			2

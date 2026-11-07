@@ -5,6 +5,15 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+    'Waiting for availability': 'منتظر موجودشدن',
+    'Alert queued': 'اعلان در صف ارسال است',
+    'Simulated; no SMS sent': 'شبیه\u200cسازی شد؛ پیامکی ارسال نشد',
+    'Alert accepted; delivery unconfirmed': 'اعلان پذیرفته شد؛ تحویل تأیید نشده',
+    'Alert failed': 'ارسال اعلان انجام نشد',
+    'Result unknown; no automatic resend': 'نتیجه نامشخص است؛ خودکار تکرار نمی\u200cشود',
+    'Request cancelled': 'درخواست لغو شد',
+    'Request expired': 'درخواست منقضی شد',
+
     'Back-in-stock alerts': 'اطلاع\u200cرسانی موجودشدن کالا',
     'Enable back-in-stock alerts': 'فعال\u200cسازی اطلاع\u200cرسانی موجودشدن کالا',
     'Activate WooCommerce to use stock alerts. Saved settings are preserved.': 'برای اطلاع\u200cرسانی موجودشدن، ووکامرس را فعال کنید. تنظیمات ذخیره\u200cشده حفظ می\u200cشوند.',

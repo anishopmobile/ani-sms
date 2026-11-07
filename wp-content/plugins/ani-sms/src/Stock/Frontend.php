@@ -27,8 +27,7 @@ final class Frontend {
 	public function render( array $attributes = array() ): string {
 		if ( ! \AniSms\Core\Settings::module_enabled( 'stock' ) || ! function_exists( 'wc_get_product' ) ) {
 			return '<p>' . esc_html__( 'Stock alerts are unavailable.', 'ani-sms' ) . '</p>'; }
-		if ( ! is_user_logged_in() || ! $this->store->value( $this->store->db->prepare( "SELECT user_id FROM {$this->store->table( 'identities' )} WHERE user_id=%d", get_current_user_id() ) ) ) {
-			return '<p>' . esc_html__( 'Sign in with a verified mobile to request a stock alert.', 'ani-sms' ) . '</p>'; }
+
 		$service = new Service( $this->store, new Queue( $this->store ) );
 		$id      = absint( $attributes['product_id'] ?? ( function_exists( 'is_product' ) && is_product() ? get_queried_object_id() : 0 ) );
 		$options = array();
@@ -41,6 +40,10 @@ final class Frontend {
 			}
 		} elseif ( $p && $service->product( $id ) && 'outofstock' === $p->get_stock_status() ) {
 			$options[ $id ] = $p->get_name(); }
+		if ( ! is_user_logged_in() || ! $this->store->value( $this->store->db->prepare( "SELECT user_id FROM {$this->store->table( 'identities' )} WHERE user_id=%d", get_current_user_id() ) ) ) {
+			if ( $id && ! $options ) {
+				return ''; }
+			return '<p>' . esc_html__( 'Sign in with a verified mobile to request a stock alert.', 'ani-sms' ) . '</p>'; }
 		ob_start();
 		echo '<section class="ani-stock"><h2>' . esc_html__( 'Notify me when available', 'ani-sms' ) . '</h2><p>' . esc_html__( 'One alert for the exact product or variation, valid for 30 days. This is not marketing consent or a stock reservation.', 'ani-sms' ) . '</p>';
 		if ( isset( $_GET['ani_stock_saved'] ) ) {
@@ -61,7 +64,7 @@ final class Frontend {
 		$rows = $this->store->db->get_results( $this->store->db->prepare( "SELECT * FROM {$this->store->table( 'stock_requests' )} WHERE user_id=%d$where ORDER BY id DESC LIMIT 20 OFFSET %d", get_current_user_id(), ( min( $page, 100000 ) - 1 ) * 20 ), ARRAY_A );
 		foreach ( $rows as $row ) {
 			$target = $service->product( (int) $row['product_id'] );
-			echo '<div class="ani-stock-request"><p>' . esc_html( $target ? $target->get_name() : __( 'Unavailable', 'ani-sms' ) ) . ' · <span class="ani-stock-state">' . esc_html( $row['state'] ) . '</span></p>';
+			echo '<div class="ani-stock-request"><p>' . esc_html( $target ? $target->get_name() : __( 'Unavailable', 'ani-sms' ) ) . ' · <span class="ani-stock-state" data-state="' . esc_attr( $row['state'] ) . '">' . esc_html( self::states()[ $row['state'] ] ?? __( 'Unavailable', 'ani-sms' ) ) . '</span></p>';
 			if ( in_array( $row['state'], array( 'waiting', 'queued' ), true ) ) {
 				$this->form( 'cancel' );
 				echo '<input type="hidden" name="request_id" value="' . esc_attr( (string) $row['id'] ) . '"><button>' . esc_html__( 'Cancel stock alert', 'ani-sms' ) . '</button></form>'; }
@@ -77,6 +80,19 @@ final class Frontend {
 		echo '</section>';
 		return ob_get_clean();
 	}
+	private static function states(): array {
+		return array(
+			'waiting'   => __( 'Waiting for availability', 'ani-sms' ),
+			'queued'    => __( 'Alert queued', 'ani-sms' ),
+			'simulated' => __( 'Simulated; no SMS sent', 'ani-sms' ),
+			'accepted'  => __( 'Alert accepted; delivery unconfirmed', 'ani-sms' ),
+			'failed'    => __( 'Alert failed', 'ani-sms' ),
+			'unknown'   => __( 'Result unknown; no automatic resend', 'ani-sms' ),
+			'cancelled' => __( 'Request cancelled', 'ani-sms' ),
+			'expired'   => __( 'Request expired', 'ani-sms' ),
+		);
+	}
+
 	private function form( string $op ): void {
 		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="ani_sms_stock"><input type="hidden" name="operation" value="' . esc_attr( $op ) . '">';
 		echo '<input type="hidden" name="stock_version" value="' . esc_attr( Service::VERSION ) . '">';

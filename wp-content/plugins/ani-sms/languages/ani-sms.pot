@@ -46,6 +46,15 @@ msgstr ""
 msgid "Administrator mobiles (up to five, comma separated)"
 msgstr ""
 
+msgid "Alert accepted; delivery unconfirmed"
+msgstr ""
+
+msgid "Alert failed"
+msgstr ""
+
+msgid "Alert queued"
+msgstr ""
+
 msgid "All"
 msgstr ""
 
@@ -457,6 +466,12 @@ msgstr ""
 msgid "Request"
 msgstr ""
 
+msgid "Request cancelled"
+msgstr ""
+
+msgid "Request expired"
+msgstr ""
+
 msgid "Request stock alert"
 msgstr ""
 
@@ -464,6 +479,9 @@ msgid "Resend code"
 msgstr ""
 
 msgid "Resend cooldown (seconds)"
+msgstr ""
+
+msgid "Result unknown; no automatic resend"
 msgstr ""
 
 msgid "Resume campaign"
@@ -524,6 +542,9 @@ msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
 msgstr ""
 
 msgid "Sign in with a verified mobile to request a stock alert."
+msgstr ""
+
+msgid "Simulated; no SMS sent"
 msgstr ""
 
 msgid "Site issuance limit per hour"
@@ -638,6 +659,9 @@ msgid "Verify and link your mobile"
 msgstr ""
 
 msgid "Wait"
+msgstr ""
+
+msgid "Waiting for availability"
 msgstr ""
 
 msgid "Working…"

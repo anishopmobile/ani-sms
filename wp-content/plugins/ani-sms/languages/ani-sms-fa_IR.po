@@ -46,6 +46,15 @@ msgstr "برای نمایش فرم، [ani_sms_auth] را در یک برگه قر
 msgid "Administrator mobiles (up to five, comma separated)"
 msgstr "شماره‌های مدیر (حداکثر پنج شماره، جداشده با کاما)"
 
+msgid "Alert accepted; delivery unconfirmed"
+msgstr "اعلان پذیرفته شد؛ تحویل تأیید نشده"
+
+msgid "Alert failed"
+msgstr "ارسال اعلان انجام نشد"
+
+msgid "Alert queued"
+msgstr "اعلان در صف ارسال است"
+
 msgid "All"
 msgstr "همه"
 
@@ -457,6 +466,12 @@ msgstr "جایگزینی کلید API (برای حفظ کلید فعلی خال�
 msgid "Request"
 msgstr "درخواست"
 
+msgid "Request cancelled"
+msgstr "درخواست لغو شد"
+
+msgid "Request expired"
+msgstr "درخواست منقضی شد"
+
 msgid "Request stock alert"
 msgstr "ثبت درخواست موجودشدن"
 
@@ -465,6 +480,9 @@ msgstr "ارسال مجدد کد"
 
 msgid "Resend cooldown (seconds)"
 msgstr "فاصله ارسال مجدد (ثانیه)"
+
+msgid "Result unknown; no automatic resend"
+msgstr "نتیجه نامشخص است؛ خودکار تکرار نمی‌شود"
 
 msgid "Resume campaign"
 msgstr "ادامه کمپین"
@@ -525,6 +543,9 @@ msgstr "برای مدیریت اشتراک اختیاری پیامک، با شم
 
 msgid "Sign in with a verified mobile to request a stock alert."
 msgstr "برای ثبت درخواست موجودشدن، با شماره تأییدشده وارد شوید."
+
+msgid "Simulated; no SMS sent"
+msgstr "شبیه‌سازی شد؛ پیامکی ارسال نشد"
 
 msgid "Site issuance limit per hour"
 msgstr "سقف صدور کد سایت در هر ساعت"
@@ -639,6 +660,9 @@ msgstr "تأیید و اتصال شماره موبایل"
 
 msgid "Wait"
 msgstr "انتظار"
+
+msgid "Waiting for availability"
+msgstr "منتظر موجودشدن"
 
 msgid "Working…"
 msgstr "در حال انجام…"

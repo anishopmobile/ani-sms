@@ -229,8 +229,39 @@ final class Service {
 			}
 		);
 	}
+	public function completed( array $job, Result $result ): void {
+		$id = (int) substr( $job['subject'], 6 );
+		$this->store->lock(
+			'stock:' . $id,
+			function () use ( $job, $result ) {
+				$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'stock_requests' )} SET state=%s,phone='' WHERE job_key=%s AND state='queued'", $result->state, $job['job_key'] ) );
+			}
+		);
+	}
 	public function reconcile(): void {
-		$this->store->query( "UPDATE {$this->store->table( 'stock_requests' )} r INNER JOIN {$this->store->table( 'jobs' )} j ON j.module='stock' AND j.job_key=r.job_key SET r.state=j.state,r.phone='' WHERE r.state='queued' AND j.state IN ('accepted','simulated','failed','unknown','cancelled')" );
-		$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'stock_requests' )} SET state='expired',phone='' WHERE state IN ('waiting','queued') AND (expires<%d OR (state='queued' AND job_expires<%d))", time(), time() ) );
+		$db       = $this->store->db;
+		$terminal = array( 'accepted', 'simulated', 'failed', 'unknown', 'cancelled' );
+		$rows     = $db->get_results( $db->prepare( "SELECT r.id,r.product_id FROM {$this->store->table( 'stock_requests' )} r LEFT JOIN {$this->store->table( 'jobs' )} j ON j.job_key=r.job_key WHERE r.state IN ('waiting','queued') AND (r.expires<%d OR (r.state='queued' AND (r.job_expires<%d OR j.state IN ('accepted','simulated','failed','unknown','cancelled')))) LIMIT 100", time(), time() ), ARRAY_A );
+		$deadline = microtime( true ) + 2;
+		foreach ( $rows as $candidate ) {
+			if ( microtime( true ) >= $deadline ) {
+				break; }
+			try {
+				$this->store->lock(
+					'stock:' . $candidate['product_id'],
+					function () use ( $candidate, $terminal, $db ) {
+						$row = $this->store->row( $db->prepare( "SELECT r.*,j.state AS job_state FROM {$this->store->table( 'stock_requests' )} r LEFT JOIN {$this->store->table( 'jobs' )} j ON j.job_key=r.job_key WHERE r.id=%d", $candidate['id'] ) );
+						if ( ! $row || ! in_array( $row['state'], array( 'waiting', 'queued' ), true ) ) {
+							return; }
+						$state = 'queued' === $row['state'] && in_array( $row['job_state'], $terminal, true ) ? $row['job_state'] : '';
+						if ( '' === $state && ( (int) $row['expires'] < time() || ( 'queued' === $row['state'] && (int) $row['job_expires'] < time() ) ) ) {
+							$state = 'expired'; }
+						if ( '' !== $state ) {
+							$this->store->query( $db->prepare( "UPDATE {$this->store->table( 'stock_requests' )} SET state=%s,phone='' WHERE id=%d", $state, $row['id'] ) ); }
+					}
+				);
+			} catch ( \RuntimeException $busy ) {
+				/* A current capture/send owns the product lock; reconcile on the next pass. */ }
+		}
 	}
 }
