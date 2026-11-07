@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.4.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.5.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -25,6 +25,9 @@ msgstr "ذخیره‌سازی ANI-SMS در دسترس نیست. پشتیبانی
 msgid "API key configured. Stored values are never returned to the browser."
 msgstr "کلید API تنظیم شده است. مقدار ذخیره‌شده به مرورگر ارسال نمی‌شود."
 
+msgid "Abandoned cart reminder"
+msgstr "یادآوری سبد خرید رهاشده"
+
 msgid "Accepted today · this plugin"
 msgstr "پذیرفته‌شده امروز · این افزونه"
 
@@ -33,6 +36,9 @@ msgstr "اتصال حساب موفق بود. این نتیجه، درستی قا
 
 msgid "Action"
 msgstr "عملیات"
+
+msgid "Activate WooCommerce for cart reminders."
+msgstr "برای یادآوری سبد، ووکامرس را فعال کنید."
 
 msgid "Activate WooCommerce to use discount alerts. Saved settings are preserved."
 msgstr "برای اطلاع‌رسانی تخفیف ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
@@ -109,6 +115,18 @@ msgstr "لغو اطلاع‌رسانی تخفیف"
 msgid "Cancel stock alert"
 msgstr "لغو درخواست موجودشدن"
 
+msgid "Cart message: site_name, item_count, cart_url, unsubscribe_url"
+msgstr "متغیرهای پیام سبد: site_name، item_count، cart_url و unsubscribe_url"
+
+msgid "Cart reminder could not be changed. Verify your mobile and marketing consent."
+msgstr "تنظیمات سبد تغییر نکرد. موبایل تأییدشده و رضایت بازاریابی را بررسی کنید."
+
+msgid "Cart reminder preference updated."
+msgstr "تنظیمات یادآوری سبد به‌روز شد."
+
+msgid "Cart reminders require separate account opt-in and current marketing consent. Cart fingerprints, activity times and reminder outcomes are retained for up to 30 days. No guest, payment data or session cookies are collected. One attempt per seven days; return, order or withdrawal cancels pending work. Local mode sends no SMS."
+msgstr "یادآوری سبد به درخواست مستقل حساب و رضایت معتبر بازاریابی نیاز دارد. اثرانگشت سبد، زمان فعالیت و نتیجه یادآوری حداکثر ۳۰ روز نگهداری می‌شود. اطلاعات مهمان، پرداخت یا کوکی نشست جمع‌آوری نمی‌شود. حداکثر یک تلاش در هفت روز انجام می‌شود؛ بازگشت، سفارش یا انصراف کار معلق را لغو می‌کند. در حالت محلی پیامکی ارسال نمی‌شود."
+
 msgid "Changes saved."
 msgstr "تغییرات ذخیره شد."
 
@@ -172,6 +190,9 @@ msgstr "اطلاع‌رسانی تخفیف به رضایت معتبر دریاف
 msgid "Delete database API key"
 msgstr "حذف کلید API ذخیره‌شده"
 
+msgid "Disable cart reminders"
+msgstr "لغو یادآوری سبد خرید"
+
 msgid "Discount alert could not be changed. Verify your mobile and product selection, then try again."
 msgstr "درخواست تخفیف تغییر نکرد. موبایل و انتخاب کالا را بررسی و دوباره تلاش کنید."
 
@@ -204,6 +225,12 @@ msgstr "فعال‌سازی اعلان‌های سفارش ووکامرس"
 
 msgid "Enable back-in-stock alerts"
 msgstr "فعال‌سازی اطلاع‌رسانی موجودشدن کالا"
+
+msgid "Enable cart reminders"
+msgstr "فعال‌سازی یادآوری سبد خرید"
+
+msgid "Enable marketing consent for cart reminders."
+msgstr "برای یادآوری سبد، ماژول رضایت بازاریابی را فعال کنید."
 
 msgid "Enable mobile authentication"
 msgstr "فعال‌سازی ورود پیامکی"
@@ -264,6 +291,9 @@ msgstr "افزودن مخاطب در انتظار (حداکثر ۵۰ شماره)
 
 msgid "Import without consent"
 msgstr "افزودن بدون اعطای رضایت"
+
+msgid "Inactivity delay in minutes (15 to 8640)"
+msgstr "مهلت بی‌فعالیتی به دقیقه (۱۵ تا ۸۶۴۰)"
 
 msgid "Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request."
 msgstr "اعلان‌های صف پس از ۲۴ ساعت منقضی می‌شوند. نتایج نامشخص خودکار تکرار نمی‌شوند. اجرای WP-Cron به بازدید سایت وابسته است؛ برای ارسال به‌موقع، cron سیستم را هر دقیقه اجرا کنید. صف لوکال فقط از اتصال loopback اجرا می‌شود."
@@ -376,6 +406,9 @@ msgstr "فهرست"
 msgid "Next"
 msgstr "بعدی"
 
+msgid "No eligible cart"
+msgstr "سبد واجد شرایطی وجود ندارد"
+
 msgid "No events match this filter."
 msgstr "رخدادی با این فیلتر وجود ندارد."
 
@@ -417,6 +450,9 @@ msgstr "یک اعلان برای همان محصول یا تنوع، با اعت
 
 msgid "One discount alert for this exact product or variation, valid for 30 days. Current marketing consent is also required. Catalog prices can change before purchase."
 msgstr "یک اعلان تخفیف برای همین کالا یا تنوع، با اعتبار ۳۰ روز. رضایت معتبر بازاریابی نیز لازم است. قیمت کالا ممکن است پیش از خرید تغییر کند."
+
+msgid "One reminder after inactivity, no more than once in seven days. Returning or ordering cancels pending reminders. Current marketing consent is required."
+msgstr "یک یادآوری پس از بی‌فعالیتی، حداکثر یک‌بار در هفت روز. بازگشت یا ثبت سفارش، یادآوری معلق را لغو می‌کند. رضایت معتبر بازاریابی لازم است."
 
 msgid "Operation"
 msgstr "عملیات"
@@ -514,6 +550,9 @@ msgstr "مخاطبان اخیر"
 msgid "Recent notification jobs"
 msgstr "اعلان‌های اخیر در صف"
 
+msgid "Remind me once about my abandoned cart on my verified mobile."
+msgstr "یک پیامک یادآوری سبد رهاشده به موبایل تأییدشده من ارسال شود."
+
 msgid "Replace API key (leave blank to keep)"
 msgstr "جایگزینی کلید API (برای حفظ کلید فعلی خالی بگذارید)"
 
@@ -597,6 +636,9 @@ msgstr "در حال ارسال…"
 
 msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes outside the database, then enable ANI_SMS_LIVE_ENABLED only after reviewing the API contract and test account. API keys may also be supplied through ANI_SMS_API_KEY. Never commit these values."
 msgstr "تنظیم سرور: ANI_SMS_SECRET_KEY را خارج از دیتابیس به‌صورت base64 از ۳۲ بایت تصادفی تعریف کنید. ANI_SMS_LIVE_ENABLED را فقط پس از بررسی قرارداد API و حساب آزمایشی فعال کنید. کلید API را می‌توان از ANI_SMS_API_KEY هم تأمین کرد. این مقادیر نباید وارد مخزن شوند."
+
+msgid "Sign in with a verified mobile for cart reminders."
+msgstr "برای یادآوری سبد با موبایل تأییدشده وارد شوید."
 
 msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
 msgstr "برای مدیریت اشتراک اختیاری پیامک، با شماره تأییدشده وارد شوید."
@@ -709,6 +751,9 @@ msgstr "لغو عضویت:"
 msgid "Updated at (UTC)"
 msgstr "آخرین تغییر (UTC)"
 
+msgid "Verified accounts only, explicit cart opt-in and current marketing consent. Guests are excluded. Local mode needs no API or sending line."
+msgstr "فقط حساب دارای شماره تأییدشده، درخواست صریح یادآوری سبد و رضایت معتبر بازاریابی. مهمان‌ها مشمول نیستند. حالت محلی به API یا خط ارسال نیاز ندارد."
+
 msgid "Verified at (UTC)"
 msgstr "زمان تأیید (UTC)"
 
@@ -732,6 +777,9 @@ msgstr "منتظر تخفیف"
 
 msgid "Waiting for availability"
 msgstr "منتظر موجودشدن"
+
+msgid "Waiting for inactivity"
+msgstr "منتظر پایان مهلت بی‌فعالیتی"
 
 msgid "Working…"
 msgstr "در حال انجام…"

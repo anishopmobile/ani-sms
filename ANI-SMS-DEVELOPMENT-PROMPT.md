@@ -87,3 +87,12 @@ lint، WPCS و تحلیل ایستا متناسب اجرا و خروجی واق�
 ماژول مستقل و پیش‌فرض خاموش تخفیف، نیازمند ووکامرس، شماره تأییدشده متعلق به حساب، رضایت معتبر بازاریابی و درخواست مستقل کالای ساده یا تنوع دقیق است. هر درخواست ۳۰ روز و یک پیام اعتبار دارد. ورود، خرید و import رضایت محسوب نمی‌شوند. تخفیف بومی ووکامرس باید فعال، کمتر از قیمت عادی، برابر قیمت مؤثر و کالا موجود و قابل خرید باشد. کوپن و قیمت شخصی خارج از این فاز است. تغییر قیمت یا پایان تخفیف، کار ارسال‌نشده را باطل و درخواست معتبر را منتظر می‌کند؛ انصراف سراسری، انقضا و تغییر مالک شماره کار معلق را لغو می‌کنند.
 
 ارسال واقعی فقط از خط تبلیغاتی مجاز SMS.ir و API متنی bulk، همراه پیوند لغو اشتراک الزامی است؛ قالب OTP برای تخفیف استفاده نمی‌شود. شبیه‌سازی لوکال بدون API و HTTP پیامکی است و به ارسال واقعی تبدیل نمی‌شود. صف رمزگذاری‌شده، بررسی مجدد رضایت و snapshot، پردازش دسته‌ای ۵۰تایی، cron زمان‌بندی و بازیابی، حریم خصوصی و حذف داده الزامی‌اند. قرارداد کامل در docs/DISCOUNT.md و تصمیم 0006 ثبت شده است. توسعه و ثبت این فاز فقط روی codex/ani-sms-v1 انجام شود و main تغییر نکند.
+
+
+## Cart reminder implementation addendum - 1.5.0-rc1
+
+Owner-authorized contract: docs/CART.md and ADR 0007. Optional/default-off, WooCommerce plus marketing dependency, verified logged-in account, current explicit marketing consent and separate versioned cart opt-in. No guest tracking or billing-phone identity inference. Default inactivity 60 minutes, configurable 15-8640; one attempt per episode and per seven days per account. Real foreground activity resets the window; return/empty cart, any submitted customer order, expiry or consent withdrawal invalidates pending work. Consent renewal cannot revive old work.
+
+Use native authenticated cart URLs without implicit login or automatic snapshot restore. Use permitted SMS.ir marketing-line bulk with mandatory opaque unsubscribe. Local simulation performs no SMS HTTP and cannot become live sends. Schema 7, bounded scans, encrypted queue snapshots, current consent/cart/order/identity checks, durable cooldown and unknown-worker reconciliation are mandatory. Export, erasure, retention and lifecycle are integrated. The executed tests and explicit timing/payment limitations are in docs/CART-TESTS.md. Development and pushes remain only on codex/ani-sms-v1; main must not change.
+
+Preserve the executed cart behavior and its acceptance tests when continuing later modules. Never promote local proof/jobs to live or claim real SMS/payment-gateway validation from mocks.

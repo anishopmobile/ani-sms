@@ -1,6 +1,6 @@
 # Abandoned-cart reminders — implementation contract
 
-Status: **planned; implementation and execution blocked by local runner availability**. This document is a contract, not a release or test result. Owner delegation authorizes the decisions below. Current shipped candidate remains 1.4.0-rc1.
+Status: **implemented candidate 1.5.0-rc1** under owner delegation. Validation and limits are recorded in CART-TESTS.md.
 
 ## Audience and permission
 
@@ -10,7 +10,7 @@ Expose opt-in/withdrawal in an accessible account/cart form with an unchecked ch
 
 ## Episode and timing
 
-An episode begins when an opted-in account has a nonempty supported WooCommerce cart. Default inactivity delay: 60 minutes; configurable 15 minutes–7 days. Activity is an authenticated foreground visit or cart mutation for this account. Activity cancels any unsent reminder, updates the cart fingerprint and starts a fresh inactivity window. Background cron, admin screens and provider callbacks do not count as activity.
+An episode begins when an opted-in account has a nonempty supported WooCommerce cart. Default inactivity delay: 60 minutes; configurable 15 minutes–6 days. Activity is an authenticated foreground visit or cart mutation for this account. Activity cancels any unsent reminder, updates the cart fingerprint and starts a fresh inactivity window. Background cron, admin screens and provider callbacks do not count as activity.
 
 Only native simple/exact variation items are supported initially. Hash canonical product/variation IDs, selected variation attributes and quantities; never store raw session cookies, checkout fields or payment details. Do not promise historical prices, tax, coupons or inventory. Re-read persistent cart and native product eligibility before dispatch. Unsupported/missing persistent cart data must suppress sending.
 
@@ -40,4 +40,7 @@ Add independent cart storage with indexed account/mode uniqueness, episode/revis
 
 Provide Persian responsive administration, a separate module toggle, sending-line/message/delay settings, diagnostics and local-only previews. Preserve entered settings after validation errors and preserve all other module states. Integrate privacy export/erasure, account deletion, module disable, deactivation and opt-in uninstall purge. Missing dependencies pause safely and preserve settings; withdrawal still cancels work.
 
-Complete docs/CART-TESTS.md, static checks, physical ZIP activation, minimum-version and existing-module regressions before calling this module complete or bumping its released version. Publish changes only on codex/ani-sms-v1; do not change main.
+See CART-TESTS.md for the executed local suites, physical ZIP installation, static checks and remaining external validation limits. Publish changes only on codex/ani-sms-v1; do not change main.
+
+
+The maximum delay is six days (8640 minutes), leaving a reconciliation margin before seven-day episode expiry. Attempts are recorded before provider dispatch; ambiguous interrupted workers consume cooldown and never replay. Native cart data remains in WooCommerce; ANI-SMS stores only its fingerprint/count and consent/activity metadata. Processing already handed to a provider cannot be recalled by a subsequent opt-out. Classic and Store API order hooks are registered; only the documented browser flow is claimed as executed.

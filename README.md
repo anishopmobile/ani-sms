@@ -1,3 +1,5 @@
+Abandoned-cart reminders: **1.5.0-rc1**. See [contract](docs/CART.md) and [executed validation](docs/CART-TESTS.md).
+
 Product discount alerts: **1.4.0-rc1**. See [contract](docs/DISCOUNT.md) and [validation](docs/DISCOUNT-TESTS.md).
 
 # ANI-SMS

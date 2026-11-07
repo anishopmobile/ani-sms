@@ -57,3 +57,12 @@ Temporary test administrator sessions and HTTP/automatic-cron isolation are remo
 Management: `http://localhost/ani-sms/wp-admin/admin.php?page=ani-sms&tab=discount`. Marked demo: `http://localhost/ani-sms/?page_id=28`, with simple #23/#24 and parent #25 (blue #26/red #27). Use a private window and OTP page #6, explicitly subscribe on page #16, then separately request an alert on page #28. The module is enabled only in this owner’s local settings; distribution defaults off. Sending line is blank for simulation. Set a lower Woo sale price and process eligible jobs after five seconds to see a local preview with catalog prices, percentage and unsubscribe link. No price or stock is reserved.
 
 Final owner UI: 28 assertions passed with zero browser errors. Demo sale prices are cleared for another manual request. Temporary admin sessions and background HTTP/cron isolation were removed; existing owner sessions and consent remain unchanged. Private mail guards affect only marked fixtures.
+
+
+## Cart reminders - 1.5.0-rc1
+
+Management: http://localhost/ani-sms/wp-admin/admin.php?page=ani-sms&tab=cart
+Demo form: http://localhost/ani-sms/?page_id=30
+Marked local cart product: #29; native cart page #10. Use a private window, sign in at OTP page #6, explicitly opt in to marketing on page #16, then separately enable cart reminders on page #30. Add product #29 to the native cart. The owner-local delay is 15 minutes, line blank; the distributed default is 60 minutes and module off. Stop storefront activity for the full delay, then process eligible jobs from admin to inspect a simulated preview. Visiting the storefront resets inactivity and cancels queued work. Native cart/checkout prices and stock are not reserved.
+
+The completed UI fixture subscriber has withdrawn consent. Existing owner sessions/consent are untouched. Temporary test sessions and the HTTP/cron isolation are removed after checks. No real API configuration is required for the explicit guarded local mode.

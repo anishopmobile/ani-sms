@@ -4,7 +4,7 @@ Tags: sms, authentication, otp, login
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.4.0-rc1
+Stable tag: 1.5.0-rc1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ No plaintext OTP or message body is logged. Diagnostic phone numbers are masked.
 Deactivation preserves permanent data and invalidates challenges. Uninstall preserves data unless the explicit purge option is enabled. Purge never deletes users or orders. Server-config secrets and backups require separate handling.
 
 == Changelog ==
+
+= 1.5.0-rc1 =
+* Explicit verified-account cart reminders, inactivity tracking, durable duplicate limits and local no-API simulation.
+* Returning, submitted orders and consent withdrawal cancel pending work; privacy and protected previews included.
 
 = 1.4.0-rc1 =
 * Optional one-shot exact-product discount alerts with separate current marketing consent, native sale dates, mandatory unsubscribe and local no-API preview.

@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.4.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.5.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -25,6 +25,9 @@ msgstr ""
 msgid "API key configured. Stored values are never returned to the browser."
 msgstr ""
 
+msgid "Abandoned cart reminder"
+msgstr ""
+
 msgid "Accepted today · this plugin"
 msgstr ""
 
@@ -32,6 +35,9 @@ msgid "Account connection succeeded. This does not verify the OTP template or me
 msgstr ""
 
 msgid "Action"
+msgstr ""
+
+msgid "Activate WooCommerce for cart reminders."
 msgstr ""
 
 msgid "Activate WooCommerce to use discount alerts. Saved settings are preserved."
@@ -109,6 +115,18 @@ msgstr ""
 msgid "Cancel stock alert"
 msgstr ""
 
+msgid "Cart message: site_name, item_count, cart_url, unsubscribe_url"
+msgstr ""
+
+msgid "Cart reminder could not be changed. Verify your mobile and marketing consent."
+msgstr ""
+
+msgid "Cart reminder preference updated."
+msgstr ""
+
+msgid "Cart reminders require separate account opt-in and current marketing consent. Cart fingerprints, activity times and reminder outcomes are retained for up to 30 days. No guest, payment data or session cookies are collected. One attempt per seven days; return, order or withdrawal cancels pending work. Local mode sends no SMS."
+msgstr ""
+
 msgid "Changes saved."
 msgstr ""
 
@@ -172,6 +190,9 @@ msgstr ""
 msgid "Delete database API key"
 msgstr ""
 
+msgid "Disable cart reminders"
+msgstr ""
+
 msgid "Discount alert could not be changed. Verify your mobile and product selection, then try again."
 msgstr ""
 
@@ -203,6 +224,12 @@ msgid "Enable WooCommerce order notifications"
 msgstr ""
 
 msgid "Enable back-in-stock alerts"
+msgstr ""
+
+msgid "Enable cart reminders"
+msgstr ""
+
+msgid "Enable marketing consent for cart reminders."
 msgstr ""
 
 msgid "Enable mobile authentication"
@@ -263,6 +290,9 @@ msgid "Import pending contacts (maximum 50)"
 msgstr ""
 
 msgid "Import without consent"
+msgstr ""
+
+msgid "Inactivity delay in minutes (15 to 8640)"
 msgstr ""
 
 msgid "Jobs expire after 24 hours. Unknown results are never retried automatically. WP-Cron depends on traffic; use system cron every minute for timely notifications. Local jobs run only through a loopback request."
@@ -376,6 +406,9 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+msgid "No eligible cart"
+msgstr ""
+
 msgid "No events match this filter."
 msgstr ""
 
@@ -416,6 +449,9 @@ msgid "One alert for the exact product or variation, valid for 30 days. This is 
 msgstr ""
 
 msgid "One discount alert for this exact product or variation, valid for 30 days. Current marketing consent is also required. Catalog prices can change before purchase."
+msgstr ""
+
+msgid "One reminder after inactivity, no more than once in seven days. Returning or ordering cancels pending reminders. Current marketing consent is required."
 msgstr ""
 
 msgid "Operation"
@@ -514,6 +550,9 @@ msgstr ""
 msgid "Recent notification jobs"
 msgstr ""
 
+msgid "Remind me once about my abandoned cart on my verified mobile."
+msgstr ""
+
 msgid "Replace API key (leave blank to keep)"
 msgstr ""
 
@@ -596,6 +635,9 @@ msgid "Sending…"
 msgstr ""
 
 msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes outside the database, then enable ANI_SMS_LIVE_ENABLED only after reviewing the API contract and test account. API keys may also be supplied through ANI_SMS_API_KEY. Never commit these values."
+msgstr ""
+
+msgid "Sign in with a verified mobile for cart reminders."
 msgstr ""
 
 msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
@@ -709,6 +751,9 @@ msgstr ""
 msgid "Updated at (UTC)"
 msgstr ""
 
+msgid "Verified accounts only, explicit cart opt-in and current marketing consent. Guests are excluded. Local mode needs no API or sending line."
+msgstr ""
+
 msgid "Verified at (UTC)"
 msgstr ""
 
@@ -731,6 +776,9 @@ msgid "Waiting for a discount"
 msgstr ""
 
 msgid "Waiting for availability"
+msgstr ""
+
+msgid "Waiting for inactivity"
 msgstr ""
 
 msgid "Working…"

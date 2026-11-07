@@ -3,7 +3,7 @@
 namespace AniSms\Infrastructure;
 
 final class Database {
-	public const VERSION = '6';
+	public const VERSION = '7';
 	public function __construct( public readonly \wpdb $db ) {}
 	public function quiet( callable $work ): mixed {
 		$previous = $this->db->suppress_errors( true );
@@ -19,7 +19,7 @@ final class Database {
 	public function insert( string $table, array $data ): int|false {
 		return $this->quiet( fn() => $this->db->insert( $this->table( $table ), $data ) ); }
 	public function table( string $name ): string {
-		if ( ! in_array( $name, array( 'identities', 'challenges', 'rates', 'logs', 'jobs', 'event_states', 'subscribers', 'consents', 'campaigns', 'campaign_recipients', 'stock_requests', 'discount_requests' ), true ) ) {
+		if ( ! in_array( $name, array( 'identities', 'challenges', 'rates', 'logs', 'jobs', 'event_states', 'subscribers', 'consents', 'campaigns', 'campaign_recipients', 'stock_requests', 'discount_requests', 'carts' ), true ) ) {
 			throw new \InvalidArgumentException( 'Unknown table.' );
 		}
 		return $this->db->prefix . 'ani_sms_' . $name;
@@ -59,6 +59,7 @@ final class Database {
 				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 				$charset = $this->db->get_charset_collate();
 				$schemas = array(
+					'carts'               => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, user_id bigint(20) unsigned NOT NULL, mode varchar(8) NOT NULL, subscriber_id bigint(20) unsigned NOT NULL, consent_revision char(32) NOT NULL, version varchar(32) NOT NULL, optin_until bigint(20) unsigned NOT NULL, state varchar(16) NOT NULL, revision char(32) NOT NULL, fingerprint char(64) NOT NULL, item_count varchar(32) NOT NULL, last_seen bigint(20) unsigned NOT NULL, started bigint(20) unsigned NOT NULL, last_attempt bigint(20) unsigned NOT NULL DEFAULT 0, job_key char(64) NOT NULL DEFAULT '', expires bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY user_mode (user_id,mode), KEY subscriber_id (subscriber_id), KEY state_seen (state,last_seen), KEY expires (expires)",
 					'discount_requests'   => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, product_id bigint(20) unsigned NOT NULL, user_id bigint(20) unsigned NOT NULL, subscriber_id bigint(20) unsigned NOT NULL, consent_revision char(32) NOT NULL, offer_key char(32) NOT NULL DEFAULT '', version varchar(32) NOT NULL DEFAULT 'discount-v1', source varchar(32) NOT NULL DEFAULT 'account_form', phone longtext NOT NULL, mode varchar(8) NOT NULL, state varchar(16) NOT NULL, revision char(32) NOT NULL, job_key char(64) NOT NULL DEFAULT '', job_expires bigint(20) unsigned NOT NULL DEFAULT 0, created bigint(20) unsigned NOT NULL, expires bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY product_user_mode (product_id,user_id,mode), KEY user_id (user_id), KEY subscriber_id (subscriber_id), KEY state_expires (state,expires), KEY job_key (job_key)",
 					'stock_requests'      => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, product_id bigint(20) unsigned NOT NULL, user_id bigint(20) unsigned NOT NULL, version varchar(32) NOT NULL DEFAULT 'stock-v1', source varchar(32) NOT NULL DEFAULT 'account_form', phone longtext NOT NULL, mode varchar(8) NOT NULL, state varchar(16) NOT NULL, revision char(32) NOT NULL, job_key char(64) NOT NULL DEFAULT '', job_expires bigint(20) unsigned NOT NULL DEFAULT 0, created bigint(20) unsigned NOT NULL, expires bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY product_user_mode (product_id,user_id,mode), KEY user_id (user_id), KEY state_expires (state,expires), KEY job_key (job_key)",
 					'subscribers'         => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, phone_hash char(64) NOT NULL, phone longtext NOT NULL, user_id bigint(20) unsigned NOT NULL DEFAULT 0, state varchar(16) NOT NULL, mode varchar(8) NOT NULL DEFAULT '', source varchar(40) NOT NULL, version varchar(32) NOT NULL, revision char(32) NOT NULL, tag varchar(40) NOT NULL DEFAULT '', token longtext NOT NULL, token_hash char(64) NOT NULL DEFAULT '', updated bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY phone_hash (phone_hash), KEY user_id (user_id), KEY audience (state,tag), KEY token_hash (token_hash)",
@@ -94,6 +95,7 @@ final class Database {
 			'jobs'              => array( 'expires', $now ),
 			'stock_requests'    => array( 'expires', $now ),
 			'discount_requests' => array( 'expires', $now ),
+			'carts'             => array( 'expires', $now ),
 			'rates'             => array( 'expires', $now - 23 * HOUR_IN_SECONDS ),
 			'logs'              => array( 'created', $now - 30 * DAY_IN_SECONDS + HOUR_IN_SECONDS ),
 		) as $name => $rule ) {

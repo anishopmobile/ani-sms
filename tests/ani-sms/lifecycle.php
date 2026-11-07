@@ -9,6 +9,7 @@ $store->migrate();
 $users = (int) $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users" );
 $subscribers=(int)$wpdb->get_var("SELECT COUNT(*) FROM {$store->table('subscribers')}");
 wp_schedule_single_event(time()+300,'ani_sms_stock_scan',array(12345));
+wp_schedule_single_event(time()+300,'ani_sms_cart_scan');
 wp_schedule_single_event(time()+300,'ani_sms_discount_boundary',array(12345,999));
 update_option( 'ani_sms_credential', 'test-encrypted-placeholder' );
 update_option( 'ani_sms_settings', Settings::defaults() );
@@ -19,6 +20,7 @@ ani_check(false===wp_next_scheduled('ani_sms_dispatch')&&false===wp_next_schedul
 ani_check(false===wp_next_scheduled('ani_sms_stock_scan',array(12345))&&false===wp_next_scheduled('ani_sms_stock_recovery'),'stock hooks unscheduled for all arguments');
 ani_check($subscribers===(int)$wpdb->get_var("SELECT COUNT(*) FROM {$store->table('subscribers')}"),'deactivation preserves consent/suppression records');
 ani_check(false===wp_next_scheduled('ani_sms_discount_boundary',array(12345,999))&&false===wp_next_scheduled('ani_sms_discount_recovery'),'discount hooks unscheduled for every argument');
+ani_check(false===wp_next_scheduled('ani_sms_cart_scan'),'cart cron unscheduled');
 define( 'WP_UNINSTALL_PLUGIN', 'ani-sms/ani-sms.php' );
 require dirname( __DIR__, 2 ) . '/wp-content/plugins/ani-sms/uninstall.php';
 ani_check( Database::VERSION === get_option( 'ani_sms_schema' ), 'uninstall preserves data by default' );
@@ -27,7 +29,7 @@ update_option( 'ani_sms_settings', array_merge( Settings::defaults(), array( 'pu
 require dirname( __DIR__, 2 ) . '/wp-content/plugins/ani-sms/uninstall.php';
 ani_check( false === get_option( 'ani_sms_credential' ) && false === get_option( 'ani_sms_schema' ), 'explicit purge removes options and credential' );
 ani_check( null === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $store->table( 'identities' ) ) ) ), 'explicit purge removes only plugin tables' );
-foreach(array('jobs','event_states','subscribers','consents','campaigns','campaign_recipients','stock_requests','discount_requests')as $table){ani_check(null===$wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s',$wpdb->esc_like($store->table($table)))),'explicit purge removes '.$table);}
+foreach(array('jobs','event_states','subscribers','consents','campaigns','campaign_recipients','stock_requests','discount_requests','carts')as $table){ani_check(null===$wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s',$wpdb->esc_like($store->table($table)))),'explicit purge removes '.$table);}
 ani_check(false===get_option('ani_sms_marketing_key_id'),'explicit purge removes marketing key guard');
 ani_check( $users === (int) $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users" ), 'users preserved on purge' );
 $store->migrate();

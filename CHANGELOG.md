@@ -1,3 +1,9 @@
+# 1.5.0-rc1
+
+- Add explicit verified-account abandoned-cart reminders with current marketing consent, native cart destination and no-API local simulation.
+- Cancel pending reminders on activity, purchase, empty cart and withdrawal; enforce durable one-attempt/seven-day limits and interrupted-worker reconciliation.
+- Add Persian administration/account forms, protected previews, schema 7 and privacy/lifecycle integration.
+
 # 1.4.0-rc1
 
 - Add opt-in one-shot product discount alerts, current marketing consent, native Woo sale scheduling, encrypted bounded queue and local no-API simulation.

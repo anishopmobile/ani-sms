@@ -19,6 +19,7 @@ final class Admin {
 		'woocommerce' => 'Order notifications',
 		'marketing'   => 'Subscribers and campaigns',
 		'stock'       => 'Back-in-stock alerts',
+		'cart'        => 'Abandoned cart reminder',
 		'discount'    => 'Product discount alerts',
 		'templates'   => 'Local templates',
 		'logs'        => 'Logs',
@@ -34,6 +35,7 @@ final class Admin {
 			'woocommerce' => __( 'Order notifications', 'ani-sms' ),
 			'marketing'   => __( 'Subscribers and campaigns', 'ani-sms' ),
 			'stock'       => __( 'Back-in-stock alerts', 'ani-sms' ),
+			'cart'        => __( 'Abandoned cart reminder', 'ani-sms' ),
 			'discount'    => __( 'Product discount alerts', 'ani-sms' ),
 			'templates'   => __( 'Local templates', 'ani-sms' ),
 			'logs'        => __( 'Logs', 'ani-sms' ),
@@ -62,8 +64,8 @@ final class Admin {
 				if ( 'toplevel_page_ani-sms' !== $hook ) {
 					return; }
 				$base = plugins_url( 'assets/', dirname( __DIR__, 2 ) . '/ani-sms.php' );
-				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.4.0-rc1-orders-ui' );
-				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.4.0-rc1', true );
+				wp_enqueue_style( 'ani-sms-admin', $base . 'admin.css', array(), '1.5.0-rc1-orders-ui' );
+				wp_enqueue_script( 'ani-sms-admin', $base . 'admin.js', array(), '1.5.0-rc1', true );
 				wp_localize_script(
 					'ani-sms-admin',
 					'aniSmsAdminText',
@@ -136,6 +138,13 @@ final class Admin {
 				case 'save_auth':
 					update_option( 'ani_sms_settings', Settings::validate( array_merge( array( 'registration' => '0' ), array_intersect_key( $input, array_flip( array( 'registration', 'expiry', 'cooldown', 'attempts', 'site_limit' ) ) ) ) ), false );
 					break;
+				case 'save_cart':
+					update_option( 'ani_sms_cart_settings', \AniSms\Cart\Service::validate( $input ), false );
+					break;
+				case 'cart_process':
+					do_action( 'ani_sms_cart_scan' );
+					do_action( 'ani_sms_dispatch' );
+					break;
 				case 'save_discount':
 					update_option( 'ani_sms_discount_settings', \AniSms\Discount\Service::validate( $input ), false );
 					break;
@@ -170,6 +179,8 @@ final class Admin {
 					break;
 				case 'save_modules':
 					$ids = array();
+					if ( '1' === ( $input['cart_enabled'] ?? '' ) ) {
+						$ids[] = 'cart';}
 					if ( '1' === ( $input['discount_enabled'] ?? '' ) ) {
 						$ids[] = 'discount'; }
 					if ( '1' === ( $input['stock_enabled'] ?? '' ) ) {
@@ -230,8 +241,8 @@ final class Admin {
 		$account    = get_transient( 'ani_sms_account' );
 		$start      = ( new \DateTimeImmutable( 'today', wp_timezone() ) )->getTimestamp();
 		$db         = $this->store->db;
-		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign','stock_notification','discount_notification') AND state='accepted'", $start ) );
-		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign','stock_notification','discount_notification') AND state IN ('failed','unknown')", $start ) );
+		$sent       = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign','stock_notification','discount_notification','cart_reminder') AND state='accepted'", $start ) );
+		$failed     = (int) $db->get_var( $db->prepare( "SELECT COUNT(*) FROM {$this->store->table( 'logs' )} WHERE created >= %d AND operation IN ('otp','test_sms','wc_notification','campaign','stock_notification','discount_notification','cart_reminder') AND state IN ('failed','unknown')", $start ) );
 		$connection = ! is_array( $account ) ? __( 'Not checked', 'ani-sms' ) : ( 'accepted' === $account['state'] ? __( 'Connected', 'ani-sms' ) : __( 'Connection failed', 'ani-sms' ) );
 		?>
 		<div class="wrap ani-admin">
@@ -248,7 +259,7 @@ final class Admin {
 										echo 'aria-current="page"'; }
 					?>
 href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?>
-				</nav></details><small>SMS.ir · 1.4.0-rc1</small></aside>
+				</nav></details><small>SMS.ir · 1.5.0-rc1</small></aside>
 				<main class="ani-main">
 				<div class="ani-stats">
 				<?php
@@ -373,8 +384,12 @@ href="<?php echo esc_url( admin_url( 'admin.php?page=ani-sms&tab=' . $id ) ); ?>
 				echo '<br><label><input type="checkbox" name="woocommerce_enabled" value="1" ' . checked( Settings::module_enabled( 'woocommerce' ), true, false ) . '> ' . esc_html__( 'Enable WooCommerce order notifications', 'ani-sms' ) . '</label>';
 				echo '<br><label><input type="checkbox" name="marketing_enabled" value="1" ' . checked( Settings::module_enabled( 'marketing' ), true, false ) . '> ' . esc_html__( 'Enable subscribers and marketing campaigns', 'ani-sms' ) . '</label>';
 				echo '<br><label><input type="checkbox" name="stock_enabled" value="1" ' . checked( Settings::module_enabled( 'stock' ), true, false ) . '> ' . esc_html__( 'Enable back-in-stock alerts', 'ani-sms' ) . '</label>';
+				echo '<br><label><input type="checkbox" name="cart_enabled" value="1" ' . checked( Settings::module_enabled( 'cart' ), true, false ) . '> ' . esc_html__( 'Enable cart reminders', 'ani-sms' ) . '</label>';
 				echo '<br><label><input type="checkbox" name="discount_enabled" value="1" ' . checked( Settings::module_enabled( 'discount' ), true, false ) . '> ' . esc_html__( 'Enable product discount alerts', 'ani-sms' ) . '</label>';
 				$this->button( __( 'Save module state', 'ani-sms' ) );
+				break;
+			case 'cart':
+				( new \AniSms\Cart\Admin( $this->store, $this->pending ) )->render();
 				break;
 			case 'discount':
 				( new \AniSms\Discount\Admin( $this->store, $this->pending ) )->render();
