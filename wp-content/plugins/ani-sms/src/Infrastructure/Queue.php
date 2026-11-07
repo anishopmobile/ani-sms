@@ -83,7 +83,19 @@ final class Queue {
 		}
 		$this->store->query( $this->store->db->prepare( "UPDATE {$this->store->table( 'jobs' )} SET state=%s,error_code=%s,payload=%s,lease=0 WHERE id=%d", $result->state, $result->error, 'simulated' === $result->state ? $row['payload'] : '', $row['id'] ) );
 		do_action( 'ani_sms_job_finished', $row, $result );
-		$operation = 'marketing' === $row['module'] ? 'campaign' : 'wc_notification';
-		( new Log( $this->store ) )->record( 'local' === $row['mode'] ? ( 'marketing' === $row['module'] ? 'campaign_local_test' : 'wc_local_test' ) : $operation, $result->state, $result->error, provider_id: $result->message_id, correlation: $result->correlation );
+		$operation = array(
+			'marketing' => 'campaign',
+			'stock'     => 'stock_notification',
+		)[ $row['module'] ] ?? 'wc_notification';
+		( new Log( $this->store ) )->record(
+			'local' === $row['mode'] ? ( array(
+				'marketing' => 'campaign_local_test',
+				'stock'     => 'stock_local_test',
+			)[ $row['module'] ] ?? 'wc_local_test' ) : $operation,
+			$result->state,
+			$result->error,
+			provider_id: $result->message_id,
+			correlation: $result->correlation
+		);
 	}
 }

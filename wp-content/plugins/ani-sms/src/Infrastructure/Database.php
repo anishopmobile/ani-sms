@@ -3,7 +3,7 @@
 namespace AniSms\Infrastructure;
 
 final class Database {
-	public const VERSION = '4';
+	public const VERSION = '5';
 	public function __construct( public readonly \wpdb $db ) {}
 	public function quiet( callable $work ): mixed {
 		$previous = $this->db->suppress_errors( true );
@@ -19,7 +19,7 @@ final class Database {
 	public function insert( string $table, array $data ): int|false {
 		return $this->quiet( fn() => $this->db->insert( $this->table( $table ), $data ) ); }
 	public function table( string $name ): string {
-		if ( ! in_array( $name, array( 'identities', 'challenges', 'rates', 'logs', 'jobs', 'event_states', 'subscribers', 'consents', 'campaigns', 'campaign_recipients' ), true ) ) {
+		if ( ! in_array( $name, array( 'identities', 'challenges', 'rates', 'logs', 'jobs', 'event_states', 'subscribers', 'consents', 'campaigns', 'campaign_recipients', 'stock_requests' ), true ) ) {
 			throw new \InvalidArgumentException( 'Unknown table.' );
 		}
 		return $this->db->prefix . 'ani_sms_' . $name;
@@ -59,6 +59,7 @@ final class Database {
 				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 				$charset = $this->db->get_charset_collate();
 				$schemas = array(
+					'stock_requests'      => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, product_id bigint(20) unsigned NOT NULL, user_id bigint(20) unsigned NOT NULL, version varchar(32) NOT NULL DEFAULT 'stock-v1', source varchar(32) NOT NULL DEFAULT 'account_form', phone longtext NOT NULL, mode varchar(8) NOT NULL, state varchar(16) NOT NULL, revision char(32) NOT NULL, job_key char(64) NOT NULL DEFAULT '', job_expires bigint(20) unsigned NOT NULL DEFAULT 0, created bigint(20) unsigned NOT NULL, expires bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY product_user_mode (product_id,user_id,mode), KEY user_id (user_id), KEY state_expires (state,expires), KEY job_key (job_key)",
 					'subscribers'         => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, phone_hash char(64) NOT NULL, phone longtext NOT NULL, user_id bigint(20) unsigned NOT NULL DEFAULT 0, state varchar(16) NOT NULL, mode varchar(8) NOT NULL DEFAULT '', source varchar(40) NOT NULL, version varchar(32) NOT NULL, revision char(32) NOT NULL, tag varchar(40) NOT NULL DEFAULT '', token longtext NOT NULL, token_hash char(64) NOT NULL DEFAULT '', updated bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), UNIQUE KEY phone_hash (phone_hash), KEY user_id (user_id), KEY audience (state,tag), KEY token_hash (token_hash)",
 					'consents'            => 'id bigint(20) unsigned NOT NULL AUTO_INCREMENT, subscriber_id bigint(20) unsigned NOT NULL, action varchar(16) NOT NULL, source varchar(40) NOT NULL, version varchar(32) NOT NULL, created bigint(20) unsigned NOT NULL, PRIMARY KEY  (id), KEY subscriber_id (subscriber_id)',
 					'campaigns'           => "id bigint(20) unsigned NOT NULL AUTO_INCREMENT, title varchar(120) NOT NULL, body longtext NOT NULL, line varchar(20) NOT NULL, tag varchar(40) NOT NULL DEFAULT '', state varchar(16) NOT NULL, mode varchar(8) NOT NULL, created bigint(20) unsigned NOT NULL, scheduled bigint(20) unsigned NOT NULL, approved_by bigint(20) unsigned NOT NULL DEFAULT 0, PRIMARY KEY  (id), KEY created (created)",
@@ -88,10 +89,11 @@ final class Database {
 		$now      = time();
 		$deadline = microtime( true ) + 2;
 		foreach ( array(
-			'challenges' => array( 'expires', $now ),
-			'jobs'       => array( 'expires', $now ),
-			'rates'      => array( 'expires', $now - 23 * HOUR_IN_SECONDS ),
-			'logs'       => array( 'created', $now - 30 * DAY_IN_SECONDS + HOUR_IN_SECONDS ),
+			'challenges'     => array( 'expires', $now ),
+			'jobs'           => array( 'expires', $now ),
+			'stock_requests' => array( 'expires', $now ),
+			'rates'          => array( 'expires', $now - 23 * HOUR_IN_SECONDS ),
+			'logs'           => array( 'created', $now - 30 * DAY_IN_SECONDS + HOUR_IN_SECONDS ),
 		) as $name => $rule ) {
 			do {
 				$deleted = $this->query( $this->db->prepare( "DELETE FROM {$this->table( $name )} WHERE {$rule[0]} < %d LIMIT 1000", $rule[1] ) );

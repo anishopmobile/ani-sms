@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.3.0-rc1\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr ""
@@ -37,6 +37,9 @@ msgstr ""
 msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
 msgstr ""
 
+msgid "Activate WooCommerce to use stock alerts. Saved settings are preserved."
+msgstr ""
+
 msgid "Add [ani_sms_auth] to a WordPress page. HTTPS is required. Exclude that page and admin-ajax authentication responses from page/CDN caching. Browser tokens are fetched separately and never embedded in cached HTML."
 msgstr ""
 
@@ -47,6 +50,9 @@ msgid "All"
 msgstr ""
 
 msgid "Allow new subscriber accounts when WordPress registration is also enabled"
+msgstr ""
+
+msgid "An explicit stock alert request uses your verified mobile for one product or exact variation only. It does not grant marketing consent or reserve stock. Requests expire after 30 days; queued snapshots expire within 24 hours and terminal phone snapshots are cleared. SMS.ir receives the destination and approved template parameters only in live mode. Local requests cannot become live notifications. Account cancellation, erasure and user deletion remove pending work."
 msgstr ""
 
 msgid "Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login."
@@ -76,10 +82,16 @@ msgstr ""
 msgid "Authentication is unavailable. Use the standard login."
 msgstr ""
 
+msgid "Back-in-stock alerts"
+msgstr ""
+
 msgid "Campaign title"
 msgstr ""
 
 msgid "Cancel campaign"
+msgstr ""
+
+msgid "Cancel stock alert"
 msgstr ""
 
 msgid "Changes saved."
@@ -151,6 +163,9 @@ msgstr ""
 msgid "Enable WooCommerce order notifications"
 msgstr ""
 
+msgid "Enable back-in-stock alerts"
+msgstr ""
+
 msgid "Enable mobile authentication"
 msgstr ""
 
@@ -172,7 +187,13 @@ msgstr ""
 msgid "Exact OTP parameter name"
 msgstr ""
 
+msgid "Exact out-of-stock product or variation"
+msgstr ""
+
 msgid "Filter"
+msgstr ""
+
+msgid "Forms appear on classic product pages. Use [ani_sms_stock product_id=\"123\"] for an exact product/variation or [ani_sms_stock] for account requests. Block templates can use the shortcode block."
 msgstr ""
 
 msgid "Help"
@@ -221,6 +242,9 @@ msgid "Local group tag (letters, digits, dash or underscore)"
 msgstr ""
 
 msgid "Local message preview · no SMS sent"
+msgstr ""
+
+msgid "Local mode needs no API; template ID 0 is allowed. Live stock alerts require an approved transactional SMS.ir template, not a marketing campaign."
 msgstr ""
 
 msgid "Local preview"
@@ -316,6 +340,9 @@ msgstr ""
 msgid "Notify customer"
 msgstr ""
 
+msgid "Notify me when available"
+msgstr ""
+
 msgid "Notify on order creation"
 msgstr ""
 
@@ -328,6 +355,9 @@ msgstr ""
 msgid "On uninstall, permanently delete ANI-SMS settings, credentials, identity links and logs. WordPress users and orders will remain."
 msgstr ""
 
+msgid "One alert for the exact product or variation, valid for 30 days. This is not marketing consent or a stock reservation."
+msgstr ""
+
 msgid "Operation"
 msgstr ""
 
@@ -335,6 +365,9 @@ msgid "Optional SMS subscription"
 msgstr ""
 
 msgid "Optional marketing requires separate explicit consent on a verified mobile. Encrypted mobiles, consent source/version/time and withdrawal records support subscription management. SMS.ir receives the mobile, message and a random unsubscribe link only when a live campaign is approved. No SMS is sent in local mode. Campaign data expires after 30 days; queued jobs expire 24 hours after their scheduled time. Erasure removes personal data but retains a keyed phone suppression fingerprint to prevent reimport from restoring consent. This fingerprint remains until a verified fresh opt-in or an explicit complete plugin purge. Server logs and backups need separate retention; redact unsubscribe tokens from access logs."
+msgstr ""
+
+msgid "Optional one-shot stock alerts require WooCommerce and an explicit request on a verified mobile. Marketing subscriptions are separate. Requests expire after 30 days."
 msgstr ""
 
 msgid "Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling."
@@ -397,6 +430,9 @@ msgstr ""
 msgid "Process eligible jobs"
 msgstr ""
 
+msgid "Product"
+msgstr ""
+
 msgid "Publish and configure a privacy policy page before enabling mobile authentication."
 msgstr ""
 
@@ -416,6 +452,12 @@ msgid "Recent notification jobs"
 msgstr ""
 
 msgid "Replace API key (leave blank to keep)"
+msgstr ""
+
+msgid "Request"
+msgstr ""
+
+msgid "Request stock alert"
 msgstr ""
 
 msgid "Resend code"
@@ -460,6 +502,9 @@ msgstr ""
 msgid "Schedule in site timezone (within seven days; blank means now)"
 msgstr ""
 
+msgid "Send one availability SMS to my verified mobile for this selection."
+msgstr ""
+
 msgid "Send one paid test SMS to this number. This code grants no account access."
 msgstr ""
 
@@ -476,6 +521,9 @@ msgid "Server setup: configure ANI_SMS_SECRET_KEY as base64 of 32 random bytes o
 msgstr ""
 
 msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
+msgstr ""
+
+msgid "Sign in with a verified mobile to request a stock alert."
 msgstr ""
 
 msgid "Site issuance limit per hour"
@@ -497,6 +545,18 @@ msgid "Status changed · administrator"
 msgstr ""
 
 msgid "Status changed · customer"
+msgstr ""
+
+msgid "Stock alert could not be changed. Verify your mobile and product selection, then try again."
+msgstr ""
+
+msgid "Stock alert preferences updated."
+msgstr ""
+
+msgid "Stock alerts are unavailable."
+msgstr ""
+
+msgid "Stock mapping: product_name, product_url, site_name"
 msgstr ""
 
 msgid "Subscribers and campaigns"

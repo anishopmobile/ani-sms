@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0-rc1 — 2026-11-07
+
+- Add optional one-shot back-in-stock requests for exact simple products/variations.
+- Add verified-account forms, explicit policy version, cancellation, bounded fanout/recovery and transactional template settings.
+- Revalidate stock/identity/settings/mode before dispatch, preserve revision-based deduplication and terminal unknown handling.
+- Add privacy, retention, module lifecycle and local-only simulated previews without an API.
+
 ## 1.2.0-rc1 — 2026-11-07
 
 - Add independent subscribers/consent/campaign module, verified explicit opt-in, pending-only import and durable suppression.

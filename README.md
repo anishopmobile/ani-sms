@@ -4,7 +4,7 @@ Independent WordPress SMS infrastructure with optional authentication, WooCommer
 
 ## Current checkpoint
 
-Version **1.2.0-rc1** includes the completed authentication baseline, optional WooCommerce order notifications, and an independent subscribers/consent/campaign module. Each module and recipient route is opt-in. Campaign consent is separate from login/purchases, and local consent/phone proofs never enter a live audience. The candidate is installed and tested on the owner's development branch; no real SMS.ir delivery has been verified. See the module-specific setup and evidence links below.
+Version **1.3.0-rc1** includes the completed authentication baseline, optional WooCommerce order notifications, an independent subscribers/consent/campaign module, and optional exact-product back-in-stock alerts. Each module and recipient route is opt-in. Campaign consent is separate from login/purchases, and local consent/phone proofs never enter a live audience. The candidate is installed and tested on the owner's development branch; no real SMS.ir delivery has been verified. See the module-specific setup and evidence links below.
 
 ### Local-only OTP walkthrough (1.0.0-rc2)
 
@@ -61,3 +61,7 @@ The explicitly authorized WooCommerce phase adds creation/status events, indepen
 ## 1.2.0-rc1: explicit consent and campaigns
 
 Optional independent subscribers/campaign module with pending-only imports, verified-account opt-in, opaque opt-out, preview-bound approval, scheduling, pause/cancel and local simulation. See [contract and setup](docs/MARKETING.md) and [test evidence](docs/MARKETING-TESTS.md). `[ani_sms_marketing]` renders the separate account subscription form. Marketing uses a permitted sending line rather than OTP templates; no real SMS was sent.
+
+## 1.3.0-rc1: back-in-stock alerts
+
+One explicit 30-day request per exact product/variation and verified account, without marketing consent inference. Supports cancellation, inventory reversal, bounded queue fanout and guarded local simulation. [Contract/setup](docs/STOCK.md), [test evidence](docs/STOCK-TESTS.md). Block templates/account pages can use `[ani_sms_stock]` or an exact product shortcode.

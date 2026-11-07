@@ -34,12 +34,22 @@ final class Plugin {
 		$auth    = new \AniSms\Auth\Module( $store );
 		$modules = new ModuleRegistry();
 		$modules->register( $auth );
+		$modules->register( new \AniSms\Stock\Module( $store, $queue ) );
+		( new \AniSms\Stock\Frontend( $store ) )->boot();
+		( new \AniSms\Stock\Privacy( $store ) )->boot();
 		$modules->register( new \AniSms\Marketing\Module( $store, $queue ) );
 		( new \AniSms\Marketing\Frontend( $store ) )->boot();
 		( new \AniSms\Marketing\Privacy( $store ) )->boot();
 		add_action(
 			'update_option_ani_sms_modules',
 			static function ( $old, $next ) use ( $store ) {
+				if ( is_array( $old ) && in_array( 'stock', $old, true ) && ( ! is_array( $next ) || ! in_array( 'stock', $next, true ) ) ) {
+					$store->query( "UPDATE {$store->table( 'jobs' )} SET state='cancelled',error_code='module_disabled',payload='' WHERE module='stock' AND state='queued'" );
+					$store->query( "UPDATE {$store->table( 'stock_requests' )} SET state='cancelled',phone='' WHERE state IN ('waiting','queued')" );
+					wp_unschedule_hook( 'ani_sms_stock_scan' );
+					wp_unschedule_hook( 'ani_sms_stock_children' );
+					wp_clear_scheduled_hook( 'ani_sms_stock_recovery' );
+				}
 				if ( is_array( $old ) && in_array( 'marketing', $old, true ) && ( ! is_array( $next ) || ! in_array( 'marketing', $next, true ) ) ) {
 					$store->query( "UPDATE {$store->table( 'jobs' )} SET state='cancelled',error_code='module_disabled',payload='' WHERE module='marketing' AND state IN ('queued','paused')" );
 					$store->query( "UPDATE {$store->table( 'campaigns' )} SET state='cancelled' WHERE state IN ('approved','paused')" );

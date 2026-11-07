@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "Project-Id-Version: ANI-SMS 1.3.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A server-configured API key takes priority and cannot be deleted here."
 msgstr "کلید تعریف‌شده در تنظیمات سرور اولویت دارد و از این صفحه حذف نمی‌شود."
@@ -37,6 +37,9 @@ msgstr "عملیات"
 msgid "Activate WooCommerce to use order notifications. Saved settings are preserved."
 msgstr "برای اعلان‌های سفارش، ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
 
+msgid "Activate WooCommerce to use stock alerts. Saved settings are preserved."
+msgstr "برای اطلاع‌رسانی موجودشدن، ووکامرس را فعال کنید. تنظیمات ذخیره‌شده حفظ می‌شوند."
+
 msgid "Add [ani_sms_auth] to a WordPress page. HTTPS is required. Exclude that page and admin-ajax authentication responses from page/CDN caching. Browser tokens are fetched separately and never embedded in cached HTML."
 msgstr "برای نمایش فرم، [ani_sms_auth] را در یک برگه قرار دهید. HTTPS الزامی است. برگه ورود و پاسخ‌های احراز هویت admin-ajax را از کش سایت و CDN مستثنا کنید. توکن مرورگر جداگانه دریافت می‌شود و در HTML کش‌شده قرار نمی‌گیرد."
 
@@ -48,6 +51,9 @@ msgstr "همه"
 
 msgid "Allow new subscriber accounts when WordPress registration is also enabled"
 msgstr "ایجاد حساب مشترک جدید، مشروط به فعال‌بودن ثبت‌نام وردپرس"
+
+msgid "An explicit stock alert request uses your verified mobile for one product or exact variation only. It does not grant marketing consent or reserve stock. Requests expire after 30 days; queued snapshots expire within 24 hours and terminal phone snapshots are cleared. SMS.ir receives the destination and approved template parameters only in live mode. Local requests cannot become live notifications. Account cancellation, erasure and user deletion remove pending work."
+msgstr "درخواست صریح موجودشدن از شماره تأییدشده فقط برای همان محصول یا تنوع استفاده می‌کند و رضایت بازاریابی یا رزرو کالا نیست. درخواست پس از ۳۰ روز و داده صف طی ۲۴ ساعت منقضی می‌شود و شماره پس از نتیجه نهایی پاک می‌شود. تنها در حالت واقعی، مقصد و پارامترهای قالب تأییدشده به SMS.ir ارسال می‌شوند. درخواست لوکال به اعلان واقعی تبدیل نمی‌شود. لغو در حساب، درخواست حذف داده و حذف کاربر، کارهای ارسال‌نشده را حذف می‌کنند."
 
 msgid "Another authentication handler requires a reviewed compatibility adapter. Use the standard WordPress login."
 msgstr "سازگاری افزونه احراز هویت دیگری باید بررسی شود. فعلاً از ورود استاندارد وردپرس استفاده کنید."
@@ -76,11 +82,17 @@ msgstr "ورود پیامکی در دسترس نیست. از ورود استان
 msgid "Authentication is unavailable. Use the standard login."
 msgstr "ورود پیامکی در دسترس نیست. از ورود استاندارد استفاده کنید."
 
+msgid "Back-in-stock alerts"
+msgstr "اطلاع‌رسانی موجودشدن کالا"
+
 msgid "Campaign title"
 msgstr "عنوان کمپین"
 
 msgid "Cancel campaign"
 msgstr "لغو کمپین"
+
+msgid "Cancel stock alert"
+msgstr "لغو درخواست موجودشدن"
 
 msgid "Changes saved."
 msgstr "تغییرات ذخیره شد."
@@ -151,6 +163,9 @@ msgstr "برای ورود پیامکی جاوااسکریپت را فعال کن
 msgid "Enable WooCommerce order notifications"
 msgstr "فعال‌سازی اعلان‌های سفارش ووکامرس"
 
+msgid "Enable back-in-stock alerts"
+msgstr "فعال‌سازی اطلاع‌رسانی موجودشدن کالا"
+
 msgid "Enable mobile authentication"
 msgstr "فعال‌سازی ورود پیامکی"
 
@@ -172,8 +187,14 @@ msgstr "خطاهای امروز · این افزونه"
 msgid "Exact OTP parameter name"
 msgstr "نام دقیق پارامتر کد در قالب"
 
+msgid "Exact out-of-stock product or variation"
+msgstr "محصول یا تنوع ناموجود موردنظر"
+
 msgid "Filter"
 msgstr "اعمال فیلتر"
+
+msgid "Forms appear on classic product pages. Use [ani_sms_stock product_id=\"123\"] for an exact product/variation or [ani_sms_stock] for account requests. Block templates can use the shortcode block."
+msgstr "فرم در صفحه کلاسیک محصول نمایش داده می‌شود. برای محصول یا تنوع دقیق از [ani_sms_stock product_id=\"123\"] و برای درخواست‌های حساب از [ani_sms_stock] استفاده کنید. در قالب بلوکی، بلوک کد کوتاه را قرار دهید."
 
 msgid "Help"
 msgstr "راهنما"
@@ -222,6 +243,9 @@ msgstr "برچسب گروه محلی (حروف انگلیسی، عدد، خط ت
 
 msgid "Local message preview · no SMS sent"
 msgstr "پیش‌نمایش پیام لوکال · پیامکی ارسال نشده"
+
+msgid "Local mode needs no API; template ID 0 is allowed. Live stock alerts require an approved transactional SMS.ir template, not a marketing campaign."
+msgstr "حالت لوکال به API نیاز ندارد و شناسه قالب ۰ مجاز است. اعلان واقعی موجودشدن به قالب تراکنشی تأییدشده SMS.ir نیاز دارد و کمپین بازاریابی نیست."
 
 msgid "Local preview"
 msgstr "پیش‌نمایش لوکال"
@@ -316,6 +340,9 @@ msgstr "اعلان به شماره‌های مدیر"
 msgid "Notify customer"
 msgstr "اعلان به مشتری"
 
+msgid "Notify me when available"
+msgstr "وقتی موجود شد خبرم کن"
+
 msgid "Notify on order creation"
 msgstr "اعلان هنگام ثبت سفارش"
 
@@ -328,6 +355,9 @@ msgstr "پارامتر کد یک‌بارمصرف"
 msgid "On uninstall, permanently delete ANI-SMS settings, credentials, identity links and logs. WordPress users and orders will remain."
 msgstr "هنگام حذف افزونه، تنظیمات، کلید ذخیره‌شده، اتصال شماره‌ها و رخدادهای ANI-SMS برای همیشه پاک شوند. کاربران و سفارش‌های وردپرس حفظ می‌شوند."
 
+msgid "One alert for the exact product or variation, valid for 30 days. This is not marketing consent or a stock reservation."
+msgstr "یک اعلان برای همان محصول یا تنوع، با اعتبار ۳۰ روز. این درخواست رضایت بازاریابی یا رزرو موجودی نیست."
+
 msgid "Operation"
 msgstr "عملیات"
 
@@ -336,6 +366,9 @@ msgstr "اشتراک اختیاری پیامک"
 
 msgid "Optional marketing requires separate explicit consent on a verified mobile. Encrypted mobiles, consent source/version/time and withdrawal records support subscription management. SMS.ir receives the mobile, message and a random unsubscribe link only when a live campaign is approved. No SMS is sent in local mode. Campaign data expires after 30 days; queued jobs expire 24 hours after their scheduled time. Erasure removes personal data but retains a keyed phone suppression fingerprint to prevent reimport from restoring consent. This fingerprint remains until a verified fresh opt-in or an explicit complete plugin purge. Server logs and backups need separate retention; redact unsubscribe tokens from access logs."
 msgstr "بازاریابی اختیاری به رضایت صریح و جداگانه روی شماره تأییدشده نیاز دارد. شماره رمزگذاری‌شده، منبع، نسخه و زمان رضایت و سابقه انصراف برای مدیریت اشتراک نگهداری می‌شود. فقط پس از تأیید کمپین واقعی، شماره، متن و لینک تصادفی انصراف به SMS.ir ارسال می‌شوند. در حالت لوکال پیامکی ارسال نمی‌شود. داده کمپین پس از ۳۰ روز و کار صف پس از ۲۴ ساعت از زمان برنامه‌ریزی‌شده منقضی می‌شود. حذف داده شخصی، اثرانگشت کلیددار شماره را برای جلوگیری از احیای رضایت با واردکردن مجدد حفظ می‌کند. این اثرانگشت تا رضایت جدید و تأییدشده یا پاک‌سازی صریح کل افزونه باقی می‌ماند. نگهداری لاگ سرور و پشتیبان جداگانه مدیریت شود و توکن انصراف از لاگ دسترسی حذف شود."
+
+msgid "Optional one-shot stock alerts require WooCommerce and an explicit request on a verified mobile. Marketing subscriptions are separate. Requests expire after 30 days."
+msgstr "اعلان یک‌باره موجودشدن به ووکامرس و درخواست صریح با شماره تأییدشده نیاز دارد. اشتراک بازاریابی مستقل است. درخواست‌ها پس از ۳۰ روز منقضی می‌شوند."
 
 msgid "Optional order notifications process billing mobiles and order display values through SMS.ir transactional templates. Encrypted queued snapshots expire after 24 hours; live terminal payloads are cleared immediately. Local simulations send no SMS. Masked logs expire after 30 days. Billing mobiles are not linked to login identities. Queue data can be exported or erased through the billing email; backups require separate handling."
 msgstr "اعلان اختیاری سفارش از شماره صورتحساب و مقادیر نمایشی سفارش در قالب تراکنشی SMS.ir استفاده می‌کند. داده رمزگذاری‌شده صف پس از ۲۴ ساعت منقضی و متن اعلان واقعی پس از رسیدن به نتیجه نهایی فوراً حذف می‌شود. شبیه‌سازی لوکال پیامکی ارسال نمی‌کند. لاگ ماسک‌شده پس از ۳۰ روز حذف می‌شود. شماره صورتحساب به هویت ورود متصل نمی‌شود. خروجی و حذف داده صف با ایمیل صورتحساب ممکن است؛ نسخه پشتیبان نیازمند رسیدگی جداگانه است."
@@ -397,6 +430,9 @@ msgstr "حریم خصوصی"
 msgid "Process eligible jobs"
 msgstr "پردازش اعلان‌های آماده"
 
+msgid "Product"
+msgstr "محصول"
+
 msgid "Publish and configure a privacy policy page before enabling mobile authentication."
 msgstr "پیش از فعال‌سازی ورود پیامکی، برگه حریم خصوصی را منتشر و در تنظیمات وردپرس انتخاب کنید."
 
@@ -417,6 +453,12 @@ msgstr "اعلان‌های اخیر در صف"
 
 msgid "Replace API key (leave blank to keep)"
 msgstr "جایگزینی کلید API (برای حفظ کلید فعلی خالی بگذارید)"
+
+msgid "Request"
+msgstr "درخواست"
+
+msgid "Request stock alert"
+msgstr "ثبت درخواست موجودشدن"
 
 msgid "Resend code"
 msgstr "ارسال مجدد کد"
@@ -460,6 +502,9 @@ msgstr "ذخیره سیاست حذف افزونه"
 msgid "Schedule in site timezone (within seven days; blank means now)"
 msgstr "زمان در منطقه زمانی سایت (تا هفت روز؛ خالی: اکنون)"
 
+msgid "Send one availability SMS to my verified mobile for this selection."
+msgstr "برای این انتخاب، یک پیامک موجودشدن به شماره تأییدشده من ارسال شود."
+
 msgid "Send one paid test SMS to this number. This code grants no account access."
 msgstr "یک پیامک آزمایشی با کسر هزینه به این شماره ارسال شود. این کد امکان ورود به حساب را ندارد."
 
@@ -477,6 +522,9 @@ msgstr "تنظیم سرور: ANI_SMS_SECRET_KEY را خارج از دیتابی�
 
 msgid "Sign in with a verified mobile to manage optional SMS subscriptions."
 msgstr "برای مدیریت اشتراک اختیاری پیامک، با شماره تأییدشده وارد شوید."
+
+msgid "Sign in with a verified mobile to request a stock alert."
+msgstr "برای ثبت درخواست موجودشدن، با شماره تأییدشده وارد شوید."
 
 msgid "Site issuance limit per hour"
 msgstr "سقف صدور کد سایت در هر ساعت"
@@ -498,6 +546,18 @@ msgstr "تغییر وضعیت · مدیر"
 
 msgid "Status changed · customer"
 msgstr "تغییر وضعیت · مشتری"
+
+msgid "Stock alert could not be changed. Verify your mobile and product selection, then try again."
+msgstr "تغییر درخواست موجودشدن انجام نشد. شماره و انتخاب محصول را بررسی و دوباره تلاش کنید."
+
+msgid "Stock alert preferences updated."
+msgstr "تنظیمات اعلان موجودشدن به‌روز شد."
+
+msgid "Stock alerts are unavailable."
+msgstr "اعلان موجودشدن در دسترس نیست."
+
+msgid "Stock mapping: product_name, product_url, site_name"
+msgstr "نگاشت موجودشدن: product_name، product_url و site_name"
 
 msgid "Subscribers and campaigns"
 msgstr "مخاطبان و کمپین‌ها"

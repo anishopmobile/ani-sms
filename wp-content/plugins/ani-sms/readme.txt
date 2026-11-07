@@ -4,7 +4,7 @@ Tags: sms, authentication, otp, login
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.2.0-rc1
+Stable tag: 1.3.0-rc1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Independent SMS.ir mobile login and registration with Persian responsive setting
 
 == Description ==
 
-Review candidate with optional WooCommerce order notifications and independent explicit-consent SMS campaigns. Requires PHP sodium, MySQL InnoDB/GET_LOCK, HTTPS and an SMS.ir account with an approved verification template. The core has no WooCommerce, Elementor, CDN or extra provider dependency; the order module requires active WooCommerce.
+Review candidate with optional WooCommerce order notifications and independent explicit-consent SMS campaigns and exact-product stock alerts. Requires PHP sodium, MySQL InnoDB/GET_LOCK, HTTPS and an SMS.ir account with an approved verification template. The core has no WooCommerce, Elementor, CDN or extra provider dependency; the order module requires active WooCommerce.
 
 Sending is disabled until ANI_SMS_LIVE_ENABLED is explicitly enabled in server configuration. Configure ANI_SMS_SECRET_KEY outside the database before storing credentials. Never place secrets in the repository.
 
@@ -38,7 +38,7 @@ Deactivation preserves permanent data and invalidates challenges. Uninstall pres
 
 == Changelog ==
 
-= 1.2.0-rc1 =
+= 1.3.0-rc1 =
 * Correct expired/locked confirmation UI and provide clear, bound-challenge error messages.
 * Explicitly guarded loopback OTP simulation with on-form test codes and no SMS calls.
 * Independent core, module/provider registries, SMS.ir adapter and shared sending boundary.

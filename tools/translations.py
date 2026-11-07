@@ -5,6 +5,27 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'wp-content/plugins/ani-sms'
 translations = {
+    'Back-in-stock alerts': 'اطلاع\u200cرسانی موجودشدن کالا',
+    'Enable back-in-stock alerts': 'فعال\u200cسازی اطلاع\u200cرسانی موجودشدن کالا',
+    'Activate WooCommerce to use stock alerts. Saved settings are preserved.': 'برای اطلاع\u200cرسانی موجودشدن، ووکامرس را فعال کنید. تنظیمات ذخیره\u200cشده حفظ می\u200cشوند.',
+    'Optional one-shot stock alerts require WooCommerce and an explicit request on a verified mobile. Marketing subscriptions are separate. Requests expire after 30 days.': 'اعلان یک\u200cباره موجودشدن به ووکامرس و درخواست صریح با شماره تأییدشده نیاز دارد. اشتراک بازاریابی مستقل است. درخواست\u200cها پس از ۳۰ روز منقضی می\u200cشوند.',
+    'Local mode needs no API; template ID 0 is allowed. Live stock alerts require an approved transactional SMS.ir template, not a marketing campaign.': 'حالت لوکال به API نیاز ندارد و شناسه قالب ۰ مجاز است. اعلان واقعی موجودشدن به قالب تراکنشی تأییدشده SMS.ir نیاز دارد و کمپین بازاریابی نیست.',
+    'Stock mapping: product_name, product_url, site_name': 'نگاشت موجودشدن: product_name، product_url و site_name',
+    'Forms appear on classic product pages. Use [ani_sms_stock product_id="123"] for an exact product/variation or [ani_sms_stock] for account requests. Block templates can use the shortcode block.': 'فرم در صفحه کلاسیک محصول نمایش داده می\u200cشود. برای محصول یا تنوع دقیق از [ani_sms_stock product_id="123"] و برای درخواست\u200cهای حساب از [ani_sms_stock] استفاده کنید. در قالب بلوکی، بلوک کد کوتاه را قرار دهید.',
+    'Product': 'محصول',
+    'Request': 'درخواست',
+    'Stock alerts are unavailable.': 'اعلان موجودشدن در دسترس نیست.',
+    'Sign in with a verified mobile to request a stock alert.': 'برای ثبت درخواست موجودشدن، با شماره تأییدشده وارد شوید.',
+    'Notify me when available': 'وقتی موجود شد خبرم کن',
+    'One alert for the exact product or variation, valid for 30 days. This is not marketing consent or a stock reservation.': 'یک اعلان برای همان محصول یا تنوع، با اعتبار ۳۰ روز. این درخواست رضایت بازاریابی یا رزرو موجودی نیست.',
+    'Stock alert preferences updated.': 'تنظیمات اعلان موجودشدن به\u200cروز شد.',
+    'Exact out-of-stock product or variation': 'محصول یا تنوع ناموجود موردنظر',
+    'Send one availability SMS to my verified mobile for this selection.': 'برای این انتخاب، یک پیامک موجودشدن به شماره تأییدشده من ارسال شود.',
+    'Request stock alert': 'ثبت درخواست موجودشدن',
+    'Cancel stock alert': 'لغو درخواست موجودشدن',
+    'Stock alert could not be changed. Verify your mobile and product selection, then try again.': 'تغییر درخواست موجودشدن انجام نشد. شماره و انتخاب محصول را بررسی و دوباره تلاش کنید.',
+    'An explicit stock alert request uses your verified mobile for one product or exact variation only. It does not grant marketing consent or reserve stock. Requests expire after 30 days; queued snapshots expire within 24 hours and terminal phone snapshots are cleared. SMS.ir receives the destination and approved template parameters only in live mode. Local requests cannot become live notifications. Account cancellation, erasure and user deletion remove pending work.': 'درخواست صریح موجودشدن از شماره تأییدشده فقط برای همان محصول یا تنوع استفاده می\u200cکند و رضایت بازاریابی یا رزرو کالا نیست. درخواست پس از ۳۰ روز و داده صف طی ۲۴ ساعت منقضی می\u200cشود و شماره پس از نتیجه نهایی پاک می\u200cشود. تنها در حالت واقعی، مقصد و پارامترهای قالب تأییدشده به SMS.ir ارسال می\u200cشوند. درخواست لوکال به اعلان واقعی تبدیل نمی\u200cشود. لغو در حساب، درخواست حذف داده و حذف کاربر، کارهای ارسال\u200cنشده را حذف می\u200cکنند.',
+
     'Marketing subscriptions are currently disabled.': 'اشتراک بازاریابی در حال حاضر غیرفعال است.',
     'Subscribers and campaigns': 'مخاطبان و کمپین\u200cها',
     'Enable subscribers and marketing campaigns': 'فعال\u200cسازی مخاطبان و کمپین\u200cهای پیامکی',
@@ -216,7 +237,7 @@ language_dir = root / 'languages'
 language_dir.mkdir(exist_ok=True)
 def quote(s):
     return json.dumps(s, ensure_ascii=False)
-header = 'Project-Id-Version: ANI-SMS 1.2.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
+header = 'Project-Id-Version: ANI-SMS 1.3.0-rc1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nPlural-Forms: nplurals=2; plural=(n > 1);\n'
 pot = 'msgid ""\nmsgstr ' + quote(header.replace('Language: fa_IR', 'Language: ')) + '\n\n'
 po = 'msgid ""\nmsgstr ' + quote(header) + '\n\n'
 for msg in sorted(messages):
@@ -228,7 +249,7 @@ for msg in sorted(messages):
 def php(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 entries = ',\n'.join('\t\t' + php(k) + ' => ' + php(v) for k, v in sorted(translations.items()))
-catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.2.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
+catalog = "<?php\n/** Persian translations, generated from tools/translations.py. */\nreturn array(\n\t'project-id-version' => 'ANI-SMS 1.3.0-rc1',\n\t'language' => 'fa_IR',\n\t'plural-forms' => 'nplurals=2; plural=(n > 1);',\n\t'messages' => array(\n" + entries + "\n\t),\n);\n"
 (language_dir / 'ani-sms-fa_IR.l10n.php').write_text(catalog, encoding='utf-8')
 missing = messages - translations.keys()
 print(f'Generated {len(translations)} Persian translations; {len(missing)} strings untranslated.')
